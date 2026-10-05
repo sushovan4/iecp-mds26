@@ -1,64 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet">
-  <!--
-    BROADSHEET SECTION-DIVIDER PLATE — copy this file once per section
-    (e.g., motivation-plate.svg, theory-plate.svg). Replace masthead
-    title, italic deck, art content, and bottom caption stripe. Keep:
-      * inner frame rule (line 7)
-      * 4 corner fleurons (SVG paths, font-independent — never use Unicode ❦)
-      * horizontal hairline under the deck
-      * Alegreya SC + EB Garamond font stacks
-      * palette: oxblood #6c1d1a, ink #2b211a, sepia #57473a, parchment #c8b894
-  -->
-
-  <!-- inner frame rule -->
-  <rect x="36" y="36" width="648" height="328" fill="none" stroke="#c8b894" stroke-width="0.6"/>
-
-  <!-- title masthead — REPLACE -->
-  <text x="360" y="68" fill="#6c1d1a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-weight="500" font-size="16" letter-spacing="4" text-anchor="middle">SECTION TITLE</text>
-
-  <!-- italic deck — REPLACE -->
-  <text x="360" y="92" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="13" text-anchor="middle">— one-line italic deck under the title —</text>
-
-  <!-- horizontal hairline -->
-  <line x1="120" y1="104" x2="600" y2="104" stroke="#c8b894" stroke-width="0.5"/>
-
-  <!-- ===========================================================
-       ART CONTENT GOES HERE — fill the region roughly y∈[110, 320]
-       Use the palette + line weights consistent with the frame.
-       =========================================================== -->
-
-  <!-- corner fleurons — house 4-petal florettes (font-independent SVG paths) -->
-  <g fill="#c8b894" stroke="none">
-    <g transform="translate(52, 52) scale(0.9)">
-      <path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/>
-      <path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/>
-      <path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/>
-      <path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/>
-      <circle cx="0" cy="0" r="2.0"/>
-    </g>
-    <g transform="translate(668, 52) scale(0.9)">
-      <path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/>
-      <path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/>
-      <path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/>
-      <path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/>
-      <circle cx="0" cy="0" r="2.0"/>
-    </g>
-    <g transform="translate(52, 348) scale(0.9)">
-      <path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/>
-      <path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/>
-      <path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/>
-      <path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/>
-      <circle cx="0" cy="0" r="2.0"/>
-    </g>
-    <g transform="translate(668, 348) scale(0.9)">
-      <path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/>
-      <path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/>
-      <path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/>
-      <path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/>
-      <circle cx="0" cy="0" r="2.0"/>
-    </g>
-  </g>
-
-  <!-- caption stripe at bottom — REPLACE -->
-  <text x="360" y="356" fill="#57473a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-size="11" letter-spacing="3" text-anchor="middle">— SHORT CAPS-LOCK CAPTION —</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="Section III plate">
+<rect x="36" y="36" width="648" height="328" fill="none" stroke="#c8b894" stroke-width="0.6"/>
+<text x="360" y="68" fill="#6c1d1a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-size="16" letter-spacing="4" font-weight="500" text-anchor="middle">CERTIFIED INTERACTION</text>
+<text x="360" y="92" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">— the observed profile against its permutation band —</text>
+<line x1="120" y1="104" x2="600" y2="104" stroke="#c8b894" stroke-width="0.5"/>
+<polygon points="150,300 154.3,289.4 158.6,278.9 162.9,263.1 167.2,236.1 171.5,220.8 175.8,215 180.1,205 184.4,178.6 188.7,157.5 193,141.1 197.3,141.1 201.6,141.7 205.9,131.1 210.2,110 214.5,110 218.8,136.4 223.1,125.8 227.4,125.8 231.7,110 236,115.3 240.3,136.4 244.6,135.9 248.9,131.1 253.2,152.2 257.5,173.3 261.8,183.9 266.1,199.7 270.4,205 274.7,215.6 279,226.1 283.3,241.9 287.6,252 291.9,273.1 296.2,273.1 300.5,278.4 304.8,273.6 309.1,278.4 313.4,273.6 317.7,273.6 322,268.3 326.3,268.3 330.6,278.9 334.9,278.9 339.2,283.6 343.5,288.9 347.8,289.4 352.1,288.9 356.4,284.2 360.7,284.2 365,284.2 369.3,278.9 373.6,289.4 377.9,289.4 382.2,289.4 386.5,294.2 390.8,294.7 395.1,289.4 399.4,294.7 403.7,289.4 408,294.7 412.3,294.2 416.6,294.7 420.9,294.7 425.2,289.4 429.5,289.4 433.8,289.4 438.1,289.4 442.4,294.7 446.7,294.7 451,294.7 455.3,294.7 459.6,294.7 463.9,294.7 468.2,294.7 472.5,294.7 476.8,294.7 481.1,294.7 485.4,294.7 489.7,294.7 494,294.7 498.3,294.7 502.6,294.7 506.9,294.7 511.2,294.7 515.5,294.7 519.8,294.7 524.1,294.7 528.4,294.7 532.7,294.7 537,294.7 541.3,294.7 545.6,294.7 549.9,294.7 554.2,294.7 558.5,294.7 562.8,294.7 567.1,294.7 571.4,294.7 575.7,294.7 580,294.7 580,294.7 575.7,294.7 571.4,294.7 567.1,294.7 562.8,294.7 558.5,294.7 554.2,294.7 549.9,294.7 545.6,294.7 541.3,294.7 537,294.7 532.7,294.7 528.4,294.7 524.1,294.7 519.8,294.7 515.5,294.7 511.2,294.7 506.9,294.7 502.6,294.7 498.3,294.7 494,294.7 489.7,294.7 485.4,294.7 481.1,300 476.8,300 472.5,300 468.2,300 463.9,300 459.6,300 455.3,305.3 451,305.3 446.7,300 442.4,300 438.1,300.5 433.8,300.5 429.5,305.3 425.2,305.3 420.9,305.3 416.6,305.3 412.3,305.3 408,305.8 403.7,305.8 399.4,310.6 395.1,311.1 390.8,315.8 386.5,316.4 382.2,315.8 377.9,316.4 373.6,326.4 369.3,315.8 365,315.8 360.7,316.4 356.4,326.4 352.1,321.1 347.8,321.1 343.5,321.1 339.2,326.4 334.9,321.6 330.6,326.4 326.3,311.1 322,310.6 317.7,310.6 313.4,315.8 309.1,321.1 304.8,321.1 300.5,331.7 296.2,321.6 291.9,321.6 287.6,310.6 283.3,294.7 279,278.9 274.7,268.3 270.4,252.5 266.1,252.5 261.8,241.9 257.5,231.4 253.2,205 248.9,189.2 244.6,189.7 240.3,184.4 236,168.1 231.7,163.3 227.4,173.3 223.1,178.6 218.8,183.9 214.5,162.8 210.2,173.3 205.9,183.9 201.6,189.7 197.3,189.7 193,189.2 188.7,205 184.4,226.1 180.1,237.7 175.8,252.5 171.5,253 167.2,263.1 162.9,284.2 158.6,294.7 154.3,300 150,300" fill="#c8b894" fill-opacity="0.55" stroke="none"/>
+<line x1="150" y1="300" x2="590" y2="300" stroke="#c8b894" stroke-width="0.8"/>
+<path d="M 150 300 L 154.3 300 L 158.6 300 L 162.9 289.4 L 167.2 284.2 L 171.5 268.3 L 175.8 263.1 L 180.1 263.1 L 184.4 252.5 L 188.7 252.5 L 193 252.5 L 197.3 257.8 L 201.6 263.1 L 205.9 252.5 L 210.2 241.9 L 214.5 231.4 L 218.8 236.7 L 223.1 231.4 L 227.4 241.9 L 231.7 247.2 L 236 241.9 L 240.3 247.2 L 244.6 252.5 L 248.9 263.1 L 253.2 263.1 L 257.5 268.3 L 261.8 268.3 L 266.1 263.1 L 270.4 263.1 L 274.7 268.3 L 279 268.3 L 283.3 268.3 L 287.6 284.2 L 291.9 294.7 L 296.2 294.7 L 300.5 294.7 L 304.8 278.9 L 309.1 278.9 L 313.4 284.2 L 317.7 289.4 L 322 284.2 L 326.3 289.4 L 330.6 300 L 334.9 305.3 L 339.2 305.3 L 343.5 294.7 L 347.8 294.7 L 352.1 294.7 L 356.4 294.7 L 360.7 294.7 L 365 294.7 L 369.3 294.7 L 373.6 294.7 L 377.9 294.7 L 382.2 294.7 L 386.5 294.7 L 390.8 294.7 L 395.1 294.7 L 399.4 294.7 L 403.7 294.7 L 408 294.7 L 412.3 294.7 L 416.6 294.7 L 420.9 294.7 L 425.2 294.7 L 429.5 294.7 L 433.8 294.7 L 438.1 294.7 L 442.4 294.7 L 446.7 294.7 L 451 294.7 L 455.3 294.7 L 459.6 294.7 L 463.9 294.7 L 468.2 294.7 L 472.5 294.7 L 476.8 294.7 L 481.1 294.7 L 485.4 294.7 L 489.7 294.7 L 494 294.7 L 498.3 294.7 L 502.6 294.7 L 506.9 294.7 L 511.2 294.7 L 515.5 294.7 L 519.8 294.7 L 524.1 294.7 L 528.4 294.7 L 532.7 294.7 L 537 294.7 L 541.3 294.7 L 545.6 294.7 L 549.9 294.7 L 554.2 294.7 L 558.5 294.7 L 562.8 294.7 L 567.1 294.7 L 571.4 294.7 L 575.7 294.7 L 580 294.7" fill="none" stroke="#6c1d1a" stroke-width="1.6"/>
+<g fill="#c8b894" stroke="none">
+<g transform="translate(52, 52) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(668, 52) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(52, 348) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(668, 348) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+</g>
+<text x="360" y="356" fill="#57473a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-size="11" letter-spacing="3" text-anchor="middle">— EVERY NUMBER CARRIES A TEST —</text>
 </svg>
