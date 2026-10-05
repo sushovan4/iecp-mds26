@@ -330,6 +330,67 @@ def fig_triples():
     _save(fig, "triples.svg")
 
 
+def _bars(P):
+    import gudhi
+    st = gudhi.AlphaComplex(points=P).create_simplex_tree()
+    st.compute_persistence()
+    return [(d, np.sqrt(b), np.sqrt(e) if np.isfinite(e) else np.inf) for d, (b, e) in st.persistence()]
+
+
+def _draw_barcode(ax, bars, rmax, ref=None, min_len=(0.15, 0.1)):
+    """Long H0 bars (merges) in sepia and H1 bars in oxblood, one label per degree;
+    bars absent from ref (the barcode of X alone) are drawn bold."""
+    keep = [b for b in bars if b[0] <= 1 and (min(b[2], rmax) - b[1]) > min_len[b[0]]]
+    keep.sort(key=lambda b: (b[0], b[1], -min(b[2], rmax)))
+    key = lambda d, b, e: (d, round(b, 2), round(e, 2) if np.isfinite(e) else e)
+    refset = {key(*x) for x in (ref or [])}
+    rows = {0: [], 1: []}
+    for y, (d, b, e) in enumerate(keep):
+        new = ref is not None and key(d, b, e) not in refset
+        ax.plot([b, min(e, rmax)], [y, y], color=OX if d == 1 else SEPIA, lw=4 if new else 1.8,
+                solid_capstyle="butt")
+        rows[d].append(y)
+    for dgr, ys in rows.items():
+        if ys:
+            ax.text(-0.04, np.mean(ys), f"$H_{dgr}$", ha="right", va="center", fontsize=11, color=PENCIL)
+    ax.set_xlim(-0.16, rmax); ax.set_ylim(-0.8, max(len(keep), 2) - 0.2)
+    ax.set_yticks([]); ax.spines["left"].set_visible(False)
+
+
+def fig_approach():
+    """A blob Y approaches a ring X: barcode of X, barcode of X u Y, and the overlap profile."""
+    rng = np.random.default_rng(5)
+    X = _ring(rng, (0, 0), 1.5, 0.1, 120)
+    Yb = _blob(rng, (0, 0), 0.28, 60)
+    rmax, r_show = 1.6, 0.42
+    r = np.linspace(0, rmax, 321)
+    bx = _bars(X)
+    frames = [("far apart", (4.3, 0)), ("touching", (2.55, 0)), ("inside the hole", (0, 0))]
+    for i, (label, c) in enumerate(frames, 1):
+        Y = Yb + np.array(c)
+        bu = _bars(np.r_[X, Y])
+        d = iecp.intersection_profile([X, Y], r)
+        fig = plt.figure(figsize=(11, 3.9))
+        gs = fig.add_gridspec(3, 2, width_ratios=[1.35, 1.5], hspace=0.75, wspace=0.08)
+        ax = fig.add_subplot(gs[:, 0])
+        _draw_overlap(ax, X, Y, r_show, lim=5.0)
+        ax.set_xlim(-2.2, 5.0); ax.set_ylim(-2.3, 2.3); ax.set_aspect("equal"); ax.axis("off")
+        ax.text(-1.95, 1.75, "$X$", color=OX, fontsize=16); ax.text(c[0] + 0.5, c[1] + 0.5, "$Y$", color=INK, fontsize=16)
+        ax.set_title(label, fontsize=15, style="italic", color=SEPIA)
+        a1 = fig.add_subplot(gs[0, 1]); _draw_barcode(a1, bx, rmax)
+        a1.set_title("barcode of $X$", fontsize=12, loc="left", color=SEPIA)
+        a2 = fig.add_subplot(gs[1, 1]); _draw_barcode(a2, bu, rmax, ref=bx)
+        a2.set_title(r"barcode of $X\cup Y$  (bold: not in $X$'s)", fontsize=12, loc="left", color=SEPIA)
+        a3 = fig.add_subplot(gs[2, 1])
+        a3.step(r, d, where="post", color=OX, lw=1.6)
+        a3.set_xlim(-0.12, rmax); a3.set_ylim(-0.5, 7)
+        a3.set_title(r"the overlap: $\Delta\chi(r)$", fontsize=12, loc="left", color=SEPIA)
+        a3.set_xlabel("scale $r$", fontsize=11)
+        for a in (a1, a2, a3):
+            a.tick_params(labelsize=10)
+        _save(fig, f"approach-{i}.svg")
+
+
 # --------------------------------------------------------------------------
 # section plates and the title plate
 # --------------------------------------------------------------------------
@@ -401,6 +462,7 @@ def title_plate():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
+    fig_approach()
     fig_trio()
     fig_stability()
     fig_depth()

@@ -2701,3 +2701,7 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
   .reveal .slide-number, .reveal .slide-number a { font-size: 1.45rem !important; }
   .reveal .slide-menu-button { transform: scale(2); transform-origin: bottom left; }
 }
+
+// The opener's animation: three frames of the approach, crossfaded
+.reveal img.approach-fig { display: block; width: 84%; max-width: 1000px; margin: 0.1rem auto 0; }
+.reveal .chain-stack > .chain.aside-note { margin-top: 0.1rem; }

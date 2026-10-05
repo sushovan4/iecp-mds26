@@ -17,33 +17,47 @@ footer: "The Intersection Euler Characteristic Profile  ·  S. Majhi  ·  SIAM M
 ## How much do they interact?
 
 ::: {.opener-quote}
-Several point clouds in $\mathbb R^d$: species occurrences, cell types, sensor tracks.
-
-How much do they interact **topologically**, and **at what scale**?
+How much do several point clouds interact **topologically**, and **at what scale**?
 :::
 
-::: {.env-row}
-::: {.rmk .fragment data-name="One cloud at a time"}
-The barcode of $X$ is blind to $Y$: it is the same wherever $Y$ sits.
+:::: {.chain-stack}
+::: {.chain .fragment .fade-out data-fragment-index="2"}
+![](assets/approach-1.svg){.approach-fig}
 :::
 
-::: {.rmk .fragment data-name="All clouds at once"}
-The barcode of $X\cup Y$ reacts to where they sit while they are still apart: a bar of $H_0$ dies at half their distance.
-:::
+::: {.chain .fragment .fade-in-then-out data-fragment-index="2"}
+![](assets/approach-2.svg){.approach-fig}
 :::
 
-::: {.aside-note .fragment}
-What we want is the topology of the **overlap**, scale by scale.
+::: {.chain .fragment .fade-in data-fragment-index="3"}
+![](assets/approach-3.svg){.approach-fig}
 :::
+::::
+
+:::: {.chain-stack}
+::: {.chain .aside-note .fragment .fade-out data-fragment-index="2"}
+**Far apart.** $X$'s barcode ignores $Y$; that of $X\cup Y$ gains a bar dying at half their distance. The overlap is empty.
+:::
+
+::: {.chain .aside-note .fragment .fade-in-then-out data-fragment-index="2"}
+**Touching.** The overlap is a lens: $\Delta\chi=1$.
+:::
+
+::: {.chain .aside-note .fragment .fade-in data-fragment-index="3"}
+**Inside the hole.** $X\cup Y$'s barcode changes $X$'s own loop (it dies at $0.55$, not $1.40$) and gains the gap's. The **overlap** is the meeting.
+:::
+::::
 
 ::: {.notes}
 Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, tracks of sensors. How much do they interact topologically, and at what scale?
 
-[click] Persistence answers a different question. The barcode of one cloud is blind to the others; move Y anywhere and the barcode of X does not change.
+Here is a ring X and a blob Y, and three readouts as Y moves: the barcode of X alone, the barcode of the union, and the Euler characteristic of the overlap of their ball unions, as functions of the scale.
 
-[click] The barcode of the union does see Y, but too early: it reacts to the relative position while the clouds are still apart. A bar in degree zero dies at half their distance, whether or not they ever overlap.
+Far apart: the barcode of X does not know Y is there. The barcode of the union gains one bar, a component that dies at half their distance. The overlap is empty until they meet.
 
-[click] What we want is the topology of the overlap itself, as a function of the scale.
+[click] Touching: the overlap is a lens, and the profile is one from the scale at which they meet.
+
+[click] Inside the hole: the union's barcode has changed X's own loop. The loop of the ring now dies at 0.55 instead of 1.40, because Y fills the hole, and a new loop appears, the gap between them. The union's barcode mixes the topology of each cloud with their meeting. The overlap is the meeting itself, and its Euler characteristic, scale by scale, is the object of this talk.
 :::
 
 
@@ -103,6 +117,46 @@ At the marked scale the overlap is empty, one lens, and an annulus: $\Delta\chi=
 Three configurations, computed. Separated: nothing until the unions touch. Overlapping: one overlap region, and the profile is one, after a burst of small lenses at tiny scales. Encircling: a ring around a blob. At the marked scale they meet, but the overlap is an annulus, whose Euler characteristic is zero.
 
 That is the blind spot of any Euler-characteristic invariant, and we do not hide it: the test of section three carries a guard for it, the first scale at which the unions provably meet.
+:::
+
+
+## Why not persistence of the overlap?
+
+::: {.env-row}
+::: {.proposition data-num="1" data-name="Mayer–Vietoris" data-cite="Kawamura–Majhi–Mitra"}
+For $A=\mathcal U(X;t)$, $B=\mathcal U(Y;s)$ and $\Delta\beta_q=\beta_q(A)+\beta_q(B)-\beta_q(A\cup B)$,
+$$
+\beta_q(A\cap B)=\Delta\beta_q+\delta_q+\delta_{q+1},
+$$
+with $\delta_q$ the rank of the connecting map $H_q(A\cup B)\to H_{q-1}(A\cap B)$. The alternating sum cancels the $\delta$'s:
+$\chi(A\cap B)=\chi(A)+\chi(B)-\chi(A\cup B)$.
+:::
+
+::: {.proposition .fragment data-num="2" data-name="The overlap's own complex" data-cite="Kawamura–Majhi–Mitra"}
+The nerve of the cross-cloud lenses $B(x,t)\cap B(y,s)$ computes the overlap. It has up to $mn$ vertices, and $\ell$ lenses with a common point span $2^\ell-1$ faces, with $\ell=\Theta(m+n)$ possible.
+:::
+:::
+
+::: {.env-row}
+::: {.rmk .fragment data-name="So: the Euler characteristic"}
+$\Delta\chi$ is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the clouds' **own** Alpha complexes: cheap enough for $999$ permutations per test. The persistence of the overlap is stable too (Theorem 4), and the paper refines $\chi$ by a relative module.
+:::
+
+::: {.rmk .fragment data-name="What it gives up"}
+On an annulus $\beta_0=\beta_1=1$ and $\chi=0$: the encircling clouds. Hence the guard of § III.
+:::
+:::
+
+::: {.notes}
+The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap itself?
+
+Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the three clouds' Betti numbers plus the ranks of the connecting maps. To know those ranks you need a complex for the overlap itself. In the alternating sum they cancel, and the Euler characteristic of the overlap is exactly an inclusion–exclusion of the clouds' own.
+
+[click] And the overlap's own complex is expensive: the nerve of the lenses has a vertex per meeting pair, and a region where many lenses meet spans exponentially many faces.
+
+[click] So the profile is the Euler characteristic curve of the overlap's filtration, the alternating sum of its Betti curves, computed from the clouds' own Alpha complexes. That matters for inference: a test reruns it for every permutation. Nothing is thrown away: the persistence of the overlap is stable, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.
+
+[click] What it gives up: an annulus has one component and one loop, and Euler characteristic zero. That is the encircling picture, and why the test carries a guard.
 :::
 
 
@@ -227,7 +281,7 @@ $$
 about $1$ when the labels are exchangeable, tending to $0$ under separation.
 :::
 
-::: {.proposition .fragment data-num="1" data-name="Exact tests" data-cite="Majhi"}
+::: {.proposition .fragment data-num="3" data-name="Exact tests" data-cite="Majhi"}
 [If the labels of the pooled sample are exchangeable,]{.hyp} the two one-sided permutation $p$-values satisfy $\Pr[p\le\alpha]\le\alpha$ for every statistic, every $\alpha$, every sample size and every number $B$ of permutations.
 :::
 :::
