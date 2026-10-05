@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="Section I plate">
+<rect x="36" y="36" width="648" height="328" fill="none" stroke="#c8b894" stroke-width="0.6"/>
+<text x="360" y="68" fill="#6c1d1a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-size="16" letter-spacing="4" font-weight="500" text-anchor="middle">EULER CALCULUS</text>
+<text x="360" y="92" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">— the overlap of the ball unions, counted by Euler —</text>
+<line x1="120" y1="104" x2="600" y2="104" stroke="#c8b894" stroke-width="0.5"/>
+<defs><clipPath id="cA"><circle cx="320" cy="215" r="78"/></clipPath></defs>
+<circle cx="320" cy="215" r="78" fill="#6c1d1a" fill-opacity="0.1" stroke="#6c1d1a" stroke-width="1.2"/>
+<circle cx="410" cy="215" r="78" fill="#2b211a" fill-opacity="0.08" stroke="#2b211a" stroke-width="1.2"/>
+<g clip-path="url(#cA)"><circle cx="410" cy="215" r="78" fill="#6c1d1a" fill-opacity="0.75"/></g>
+<text x="365" y="222" fill="#f5efde" font-family="EB Garamond, Georgia, serif" font-size="15" font-style="italic" text-anchor="middle">χ = 1</text>
+<text x="262" y="222" fill="#6c1d1a" font-family="EB Garamond, Georgia, serif" font-size="18" font-style="italic" text-anchor="middle">A</text>
+<text x="468" y="222" fill="#2b211a" font-family="EB Garamond, Georgia, serif" font-size="18" font-style="italic" text-anchor="middle">B</text>
+<g fill="#c8b894" stroke="none">
+<g transform="translate(52, 52) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(668, 52) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(52, 348) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+<g transform="translate(668, 348) scale(0.9)"><path d="M 0 -8 Q 5 -3 0 0 Q -5 -3 0 -8 Z"/><path d="M 0 8  Q 5 3  0 0 Q -5 3  0 8  Z"/><path d="M -8 0 Q -3 -5 0 0 Q -3 5 -8 0 Z"/><path d="M 8 0  Q 3 -5  0 0 Q 3 5  8 0  Z"/><circle cx="0" cy="0" r="2.0"/></g>
+</g>
+<text x="360" y="356" fill="#57473a" font-family="Alegreya SC, EB Garamond, Georgia, serif" font-size="11" letter-spacing="3" text-anchor="middle">— TWO BALL UNIONS AND THEIR OVERLAP —</text>
+</svg>

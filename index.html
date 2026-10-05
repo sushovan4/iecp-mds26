@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-1ea80994d423707dffa4c5deb2e491f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.29">
+
+  <meta name="author" content="Sushovan Majhi">
+  <meta name="dcterms.date" content="2026-11-16">
+  <title>The Intersection Euler Characteristic Profile</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b133c1fcf1f770a7d9321a9547cb0e61.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section class="quarto-title-block center">
+  <h1 class="title">The Intersection Euler Characteristic Profile</h1>
+  <p class="subtitle"><em>Euler Calculus, Stability, and Certified Topological Interaction of Point Clouds</em></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sushovan Majhi 
+</div>
+</div>
+</div>
+
+  <p class="date">16 November 2026</p>
+</section>
+<section class="slide level2">
+<h2>How much do they interact?</h2>
+<div class="opener-quote">
+<p>Several point clouds in <span class="math inline">\mathbb R^d</span>: species occurrences, cell types, sensor tracks.</p>
+<p>How much do they interact <strong>topologically</strong>, and <strong>at what scale</strong>?</p>
+</div>
+<div class="env-row">
+<div class="rmk fragment" data-name="One cloud at a time">
+<p>The barcode of <span class="math inline">X</span> is blind to <span class="math inline">Y</span>: it is the same wherever <span class="math inline">Y</span> sits.</p>
+</div>
+<div class="rmk fragment" data-name="All clouds at once">
+<p>The barcode of <span class="math inline">X\cup Y</span> reacts to where they sit while they are still apart: a bar of <span class="math inline">H_0</span> dies at half their distance.</p>
+</div>
+</div>
+<div class="aside-note fragment">
+<p>What we want is the topology of the <strong>overlap</strong>, scale by scale.</p>
+</div>
+<aside class="notes">
+<p>Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, tracks of sensors. How much do they interact topologically, and at what scale?</p>
+<p>[click] Persistence answers a different question. The barcode of one cloud is blind to the others; move Y anywhere and the barcode of X does not change.</p>
+<p>[click] The barcode of the union does see Y, but too early: it reacts to the relative position while the clouds are still apart. A bar in degree zero dies at half their distance, whether or not they ever overlap.</p>
+<p>[click] What we want is the topology of the overlap itself, as a function of the scale.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section>
+<section class="title-slide slide level1 section-divider center">
+<h1>§ I. Euler Calculus</h1>
+<div class="plate" data-plate="I">
+<p><img data-src="assets/section-i-plate.svg"></p>
+</div>
+<aside class="notes">
+<p>Section one: the definition, three examples, and why this curve and not another.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>The profile</h2>
+<div class="env-row">
+<div class="definition" data-num="1" data-name="Intersection ECP">
+<p>For pairwise disjoint finite clouds <span class="math inline">\mathcal X=(X_1,\dots,X_k)</span> in <span class="math inline">\mathbb R^d</span>, with <span class="math inline">\mathcal U(X;t)=\bigcup_{p\in X}B(p,t)</span>, and scales <span class="math inline">\mathbf t\in\mathbb R^k_{\ge0}</span>, <span class="math display">
+\Delta\chi(\mathbf t;\mathcal X)\;=\;\int_{\mathbb R^d}\prod_{i=1}^k \mathbf 1_{\mathcal U(X_i;t_i)}\,d\chi .
+</span></p>
+</div>
+<div class="theorem fragment" data-num="1" data-name="Intersection theorem" data-cite="Kawamura–Majhi–Mitra">
+<p><span class="math display">
+\Delta\chi(\mathbf t;\mathcal X)\;=\;\chi\Big(\bigcap_{i=1}^k\mathcal U(X_i;t_i)\Big).
+</span> On the diagonal, for two clouds, <span class="math inline">\Delta\chi(r)=\chi_X(r)+\chi_Y(r)-\chi_{X\cup Y}(r)</span>.</p>
+</div>
+</div>
+<div class="aside-note fragment">
+<p>An integer-valued curve, not a diagram: it enters a test or a learning pipeline as it is, with no vectorization.</p>
+</div>
+<aside class="notes">
+<p>The definition. Take the ball union of each cloud at its own scale, multiply the indicator functions, and integrate against the Euler characteristic. Euler calculus.</p>
+<p>[click] The integral of a product of indicators is the Euler characteristic of the intersection. So the profile is the Euler characteristic of the overlap of the clouds’ ball unions. On the diagonal, for two clouds, inclusion and exclusion give three Euler characteristic curves: X, Y, and the pooled cloud.</p>
+<p>[click] It is an integer-valued curve. A test or a classifier can take it as it is; nothing has to be vectorized.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Three configurations</h2>
+<div class="example" data-num="1" data-name="Separated, overlapping, encircling">
+<p>At the marked scale the overlap is empty, one lens, and an annulus: <span class="math inline">\Delta\chi=0,\ 1,\ 0</span>. The encircling clouds <strong>meet</strong>, yet <span class="math inline">\chi</span> of an annulus is <span class="math inline">0</span>.</p>
+</div>
+<div class="fig-wide" style="width: 69%; margin: 0.1rem auto 0;">
+<p><img data-src="assets/trio.svg"></p>
+</div>
+<aside class="notes">
+<p>Three configurations, computed. Separated: nothing until the unions touch. Overlapping: one overlap region, and the profile is one, after a burst of small lenses at tiny scales. Encircling: a ring around a blob. At the marked scale they meet, but the overlap is an annulus, whose Euler characteristic is zero.</p>
+<p>That is the blind spot of any Euler-characteristic invariant, and we do not hide it: the test of section three carries a guard for it, the first scale at which the unions provably meet.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Why this curve</h2>
+<div class="theorem" data-num="2" data-name="Universality" data-cite="Kawamura–Majhi–Mitra">
+<p><span class="hyp">Let <span class="math inline">\Phi</span> assign to each <span class="math inline">\mathcal X</span> an integer profile, with</span></p>
+<ul>
+<li><strong>pointwise Euler form:</strong> <span class="math inline">\Phi(\mathcal X)(\mathbf t)=\int\varphi\big(\mathbf 1_{\mathcal U(X_1;t_1)},\dots,\mathbf 1_{\mathcal U(X_k;t_k)}\big)\,d\chi</span> for some <span class="math inline">\varphi:\mathbb Z^k\to\mathbb Z</span>, <span class="math inline">\varphi(\mathbf 0)=0</span>;</li>
+<li><strong>separation:</strong> <span class="math inline">\Phi(\mathcal X)(\mathbf t)=0</span> when the <span class="math inline">k</span>-fold overlap is empty;</li>
+<li><strong>normalization:</strong> <span class="math inline">\Phi(\mathcal X)(\mathbf t)=1</span> when the overlap is a single lens <span class="math inline">\bigcap_i B(x_i,t_i)</span>.</li>
+</ul>
+<p>Then <span class="math inline">\Phi=\Delta\chi</span>.</p>
+</div>
+<div class="rmk fragment" data-name="What it says, and what it does not">
+<p>It decides <strong>which</strong> Euler-level summary of the overlap, not that its value measures strength: <span class="math inline">\chi</span> is signed and not monotone. A stronger form asks only for a valuation, homotopy invariance, separation and normalization.</p>
+</div>
+<aside class="notes">
+<p>Why this curve and not another Euler integral. Suppose an assignment is an Euler integral of some pointwise function of the indicators, registers nothing when the clouds have no common overlap, and gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.</p>
+<p>[click] What this does not say: that a bigger value means a stronger interaction. The Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. There is a stronger version in the paper, assuming only a valuation, homotopy invariance and the same two axioms.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section class="title-slide slide level1 section-divider center">
+<h1>§ II. Computation and Stability</h1>
+<div class="plate" data-plate="II">
+<p><img data-src="assets/section-ii-plate.svg"></p>
+</div>
+<aside class="notes">
+<p>Section two: what it costs, and how it moves when the data move.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Computation</h2>
+<div class="theorem" data-num="3" data-name="Complexity" data-cite="Kawamura–Majhi–Mitra">
+<p>For <span class="math inline">|X|+|Y|=n</span> in fixed dimension <span class="math inline">d</span>, sweeping the Alpha complexes of <span class="math inline">X</span>, <span class="math inline">Y</span> and <span class="math inline">X\cup Y</span> in birth order computes <span class="math inline">\Delta\chi</span> in <span class="math inline">O\big(n^{\lceil d/2\rceil}\log n\big)</span> time and <span class="math inline">O\big(n^{\lceil d/2\rceil}\big)</span> space, forming no boundary matrix.</p>
+</div>
+<div class="env-row">
+<div class="rmk fragment" data-name="The sweep">
+<p>Each Euler characteristic curve is a running sum <span class="math inline">\sum_{a(\sigma)\le r}(-1)^{\dim\sigma}</span> over simplices sorted by birth. No persistence reduction.</p>
+</div>
+<div class="rmk fragment" data-name="Optimal, and beyond two">
+<p>Worst-case optimal in even <span class="math inline">d</span> among algorithms that build the filtration. <span class="math inline">k</span> clouds by inclusion–exclusion, <span class="math inline">O\big(2^k n^{\lceil d/2\rceil}\log n\big)</span>; off the diagonal, a weighted Alpha complex.</p>
+</div>
+</div>
+<aside class="notes">
+<p>The cost. Three Alpha complexes, of X, of Y and of the pooled cloud. Sort each by birth scale, and the Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.</p>
+<p>[click] That is n to the ceiling of d over 2, times log n, the size of the Alpha complex.</p>
+<p>[click] In even dimension it is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Stability</h2>
+<div class="theorem" data-num="4" data-name="Stability" data-cite="Kawamura–Majhi–Mitra">
+<p><span class="hyp">Let <span class="math inline">\epsilon=\max_i d_H(X_i,X_i')</span>.</span> The overlap filtrations of <span class="math inline">\mathcal X</span> and <span class="math inline">\mathcal X'</span> are <span class="math inline">\epsilon</span>-interleaved; <span class="math inline">\Delta\chi(r)=\Delta\chi'(r)</span> whenever <span class="math inline">[r-\epsilon,r+\epsilon]</span> holds no critical scale of either; and <span class="math inline">\|\Delta\chi-\Delta\chi'\|_{L^1}\le2\epsilon\,(N+N')</span>, with <span class="math inline">N,N'</span> the numbers of bars.</p>
+</div>
+<div class="fig-wide fragment" style="width: 66%; margin: 0.15rem auto 0;">
+<p><img data-src="assets/stability.svg"></p>
+</div>
+<div class="rmk fragment" data-name="The honest form">
+<p><span class="math inline">\Delta\chi</span> itself admits no interleaving distance, and no <span class="math inline">L^1</span> bound free of the bar count can hold.</p>
+</div>
+<aside class="notes">
+<p>Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is bounded by epsilon times the numbers of bars.</p>
+<p>[click] In the picture, two crossing rings and a perturbation: the curves coincide except near the scales where something happens. The long plateau at two is the two lenses where the rings cross.</p>
+<p>[click] And the honest form: the profile itself carries no interleaving distance, and the bar count in the L1 bound cannot be removed. Integer-valued means that close becomes equal, away from the critical scales.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Consistency</h2>
+<div class="theorem" data-num="5" data-name="Consistency" data-cite="Kawamura–Majhi–Mitra">
+<p><span class="hyp">Let <span class="math inline">A_1,\dots,A_k\subset\mathbb R^d</span> be compact with reach at least <span class="math inline">\tau&gt;0</span>, sampled i.i.d. from measures positive on balls, and let <span class="math inline">r\in(0,\tau)</span> be a regular scale of <span class="math inline">\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)</span>.</span> Then almost surely, for all large samples, the <span class="math inline">\epsilon</span>-persistent Euler characteristic of the sample overlap equals <span class="math inline">\chi(T_r)</span>; and if <span class="math inline">r</span> is also regular for the sample, <span class="math inline">\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)</span> <strong>exactly</strong>.</p>
+</div>
+<div class="rmk fragment" data-name="How many samples">
+<p><span class="math inline">O\big(\epsilon^{-k_i}\log(1/\delta)\big)</span> points from <span class="math inline">A_i</span>, in its <strong>intrinsic</strong> dimension <span class="math inline">k_i</span>, not the ambient <span class="math inline">d</span>.</p>
+</div>
+<aside class="notes">
+<p>Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap, persistently in general, and exactly at scales that are regular for both.</p>
+<p>[click] The sample size depends on the intrinsic dimension of each set, as in Niyogi, Smale and Weinberger.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section class="title-slide slide level1 section-divider center">
+<h1>§ III. Certified Interaction</h1>
+<div class="plate" data-plate="III">
+<p><img data-src="assets/section-iii-plate.svg"></p>
+</div>
+<aside class="notes">
+<p>Section three: every number carries a test, and two applications.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Every number carries a test</h2>
+<div class="env-row">
+<div class="definition" data-num="2" data-name="Interaction quotient">
+<p>With <span class="math inline">\Phi(\Delta\chi)=\int|\Delta\chi(r)|\,dr</span>, <span class="math display">
+\widehat E=\frac{\Phi\big(\Delta\chi(\cdot;X_1,\dots,X_k)\big)}{\mathbb E_{H_0}\,\Phi}\,,
+</span> about <span class="math inline">1</span> when the labels are exchangeable, tending to <span class="math inline">0</span> under separation.</p>
+</div>
+<div class="proposition fragment" data-num="1" data-name="Exact tests" data-cite="Majhi">
+<p><span class="hyp">If the labels of the pooled sample are exchangeable,</span> the two one-sided permutation <span class="math inline">p</span>-values satisfy <span class="math inline">\Pr[p\le\alpha]\le\alpha</span> for every statistic, every <span class="math inline">\alpha</span>, every sample size and every number <span class="math inline">B</span> of permutations.</p>
+</div>
+</div>
+<div class="env-row">
+<div class="rmk fragment" data-name="A guard for the blind spot">
+<p>A separation certificate also checks that the unions provably meet, from the first interaction scale <span class="math inline">r^\ast</span>; without it, an annular overlap is certified as separated.</p>
+</div>
+<div class="rmk fragment" data-name="Comparisons">
+<p>A paired sign-flip test for claims such as <em>layer <span class="math inline">\ell+1</span> is more disentangled than layer <span class="math inline">\ell</span></em>. The statistic must be <strong>scale-free</strong>.</p>
+</div>
+</div>
+<aside class="notes">
+<p>The inferential layer. The interaction quotient: the profile’s mass, divided by its mean under relabeling. About one when the labels are exchangeable, near zero when the clouds are separated.</p>
+<p>[click] Relabel the pooled sample, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.</p>
+<p>[click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.</p>
+<p>[click] For comparisons, a paired sign-flip test. One lesson from building it: the statistic must be scale-free. On the raw mass, which has units of length, training dynamics of the feature norm masquerade as disentanglement.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Monsoon onset</h2>
+<div class="standfirst math">
+<p>A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile and test the paired change in error.</p>
+</div>
+<div class="methods fragment">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">onset</th>
+<th style="text-align: left;">system</th>
+<th style="text-align: center;">years</th>
+<th style="text-align: center;">with</th>
+<th style="text-align: center;">without</th>
+<th style="text-align: center;"><span class="math inline">\Delta</span>MAE, days (95% CI)</th>
+<th style="text-align: center;"><span class="math inline">p</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sharp</td>
+<td style="text-align: left;">Nepal</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;">9.27</td>
+<td style="text-align: center;">9.38</td>
+<td style="text-align: center;"><span class="math inline">-0.10</span> <span class="math inline">[-1.48,\,1.21]</span></td>
+<td style="text-align: center;">0.905</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sharp</td>
+<td style="text-align: left;">Kerala</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">6.18</td>
+<td style="text-align: center;">7.02</td>
+<td style="text-align: center;"><span class="math inline">-0.84</span> <span class="math inline">[-2.07,\,0.38]</span></td>
+<td style="text-align: center;">0.200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gradual</td>
+<td style="text-align: left;">Western North Pacific</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">17.36</td>
+<td style="text-align: center;">20.39</td>
+<td style="text-align: center;"><span class="math inline">\mathbf{-3.03}</span> <span class="math inline">[-4.89,\,-1.15]</span></td>
+<td style="text-align: center;"><strong>0.003</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gradual</td>
+<td style="text-align: left;">Australian</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">16.52</td>
+<td style="text-align: center;">20.18</td>
+<td style="text-align: center;"><span class="math inline">\mathbf{-3.66}</span> <span class="math inline">[-5.13,\,-2.21]</span></td>
+<td style="text-align: center;"><strong>&lt; 0.001</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="aside-note fragment">
+<p>It helps where onset is gradual and the signal-to-noise ratio is low, and only there. Paired sign-flip randomization test, <span class="math inline">10^5</span> sign assignments. With Atish Mitra, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
+</div>
+<aside class="notes">
+<p>An application where the answer is mixed, and that is the point. Monsoon onset from daily rainfall: four signals, one of them the profile between the windows before and after each day, delay-embedded. To see what the topology contributes, delete it and test the paired change in error across years.</p>
+<p>[click] On the two Indian targets, where onset is sharp, deleting it changes nothing that survives the test. On the Western North Pacific and the Australian monsoons, where onset is gradual and noisy, deleting it costs three to three and a half days.</p>
+<p>[click] So: it helps in the low signal-to-noise regime, and only there. The test is a paired sign-flip randomization test. The Western North Pacific effect is negative under all eighty onset definitions we tried and significant in sixty-five; the Australian is significant in all eighty. Joint work with Atish, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Disentanglement, certified</h2>
+<div class="standfirst math">
+<p>Class-conditional clouds of <span class="math inline">111</span> trained networks: <span class="math inline">1{,}170</span> (network, layer, checkpoint) cells, <span class="math inline">52{,}650</span> certified pairwise measurements.</p>
+</div>
+<div class="fig-row">
+<div class="fig" style="flex-basis: 56%;">
+<p><img data-src="assets/depth.svg"></p>
+</div>
+<div class="stmts">
+<div class="rmk fragment" data-name="Depth-graded">
+<p>The mean pairwise quotient falls with depth: <span class="math inline">0.72\to0.63\to0.57\to0.18</span> on ResNet-56, CIFAR-10.</p>
+</div>
+<div class="rmk fragment" data-name="Early, step by step">
+<p><span class="math inline">12{,}375</span> paired tests between consecutive checkpoints: <span class="math inline">2{,}707</span> significant steps, <span class="math inline">2{,}026</span> of them decreases, <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Second application: when does a classifier pull its classes apart? Take the class-conditional point clouds at each layer and checkpoint of 111 trained networks. Every pairwise number is a certified measurement.</p>
+<p>[click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at its middle block.</p>
+<p>[click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. This is where the scale-free statistic matters: on the raw mass, every first-epoch step points the wrong way.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Mostly pairwise</h2>
+<div class="definition" data-num="3" data-name="Triple versus strongest pair">
+<p>For classes <span class="math inline">c,c',c''</span> at layer <span class="math inline">\ell</span>: <span class="math inline">\ \rho_\ell=\widehat E_\ell(c,c',c'')\,\big/\,\max\big\{\widehat E_\ell(c,c'),\widehat E_\ell(c,c''),\widehat E_\ell(c',c'')\big\}</span>. Only a <span class="math inline">k</span>-fold profile can pose it.</p>
+</div>
+<div class="fig-wide fragment" style="width: 76%; margin: 0.1rem auto 0;">
+<p><img data-src="assets/triples.svg"></p>
+</div>
+<div class="aside-note fragment">
+<p><span class="math inline">\rho\le1</span> in <span class="math inline">1{,}509</span> of <span class="math inline">1{,}560</span> cells (<span class="math inline">96.7\%</span>), median <span class="math inline">0.63</span>. An unstructured null already reaches <span class="math inline">83\%</span>; the evidence is the medians, <span class="math inline">0.44</span>–<span class="math inline">0.89</span> against <span class="math inline">0.85</span>–<span class="math inline">1.03</span> (<span class="math inline">p=3.3\times10^{-8}</span>). A regularity, not a law.</p>
+</div>
+<aside class="notes">
+<p>A structural question only a k-fold statistic can ask: is a triple of classes more entangled than its most entangled pair?</p>
+<p>[click] Every triple of classes, at every layer of the three architectures: the ratio of the triple’s quotient to its strongest pair’s.</p>
+<p>[click] At or below one in ninety-seven percent of the cells, median 0.63. But be careful with the ninety-seven: an unstructured null already scores eighty-three. The evidence is in the medians: every cell median against the null medians, an exact one-sided Mann–Whitney test, p of three in a hundred million. In the deep layers, 597 of 600, median 0.47. And it is a regularity, not a law: an adversarial search finds configurations with ratio near two.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>What remains</h2>
+<div class="question" data-num="1" data-name="Whether, not how much">
+<p><span class="math inline">\chi</span> is signed and blind on annuli. The relative-homology refinement of the paper is stable in the interleaving distance; can a test use it directly?</p>
+</div>
+<div class="question fragment" data-num="2" data-name="Off the diagonal">
+<p>A different scale per cloud: what does the multiparameter profile certify that the diagonal cannot?</p>
+</div>
+<div class="rmk fragment" data-name="Next">
+<ul>
+<li><em>Statistical Inference for Topological Interaction</em>, with Kazuhiro Kawamura, Atish Mitra and <span class="name-hl">Pramita Bagchi</span>.</li>
+<li><em>Reconstruction of Transversal Intersections from Separate Samples</em>, with Kazuhiro Kawamura.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.</p>
+<p>[click] Off the diagonal, each cloud at its own scale: what does the multiparameter profile certify that the diagonal cannot?</p>
+<p>[click] Two pieces of work in progress: the statistics of topological interaction, with Kazuhiro, Atish and Pramita Bagchi; and reconstructing a transversal intersection from separate samples, with Kazuhiro.</p>
+<p>Thank you.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 colophon">
+<h2>Thank you</h2>
+<div class="finis">Q . E . D .</div>
+<div class="contact">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a> · <a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a> · <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a> · <a href="https://smajhi.com">smajhi.com</a> · <a href="mailto:s.majhi@gwu.edu">s.majhi@gwu.edu</a></p>
+</div>
+<div class="subscription">
+<p><em>Joint work with</em> Kazuhiro Kawamura and Atish Mitra. SIAM Conference on Mathematics of Data Science · Salt Lake City · 16 November 2026.</p>
+</div>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>The Intersection Euler Characteristic Profile · S. Majhi · SIAM MDS26, MS8 · 16 November 2026</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'slow',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 800,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 3,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script src="assets/inject-landmark.js" defer=""></script>
+    <script src="assets/clicker.js" defer=""></script>
+    
+
+</body></html>
