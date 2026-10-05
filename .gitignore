@@ -1,0 +1,7 @@
+/.quarto/
+/_freeze/
+/index.html
+/index_files/
+*_files/
+.DS_Store
+
