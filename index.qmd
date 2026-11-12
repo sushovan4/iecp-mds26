@@ -80,6 +80,10 @@ Section one: the definition, three examples, and why this curve and not another.
 
 ## The profile
 
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
+
 ::: {.env-row}
 ::: {.definition data-num="1" data-name="Intersection ECP"}
 For pairwise disjoint finite clouds $\mathcal X=(X_1,\dots,X_k)$ in $\mathbb R^d$, with $\mathcal U(X;t)=\bigcup_{p\in X}B(p,t)$, and scales $\mathbf t\in\mathbb R^k_{\ge0}$,
@@ -116,6 +120,10 @@ The definition. Give each cloud its ball union at its own scale, multiply the in
 
 ## Three configurations
 
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
+
 ::: {.example data-num="1" data-name="Separated, overlapping, encircling"}
 At the marked scale the overlap is empty, a single region, and an annulus: $\Delta\chi=0,\ 1,\ 0$. The encircling clouds **meet**, yet $\chi$ of an annulus is $0$.
 :::
@@ -136,6 +144,10 @@ That is the blind spot of any Euler-characteristic invariant, and I will not hid
 
 
 ## Why not persistence of the overlap?
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
 
 ::: {.env-row}
 ::: {.proposition data-num="1" data-name="Mayer–Vietoris" data-cite="Kawamura–Majhi–Mitra"}
@@ -181,6 +193,10 @@ Because homology does not split over a union. Mayer–Vietoris gives the Betti n
 
 ## Why this curve
 
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
+
 :::: {.vbody}
 ::: {.theorem data-num="2" data-name="Universality" data-cite="Kawamura–Majhi–Mitra"}
 [Let $\Phi$ assign to each $\mathcal X$ an integer profile, with]{.hyp}
@@ -198,11 +214,11 @@ It decides **which** Euler-level summary of the overlap, not that its value meas
 ::::
 
 ::: {.notes}
-⏱ 1:00 · by 7:45 · can be cut: say "separation and normalization single out this curve among Euler integrals" and move on.
+⏱ 0:45 · by 7:30 · can be cut: say "separation and normalization single out this curve among Euler integrals" and move on.
 
 Why this curve, and not some other Euler integral? Suppose an assignment is an Euler integral of a pointwise function of the indicators; it registers nothing when the clouds have no common overlap; and it gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.
 
-[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. The paper has a stronger version: a valuation in each cloud, depending only on the homotopy type of the overlap, with the same two axioms.
+[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; whether clouds interact is for the tests to decide.
 :::
 
 
@@ -213,13 +229,17 @@ Why this curve, and not some other Euler integral? Suppose an assignment is an E
 :::
 
 ::: {.notes}
-⏱ 0:10 · by 7:55
+⏱ 0:10 · by 7:40
 
 Section two: what it costs, and how it moves when the data move.
 :::
 
 
 ## Computation
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
 
 ::: {.theorem data-num="3" data-name="Complexity" data-cite="Kawamura–Majhi–Mitra"}
 For $|X|+|Y|=n$ in fixed dimension $d$, sweeping the Alpha complexes of $X$, $Y$ and $X\cup Y$ in birth order computes $\Delta\chi$ in $O\big(n^{\lceil d/2\rceil}\log n\big)$ time and $O\big(n^{\lceil d/2\rceil}\big)$ space, forming no boundary matrix.
@@ -242,7 +262,7 @@ In even $d$ the exponent is optimal for any algorithm that builds the filtration
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 9:25
+⏱ 1:30 · by 9:10
 
 The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each by birth scale, and its Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.
 
@@ -253,6 +273,10 @@ The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each 
 
 
 ## Stability
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
 
 ::: {.theorem data-num="4" data-name="Stability" data-cite="Kawamura–Majhi–Mitra"}
 [Let $\epsilon=\max_i d_H(X_i,X_i')$.]{.hyp} The overlap filtrations of $\mathcal X$ and $\mathcal X'$ are $\epsilon$-interleaved; $\Delta\chi(r)=\Delta\chi'(r)$ whenever $[r-\epsilon,r+\epsilon]$ holds no critical scale of either; and $\|\Delta\chi-\Delta\chi'\|_{L^1}\le2\epsilon\,(N+N')$, with $N,N'$ the numbers of bars.
@@ -267,7 +291,7 @@ $\Delta\chi$ itself admits no interleaving distance, and no $L^1$ bound free of 
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 10:55
+⏱ 1:30 · by 10:40
 
 Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is at most twice epsilon times the total number of bars.
 
@@ -278,6 +302,10 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 
 
 ## Consistency
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
 
 :::: {.vbody}
 ::: {.theorem data-num="5" data-name="Consistency" data-cite="Kawamura–Majhi–Mitra"}
@@ -290,7 +318,7 @@ $O\big(\epsilon^{-k_i}(\log\tfrac1\epsilon+\log\tfrac1\delta)\big)$ points from 
 ::::
 
 ::: {.notes}
-⏱ 0:45 · by 11:40 · can be cut: keep the first sentence only.
+⏱ 0:30 · by 11:10 · can be cut: keep the first sentence only.
 
 Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap at any regular scale: persistently, up to the sampling error, and exactly when the scale is regular for the sample too.
 
@@ -305,13 +333,17 @@ Consistency. If the clouds are samples from compact sets of positive reach, then
 :::
 
 ::: {.notes}
-⏱ 0:10 · by 11:50
+⏱ 0:10 · by 11:20
 
 Section three: every number carries a test, and two applications.
 :::
 
 
 ## Every number carries a test
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
+:::
 
 ::: {.env-row}
 ::: {.definition data-num="2" data-name="Interaction quotient"}
@@ -340,7 +372,7 @@ A separation claim is withheld when $\Delta\chi$ is silent just beyond the first
 :::
 
 ::: {.notes}
-⏱ 1:45 · by 13:35
+⏱ 1:45 · by 13:05
 
 The inferential layer. The interaction quotient is the profile's mass divided by its mean under relabeling: about one when the labels are exchangeable, near zero when the clouds are separated.
 
@@ -353,6 +385,10 @@ The inferential layer. The interaction quotient is the profile's mass divided by
 
 
 ## Monsoon onset
+
+::: {.source}
+[arXiv:2604.15262](https://arxiv.org/abs/2604.15262)
+:::
 
 ::: {.standfirst .math}
 A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile, or swap it for a channel that sees no data, and test the paired change in error.
@@ -372,7 +408,7 @@ Where onset is gradual, deleting the profile costs three days, but a channel tha
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 15:05
+⏱ 1:30 · by 14:35
 
 An application where the honest answer is smaller than the first one, which is why every number carries a test. Monsoon onset from a daily monsoon index, with four signals; one is the profile between the windows before and after each day. To see what the topology contributes, delete it and test the paired change in error.
 
@@ -383,6 +419,10 @@ An application where the honest answer is smaller than the first one, which is w
 
 
 ## Disentanglement, certified
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
+:::
 
 ::: {.standfirst .math}
 Class-conditional clouds of $111$ trained networks: $1{,}170$ (network, layer, checkpoint) cells, $52{,}650$ certified pairwise measurements.
@@ -405,7 +445,7 @@ $12{,}375$ paired sign-flip tests between consecutive checkpoints, on a **scale-
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 16:35
+⏱ 1:30 · by 16:05
 
 Second application: when does a classifier pull its classes apart? Take the class-conditional point clouds at each layer and checkpoint of 111 trained networks. Every pairwise number is a certified measurement.
 
@@ -416,6 +456,10 @@ Second application: when does a classifier pull its classes apart? Take the clas
 
 
 ## Mostly pairwise
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
+:::
 
 ::: {.definition data-num="3" data-name="Triple versus strongest pair"}
 For classes $c,c',c''$ at layer $\ell$: $\ \rho_\ell=\widehat E_\ell(c,c',c'')\,\big/\,\max\big\{\widehat E_\ell(c,c'),\widehat E_\ell(c,c''),\widehat E_\ell(c',c'')\big\}$. Only a $k$-fold profile can pose it.
@@ -430,13 +474,54 @@ $\rho\le1$ in $1{,}509$ of $1{,}560$ cells ($96.7\%$), median $0.63$. An unstruc
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 18:05 · can be cut: give the 96.7% and the median 0.63, skip the null comparison.
+⏱ 1:15 · by 17:20 · can be cut: give the 96.7% and the median 0.63, skip the null comparison.
 
 A structural question only a k-fold statistic can ask: is a triple of classes more entangled than its most entangled pair?
 
 [click] Every triple of classes, at every layer of the three architectures: the ratio of the triple's quotient to its strongest pair's.
 
 [click] At or below one in ninety-seven percent of the cells, median 0.63. But be careful with the ninety-seven: an unstructured null already scores eighty-three. The evidence is in the medians: every cell median against the null medians, an exact one-sided Mann–Whitney test, p of three in a hundred million. In the deep layers, 597 of 600, median 0.47. And it is a regularity, not a law: an adversarial search finds configurations with ratio near two.
+:::
+
+
+## Memorization, counted
+
+::: {.source}
+[arXiv:2610.00251](https://arxiv.org/abs/2610.00251)
+:::
+
+::: {.standfirst .math}
+Does a generator copy its training images? Compare its samples' overlap with training images $T$ and held-out images $H$; if it copies nothing, relabelling $T$ and $H$ is an exact null.
+:::
+
+::: {.definition data-num="4" data-name="Small-scale mass"}
+$T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr$ below the near-duplicate scale $r_0$, where excess overlap components count distinct images copied.
+:::
+
+::: {.fig-row}
+::: {.fig .fragment data-fragment-index="1" style="flex-basis: 57%;"}
+![](assets/memo.svg)
+:::
+
+::: {.stmts}
+::: {.rmk .fragment data-fragment-index="1" data-name="Copies, counted"}
+CIFAR-10 diffusion models at $r_0$: $132$ against $7$ on a $200$-image memorizer, $13$ against $14$ on the control. With Pramita Bagchi.
+:::
+
+::: {.rmk .fragment data-fragment-index="2" data-name="What the scale buys"}
+Of $24$ generators that copy nothing, a nearest-neighbour statistic rejects $7$, $T_{\rm small}$ one; a count at $r_0$ is as specific. The profile adds steadiness in $r_0$ and a $3$-fold form.
+:::
+:::
+:::
+
+::: {.notes}
+⏱ 1:15 · by 18:35 · can be cut: one sentence, "the same profile counts the training images a generative model copies, with an exact null".
+
+A third application, with Pramita Bagchi. Does a generative model copy its training images? Take its samples, the training images, and images held out. If the model copies nothing, training and held-out images are exchangeable given the samples, so relabelling them is an exact test. The statistic is the profile's mass below the near-duplicate scale, against training minus against held-out.
+
+[click] At that scale, shaded, a diffusion model trained on 200 images has 132 overlap components with its training set and 7 with held-out images; each excess component is a distinct image copied. The control, trained on fifty thousand, has 13 against 14.
+
+[click] Honestly, the scale buys the specificity, not the topology: a plain count at that scale is as specific. The profile adds steadiness in the choice of scale, and a three-fold form that asks which images two models both copy.
 :::
 
 
@@ -458,7 +543,7 @@ A different scale per cloud: what does the multiparameter profile certify that t
 ::::
 
 ::: {.notes}
-⏱ 1:00 · by 19:05; Thank-you slide to about 19:20, leaving 5 minutes for questions.
+⏱ 1:00 · by 19:35; Thank-you slide to about 19:50, leaving 5 minutes for questions.
 
 What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.
 
@@ -477,7 +562,7 @@ Thank you.
 ```
 
 ::: {.contact}
-[arXiv:2608.06180](https://arxiv.org/abs/2608.06180) · [arXiv:2609.08561](https://arxiv.org/abs/2609.08561) · [arXiv:2604.15262](https://arxiv.org/abs/2604.15262) · [smajhi.com](https://smajhi.com) · [s.majhi@gwu.edu](mailto:s.majhi@gwu.edu)
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180) · [arXiv:2609.08561](https://arxiv.org/abs/2609.08561) · [arXiv:2604.15262](https://arxiv.org/abs/2604.15262) · [arXiv:2610.00251](https://arxiv.org/abs/2610.00251) · [smajhi.com](https://smajhi.com) · [s.majhi@gwu.edu](mailto:s.majhi@gwu.edu)
 :::
 
 ::: {.subscription}

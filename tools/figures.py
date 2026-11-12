@@ -522,6 +522,37 @@ def fig_permtest():
     _save(fig, "permtest.svg")
 
 
+def fig_memo():
+    """Memorization (arXiv:2610.00251): the measured profiles of two CIFAR-10 DDPMs,
+    generations against training images and against held-out images, re-plotted
+    from mixup-ecp/disentangle/results/genmem in the deck's palette."""
+    gm = os.path.join(MIXUP, "disentangle", "results", "genmem")
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.9))
+    fig.subplots_adjust(wspace=0.32)
+    for ax, (name, lab) in zip(axes, (("memo200", "memorizer, 200 training images"),
+                                      ("full50k", "control, 50,000 training images"))):
+        d = json.load(open(os.path.join(gm, f"{name}_full_measure.json")))
+        g = np.array(d["r_grid"]); tr = np.array(d["dchi_tr"]); ho = np.array(d["dchi_ho"]); r0 = d["r0"]
+        ax.axvspan(0, r0, color=RULE, alpha=0.35, lw=0)
+        ax.plot(g, tr, color=OX, lw=1.6, label=r"$\Delta\chi(r;G,T)$, training")
+        ax.plot(g, ho, color=INK, lw=1.1, ls="--", label=r"$\Delta\chi(r;G,H)$, held out")
+        i = int(np.searchsorted(g, r0))
+        ax.scatter([r0, r0], [tr[i], ho[i]], s=22, color=[OX, INK], zorder=4, lw=0)
+        ax.text(0.97, 0.6, f"at $r_0$: {tr[i]} vs {ho[i]}", transform=ax.transAxes, fontsize=12,
+                color=OX, ha="right", va="center")
+        ax.text(r0 * 0.5, 0.04, "$r_0$", transform=ax.get_xaxis_transform(), ha="center", va="bottom",
+                fontsize=11, color=SEPIA)
+        ax.set_xlim(0, g[-1] * 0.6)
+        ax.set_title(lab, fontsize=12, style="italic", color=SEPIA)
+        ax.set_xlabel("scale $r$", fontsize=11)
+        ax.tick_params(labelsize=10)
+        print(f"  memo: {name} r0={r0:.3f} at r0: {tr[i]} vs {ho[i]}")
+    axes[0].set_ylabel(r"$\Delta\chi$  (overlap components)", fontsize=11)
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, fontsize=10.5, loc="upper center", bbox_to_anchor=(0.5, -0.04), ncol=2, handlelength=1.6)
+    _save(fig, "memo.svg")
+
+
 # --------------------------------------------------------------------------
 # section plates and the title plate
 # --------------------------------------------------------------------------
@@ -593,7 +624,7 @@ def title_plate():
 
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 

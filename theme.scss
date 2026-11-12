@@ -2720,3 +2720,21 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 }
 // In a flex column auto margins shrink-wrap; restore the block width (capped by max-width).
 .reveal .vbody > div { width: 100%; box-sizing: border-box; }
+
+// Source tag: the paper a slide draws on, top right, clickable.
+.reveal .slides section .source {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.4rem;
+  margin: 0;
+  font-family: var(--smallcaps);
+  font-size: 0.42em;
+  letter-spacing: 0.08em;
+  color: var(--sepia);
+  z-index: 5;
+}
+.reveal .slides section .source p { margin: 0; }
+.reveal .slides section .source a { color: var(--sepia); text-decoration: none; border-bottom: 0.5px solid var(--rule); }
+// Colophon links: never hyphenate or break an address.
+.reveal .contact, .reveal .contact p { hyphens: none; -webkit-hyphens: none; }
+.reveal .contact a { white-space: nowrap; }
