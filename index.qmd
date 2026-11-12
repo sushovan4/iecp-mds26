@@ -36,7 +36,7 @@ How much do several point clouds interact **topologically**, and **at what scale
 
 :::: {.chain-stack}
 ::: {.chain .aside-note .fragment .fade-out data-fragment-index="2"}
-**Far apart.** $X$'s barcode ignores $Y$; that of $X\cup Y$ gains a bar dying at half their distance. The overlap is empty.
+**Far apart.** $X$'s barcode ignores $Y$; that of $X\cup Y$ gains a bar dying at half their distance. The overlap stays empty until the balls meet.
 :::
 
 ::: {.chain .aside-note .fragment .fade-in-then-out data-fragment-index="2"}
@@ -117,7 +117,7 @@ The definition. Give each cloud its ball union at its own scale, multiply the in
 ## Three configurations
 
 ::: {.example data-num="1" data-name="Separated, overlapping, encircling"}
-At the marked scale the overlap is empty, one lens, and an annulus: $\Delta\chi=0,\ 1,\ 0$. The encircling clouds **meet**, yet $\chi$ of an annulus is $0$.
+At the marked scale the overlap is empty, a single region, and an annulus: $\Delta\chi=0,\ 1,\ 0$. The encircling clouds **meet**, yet $\chi$ of an annulus is $0$.
 :::
 
 ::: {.fig-wide style="width: 69%; margin: 0.1rem auto 0;"}
@@ -150,13 +150,13 @@ $$
 :::
 
 ::: {.proposition .fragment data-num="2" data-name="The overlap's own complex" data-cite="Kawamura–Majhi–Mitra"}
-The nerve of the cross-cloud lenses $B(x,t)\cap B(y,s)$ computes the overlap. It has up to $mn$ vertices, and $\ell$ lenses with a common point span $2^\ell-1$ faces, with $\ell=\Theta(m+n)$ possible.
+The nerve of the cross-cloud lenses $B(x,t)\cap B(y,s)$ computes the overlap. It has up to $mn$ vertices, and $\ell$ lenses with a common point span $2^\ell-1$ faces, with $\ell$ as large as $mn.$
 :::
 :::
 
 ::: {.env-row}
 ::: {.rmk .fragment data-name="So: the Euler characteristic"}
-$\Delta\chi$ is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the clouds' **own** Alpha complexes: cheap enough for $999$ permutations per test. The persistence of the overlap is stable too (Theorem 4), and the paper refines $\chi$ by a relative module.
+$\Delta\chi$ is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union: cheap enough for $999$ permutations per test. The persistence of the overlap is stable too (Theorem 4), and the paper refines $\chi$ by a relative module.
 :::
 
 ::: {.rmk .fragment data-name="What it gives up"}
@@ -169,11 +169,11 @@ On an annulus $\beta_0=\beta_1=1$ and $\chi=0$: the encircling clouds. Hence the
 
 The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap?
 
-Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the clouds' Betti numbers, plus the ranks of the connecting maps, the deltas. To know those ranks you need a complex for the overlap itself. In the alternating sum the deltas cancel, and what is left is exactly the inclusion–exclusion of the clouds' own Euler characteristics.
+Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the clouds' Betti numbers, plus the ranks of the connecting maps, the deltas. To get those ranks from the sequence you need the homology of the overlap itself, with its inclusion maps. In the alternating sum the deltas cancel, and what is left is exactly the inclusion–exclusion of the clouds' own Euler characteristics.
 
-[click] And a complex for the overlap is expensive. The nerve of the lenses has a vertex for every meeting pair, up to m times n, and where many lenses share a point it spans exponentially many faces.
+[click] And a complex for the overlap is expensive. The nerve of the lenses has a vertex for every meeting pair, up to m times n, and all m times n lenses can share a point, so it can have two to the m n faces.
 
-[click] So the profile is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the clouds' own Alpha complexes. That matters for inference, because a permutation test recomputes it a thousand times. Nothing is thrown away: the persistence of the overlap is stable too, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.
+[click] So the profile is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union, never the overlap's. That matters for inference, because a permutation test recomputes it a thousand times. Nothing is thrown away: the persistence of the overlap is stable too, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.
 
 [click] What it gives up: an annulus has one component and one loop, so Euler characteristic zero. That is the encircling picture again, and the reason for the guard.
 :::
@@ -193,7 +193,7 @@ Then $\Phi=\Delta\chi$.
 :::
 
 ::: {.rmk .fragment data-name="What it says, and what it does not"}
-It decides **which** Euler-level summary of the overlap, not that its value measures strength: $\chi$ is signed and not monotone. A stronger form asks only for a valuation, homotopy invariance, separation and normalization.
+It decides **which** Euler-level summary of the overlap, not that its value measures strength: $\chi$ is signed and not monotone. A stronger form asks only for a valuation in each cloud that depends on the overlap's homotopy type, with separation and normalization.
 :::
 ::::
 
@@ -202,7 +202,7 @@ It decides **which** Euler-level summary of the overlap, not that its value meas
 
 Why this curve, and not some other Euler integral? Suppose an assignment is an Euler integral of a pointwise function of the indicators; it registers nothing when the clouds have no common overlap; and it gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.
 
-[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. The paper has a stronger version that assumes only a valuation, homotopy invariance and the same two axioms.
+[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. The paper has a stronger version: a valuation in each cloud, depending only on the homotopy type of the overlap, with the same two axioms.
 :::
 
 
@@ -236,7 +236,7 @@ Each Euler characteristic curve is a running sum $\sum_{a(\sigma)\le r}(-1)^{\di
 :::
 
 ::: {.rmk .fragment data-fragment-index="2" data-name="Optimal, and beyond two"}
-Worst-case optimal in even $d$ among algorithms that build the filtration. $k$ clouds by inclusion–exclusion, $O\big(2^k n^{\lceil d/2\rceil}\log n\big)$; off the diagonal, a weighted Alpha complex.
+In even $d$ the exponent is optimal for any algorithm that builds the filtration. $k$ clouds by inclusion–exclusion, $O\big(2^k n^{\lceil d/2\rceil}\log n\big)$; off the diagonal, a weighted Alpha complex.
 :::
 :::
 :::
@@ -248,7 +248,7 @@ The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each 
 
 [click] Here are the ring and the blob from the opening. The strip is the sweep for the pooled cloud: every edge a minus one at its birth, every triangle a plus one. Above, the solid curve is the Euler characteristic of X plus that of Y, and the dashed one is that of the union. Both start at a hundred and eighty, one per point, and fall together. The gap between them is the profile, below: first the loops in the gap between the clouds, then the ring filling in. The cost is that of the Alpha complex, n to the ceiling of d over 2, times log n.
 
-[click] In even dimension that is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.
+[click] In even dimension the exponent cannot be lowered by any algorithm that builds the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.
 :::
 
 
@@ -269,7 +269,7 @@ $\Delta\chi$ itself admits no interleaving distance, and no $L^1$ bound free of 
 ::: {.notes}
 ⏱ 1:30 · by 10:55
 
-Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is bounded by epsilon times the numbers of bars.
+Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is at most twice epsilon times the total number of bars.
 
 [click] In the picture: two crossing rings, and the same rings with every point moved. The curves coincide except in the shaded strips, near the scales where something happens. The long plateau at two is the two lenses where the rings cross.
 
@@ -281,18 +281,18 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 
 :::: {.vbody}
 ::: {.theorem data-num="5" data-name="Consistency" data-cite="Kawamura–Majhi–Mitra"}
-[Let $A_1,\dots,A_k\subset\mathbb R^d$ be compact with reach at least $\tau>0$, sampled i.i.d. from measures positive on balls, and let $r\in(0,\tau)$ be a regular scale of $\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)$.]{.hyp} Then almost surely, for all large samples, the $\epsilon$-persistent Euler characteristic of the sample overlap equals $\chi(T_r)$; and if $r$ is also regular for the sample, $\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)$ **exactly**.
+[Let $A_1,\dots,A_k\subset\mathbb R^d$ be compact with reach at least $\tau>0$, sampled i.i.d. from measures supported on them and positive on balls; let $\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)$ have finitely many critical values in $(0,\tau)$, and $r\in(0,\tau)$ be regular for it.]{.hyp} Then almost surely, for all large samples, the $\epsilon_{\max}$-persistent Euler characteristic of the sample overlap equals $\chi(T_r)$, where $\epsilon_{\max}=\max_i d_H(X_i,A_i)\to0$; and if $r$ is also regular for the sample, $\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)$ **exactly**.
 :::
 
 ::: {.rmk .fragment data-name="How many samples"}
-$O\big(\epsilon^{-k_i}\log(1/\delta)\big)$ points from $A_i$, in its **intrinsic** dimension $k_i$, not the ambient $d$.
+$O\big(\epsilon^{-k_i}(\log\tfrac1\epsilon+\log\tfrac1\delta)\big)$ points from $A_i$ for confidence $1-\delta$, with $\epsilon$ set by the distance from $r$ to the critical scales: the **intrinsic** dimension $k_i$, not the ambient $d$.
 :::
 ::::
 
 ::: {.notes}
 ⏱ 0:45 · by 11:40 · can be cut: keep the first sentence only.
 
-Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap: persistently in general, and exactly at scales that are regular for both.
+Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap at any regular scale: persistently, up to the sampling error, and exactly when the scale is regular for the sample too.
 
 [click] The sample size depends on the intrinsic dimension of each set, not the ambient one, as in Niyogi, Smale and Weinberger.
 :::
@@ -334,7 +334,7 @@ about $1$ when the labels are exchangeable, tending to $0$ under separation.
 
 ::: {.stmts}
 ::: {.rmk .fragment data-fragment-index="2" data-name="A guard for the blind spot"}
-A separation certificate also checks that the unions provably meet, from the first interaction scale $r^\ast$; without it, an annular overlap is certified as separated.
+A separation claim is withheld when $\Delta\chi$ is silent just beyond the first interaction scale $\hat r^\ast$, where the unions provably meet. Unguarded, the test certifies an annular overlap as separated, with probability tending to one.
 :::
 :::
 :::
@@ -348,37 +348,37 @@ The inferential layer. The interaction quotient is the profile's mass divided by
 
 [click] Two overlapping blobs. The band is what relabeling produces; the observed profile lies below it at almost every scale. On the right, the mass under 999 relabelings, and the observed mass far to its left: a quotient of 0.38, and p of one in a thousand, the smallest p that 999 relabelings can give. Separation, certified.
 
-[click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.
+[click] The guard. On the encircling example the profile vanishes, so the separation test would reject, with probability tending to one, exactly where the clouds meet. The repair costs nothing: the first interaction scale falls out of the same sweep, and if the profile is silent just beyond it, where the unions provably meet, we withhold the separation claim.
 :::
 
 
 ## Monsoon onset
 
 ::: {.standfirst .math}
-A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile and test the paired change in error.
+A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile, or swap it for a channel that sees no data, and test the paired change in error.
 :::
 
 ::: {.methods .fragment}
-| onset | system | years | with | without | $\Delta$MAE, days (95% CI) | $p$ |
-|:--|:--|:-:|:-:|:-:|:-:|:-:|
-| sharp | Nepal | 48 | 9.27 | 9.38 | $-0.10$ $[-1.48,\,1.21]$ | 0.905 |
-| sharp | Kerala | 45 | 6.18 | 7.02 | $-0.84$ $[-2.07,\,0.38]$ | 0.200 |
-| gradual | Western North Pacific | 66 | 17.36 | 20.39 | $\mathbf{-3.03}$ $[-4.89,\,-1.15]$ | **0.003** |
-| gradual | Australian | 61 | 16.52 | 20.18 | $\mathbf{-3.66}$ $[-5.13,\,-2.21]$ | **< 0.001** |
+| onset | system | years | with | without | $\Delta$MAE, days (95% CI) | $p$ | vs. null channel | $p$ |
+|:--|:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| moderate | Nepal | 48 | 9.27 | 9.38 | $-0.10$ $[-1.48,\,1.21]$ | 0.905 | $+1.94$ | 0.028 |
+| sharp | Kerala | 45 | 6.18 | 7.02 | $-0.84$ $[-2.07,\,0.38]$ | 0.200 | $+0.11$ | 0.887 |
+| gradual | Western North Pacific | 66 | 17.36 | 20.39 | $\mathbf{-3.03}$ $[-4.89,\,-1.15]$ | **0.003** | $-1.02$ | 0.246 |
+| gradual | Australian | 61 | 16.52 | 20.18 | $\mathbf{-3.66}$ $[-5.13,\,-2.21]$ | **< 0.001** | $-1.00$ | 0.204 |
 :::
 
 ::: {.aside-note .fragment}
-It helps where onset is gradual and the signal-to-noise ratio is low, and only there. Paired sign-flip randomization test, $10^5$ sign assignments. With Atish Mitra, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.
+Where onset is gradual, deleting the profile costs three days, but a channel that sees no data recovers two thirds of that: about one day is the topology's, and it does not reach significance. The firmer evidence is at the detector level: the multi-delay profile is the best unsupervised onset detector on both gradual targets. Paired sign-flip tests, $10^5$ sign assignments. With Atish Mitra, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.
 :::
 
 ::: {.notes}
 ⏱ 1:30 · by 15:05
 
-An application where the answer is mixed, and that is the point. Monsoon onset from daily rainfall: four signals, one of them the profile between the windows before and after each day, delay-embedded. To see what the topology contributes, delete it and test the paired change in error across years.
+An application where the honest answer is smaller than the first one, which is why every number carries a test. Monsoon onset from a daily monsoon index, with four signals; one is the profile between the windows before and after each day. To see what the topology contributes, delete it and test the paired change in error.
 
-[click] On the two Indian targets, where onset is sharp, deleting it changes nothing that survives the test. On the Western North Pacific and the Australian monsoons, where onset is gradual and noisy, deleting it costs three to three and a half days.
+[click] On the Indian targets, nothing survives the test. Where onset is gradual and noisy, the Western North Pacific and the Australian, deleting it costs three days or more, significantly. Our first version stopped there. But the other three channels share a late bias, and any fourth channel dilutes it. So we swapped the profile for a channel that sees no data: that recovers two thirds of the gain, and the day left for the topology is not significant.
 
-[click] So: it helps in the low signal-to-noise regime, and only there. The test is a paired sign-flip randomization test. The Western North Pacific effect is negative under all eighty onset definitions we tried and significant in sixty-five; the Australian is significant in all eighty. Joint work with Atish, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.
+[click] What survives is narrower: the multi-delay profile is the best unsupervised onset detector on both gradual targets, ahead of the standard baselines. Joint work with Atish, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.
 :::
 
 
@@ -409,7 +409,7 @@ $12{,}375$ paired sign-flip tests between consecutive checkpoints, on a **scale-
 
 Second application: when does a classifier pull its classes apart? Take the class-conditional point clouds at each layer and checkpoint of 111 trained networks. Every pairwise number is a certified measurement.
 
-[click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at its middle block.
+[click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at block 6 of 8 and re-entangles toward its head.
 
 [click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. One lesson from building the test: the statistic must be scale-free. The raw mass has units of length, so the training dynamics of the feature norm masquerade as disentanglement; on it, every first-epoch step points the wrong way.
 :::
@@ -452,8 +452,8 @@ A different scale per cloud: what does the multiparameter profile certify that t
 :::
 
 ::: {.rmk .fragment data-name="Next"}
-- *Statistical Inference for Topological Interaction*, with Kazuhiro Kawamura, Atish Mitra and [Pramita Bagchi]{.name-hl}.
-- *Reconstruction of Transversal Intersections from Separate Samples*, with Kazuhiro Kawamura.
+- *Statistical Inference for Topological Interaction*, with Kazuhiro Kawamura and Atish Mitra.
+- *Reconstruction of Transversal Intersections from Separate Samples*, with Kazuhiro Kawamura and Atish Mitra.
 :::
 ::::
 
@@ -464,7 +464,7 @@ What remains. The Euler characteristic is signed and blind on annuli. The paper 
 
 [click] Off the diagonal, each cloud at its own scale: what does the multiparameter profile certify that the diagonal cannot?
 
-[click] Two pieces of work in progress: the statistics of topological interaction, with Kazuhiro, Atish and Pramita Bagchi; and reconstructing a transversal intersection from separate samples, with Kazuhiro.
+[click] Two pieces of work in progress, both with Kazuhiro and Atish: the statistics of topological interaction, and reconstructing a transversal intersection from separate samples.
 
 Thank you.
 :::

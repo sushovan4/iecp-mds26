@@ -262,7 +262,7 @@ def _arch(name):
 
 def fig_depth():
     finals = _e2_finals()
-    fig, ax = plt.subplots(figsize=(7.4, 3.6))
+    fig, ax = plt.subplots(figsize=(6.0, 2.92))
     cols = {"ResNet-56, CIFAR-10": OX, "ResNet-56, CIFAR-100 subset": SEPIA, "ViT-Tiny, CIFAR-10": INK}
     marks = {"ResNet-56, CIFAR-10": "o", "ResNet-56, CIFAR-100 subset": "s", "ViT-Tiny, CIFAR-10": "^"}
     for name, rec in finals.items():
@@ -273,11 +273,13 @@ def fig_depth():
         print("  depth:", lab, [round(y, 2) for y in ys])
     ax.axhline(1, color=RULE, lw=1, ls=":")
     ax.text(4.05, 1.0, "exchangeable", fontsize=11, color=PENCIL, va="center", style="italic")
-    ax.set_xticks(range(5)); ax.set_xticklabels(["stem", "stage 1", "stage 2", "stage 3", "penultimate"], fontsize=12)
-    ax.set_xlabel("depth  (ResNet stage / ViT block 2, 4, 6, 8)")
+    ax.set_xticks(range(5))
+    ax.set_xticklabels(["stem\nblock 2", "stage 1\nblock 4", "stage 2\nblock 6", "stage 3\nblock 8",
+                        "penultimate\npenultimate"], fontsize=11.5, linespacing=1.25)
+    ax.set_xlabel("depth  (ResNet-56 stage, above; ViT block, below)")
     ax.set_ylabel(r"mean pairwise quotient $\widehat E_\ell$")
     ax.set_ylim(0, 1.15)
-    ax.legend(fontsize=11, loc="lower left")
+    ax.legend(fontsize=10.5, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3, handlelength=1.6, columnspacing=1.2)
     _save(fig, "depth.svg")
 
 
