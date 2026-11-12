@@ -553,6 +553,59 @@ def fig_memo():
     _save(fig, "memo.svg")
 
 
+def fig_remains():
+    """'What remains': the opener's ring X and blob Y.
+    remains-annulus.svg: their overlap at r = s = 0.9, an annulus (beta_0 = beta_1 = 1, chi = 0).
+    remains-surface.svg: the two-scale profile Delta chi(r, s), X at scale r and Y at scale s,
+    by inclusion-exclusion with a weighted Alpha complex for the union term (the larger-scale
+    cloud carries weight max^2 - min^2, evaluated at min); its diagonal is the talk's profile."""
+    from matplotlib.colors import ListedColormap, BoundaryNorm
+    rng = np.random.default_rng(5)
+    X = _ring(rng, (0, 0), 1.5, 0.1, 120)
+    Y = _blob(rng, (0, 0), 0.28, 60)
+    rq = 0.9
+
+    fig, ax = plt.subplots(figsize=(2.6, 2.6))
+    _draw_overlap(ax, X, Y, rq, lim=2.4)
+    ax.set_xlim(-2.4, 2.4); ax.set_ylim(-2.4, 2.4); ax.set_aspect("equal"); ax.axis("off")
+    ax.text(-1.75, 1.75, "$X$", color=OX, fontsize=14); ax.text(0.25, 0.2, "$Y$", color=INK, fontsize=13)
+    ax.text(0, -2.55, r"$r=s=0.9$: $\beta_0=\beta_1=1$, $\chi=0$", ha="center", va="top", fontsize=12, color=OX)
+    d = int(iecp.intersection_profile([X, Y], np.array([rq]))[0])
+    assert d == 0, d
+    _save(fig, "remains-annulus.svg")
+
+    g = np.linspace(0.02, 1.6, 100)
+    cx, cy = iecp_core.ecc_alpha(X, g), iecp_core.ecc_alpha(Y, g)
+    P, nX, nY = np.r_[X, Y], len(X), len(Y)
+    D = np.zeros((len(g), len(g)), int)          # D[i, j] = Delta chi(X at g[i], Y at g[j])
+    for i, r in enumerate(g):
+        for j, t in enumerate(g):
+            if t >= r:
+                w, at = np.r_[np.zeros(nX), np.full(nY, t * t - r * r)], r
+            else:
+                w, at = np.r_[np.full(nX, r * r - t * t), np.zeros(nY)], t
+            D[i, j] = cx[i] + cy[j] - iecp_core.ecc_alpha(P, np.array([at]), weights=w)[0]
+    assert np.array_equal(np.diag(D), iecp.intersection_profile([X, Y], g))
+    bounds = [-100, -0.5, 0.5, 1.5, 3.5, 7.5, 1000]
+    cmap = ListedColormap([SEPIA, PAPER_SOFT, "#e3c3bb", "#c98a80", "#9c4a42", OX])
+    fig, ax = plt.subplots(figsize=(3.6, 3.1))
+    m = ax.pcolormesh(g, g, D.T, cmap=cmap, norm=BoundaryNorm(bounds, cmap.N), shading="nearest", rasterized=True)
+    ax.plot(g, g, color=INK, lw=1.0, ls="--")
+    ax.text(1.0, 1.42, "the diagonal\nof this talk", fontsize=10, color=INK, style="italic", ha="center", va="center")
+    ax.scatter([rq], [rq], s=26, color=OX, zorder=4, edgecolor=PAPER, lw=0.8)
+    ax.text(0.72, 1.12, "$\\chi=0$, yet\nthey meet", fontsize=10.5, color=SEPIA, style="italic", ha="center", va="center")
+    ax.text(1.5, 0.55, "ring\nfills", fontsize=10, color=SEPIA, style="italic", ha="center")
+    ax.set_xlabel("$r$, scale of the ring $X$", fontsize=11); ax.set_ylabel("$s$, scale of the blob $Y$", fontsize=11)
+    ax.set_xlim(g[0], g[-1]); ax.set_ylim(g[0], g[-1]); ax.set_aspect("equal")
+    ax.tick_params(labelsize=9.5)
+    cb = fig.colorbar(m, ax=ax, ticks=[-1, 0, 1, 2.5, 5.5, 9], fraction=0.045, pad=0.03)
+    cb.ax.set_yticklabels(["< 0", "0", "1", "2–3", "4–7", "≥ 8"], fontsize=9)
+    cb.outline.set_visible(False)
+    cb.set_label(r"$\Delta\chi(r,s)$", fontsize=11)
+    print("  remains: surface range", D.min(), D.max(), "; zero cells", int((D == 0).mean() * 100), "%")
+    _save(fig, "remains-surface.svg")
+
+
 # --------------------------------------------------------------------------
 # section plates and the title plate
 # --------------------------------------------------------------------------
@@ -624,7 +677,7 @@ def title_plate():
 
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 

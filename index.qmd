@@ -527,27 +527,34 @@ A third application, with Pramita Bagchi. Does a generative model copy its train
 
 ## What remains
 
-:::: {.vbody}
+::: {.env-row .remains-row}
+::: {.qcol}
 ::: {.question data-num="1" data-name="Whether, not how much"}
-$\chi$ is signed and blind on annuli. The relative-homology refinement of the paper is stable in the interleaving distance; can a test use it directly?
+$\chi$ is signed and blind on annuli. The paper's relative-homology refinement sees them and is stable; can a test use it directly?
 :::
 
-::: {.question .fragment data-num="2" data-name="Off the diagonal"}
-A different scale per cloud: what does the multiparameter profile certify that the diagonal cannot?
+![](assets/remains-annulus.svg){.remains-fig}
 :::
 
-::: {.rmk .fragment data-name="Next"}
-- *Statistical Inference for Topological Interaction*, with Kazuhiro Kawamura and Atish Mitra.
-- *Reconstruction of Transversal Intersections from Separate Samples*, with Kazuhiro Kawamura and Atish Mitra.
+::: {.qcol .fragment}
+::: {.question data-num="2" data-name="Off the diagonal"}
+A different scale per cloud: what does the two-parameter profile $\Delta\chi(r,s)$ certify that the diagonal cannot?
 :::
-::::
+
+![](assets/remains-surface.svg){.remains-fig}
+:::
+:::
+
+::: {.rmk .fragment data-name="Next, with Kazuhiro Kawamura and Atish Mitra"}
+*Statistical Inference for Topological Interaction* · *Reconstruction of Transversal Intersections from Separate Samples*
+:::
 
 ::: {.notes}
 ⏱ 1:00 · by 19:35; Thank-you slide to about 19:50, leaving 5 minutes for questions.
 
-What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.
+What remains. The opening picture once more, at a scale where the ring and the blob plainly meet: the overlap is an annulus, one component and one loop, and its Euler characteristic is zero. The paper's relative-homology refinement sees it, and is stable; can a test use it directly?
 
-[click] Off the diagonal, each cloud at its own scale: what does the multiparameter profile certify that the diagonal cannot?
+[click] And off the diagonal, each cloud at its own scale. This is the whole surface for the same two clouds; this talk has lived on the dashed line, and most of the surface is that blind zero. What does the surface certify that the line cannot? [MDS26: Robyn is about to tell us how to read two-parameter objects like this one.]
 
 [click] Two pieces of work in progress, both with Kazuhiro and Atish: the statistics of topological interaction, and reconstructing a transversal intersection from separate samples.
 
@@ -567,4 +574,127 @@ Thank you.
 
 ::: {.subscription}
 *Joint work with* Kazuhiro Kawamura and Atish Mitra. SIAM Conference on Mathematics of Data Science · Salt Lake City · 16 November 2026.
+:::
+
+
+## Mixup barcodes {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
+
+::: {.rmk data-name="Neither refines the other"}
+The mixup barcode of Wagner et al. is the image persistence of $\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)$. It keeps graded homology that $\Delta\chi$ collapses, yet it does not determine $\Delta\chi$, which needs $\chi$ of one cloud alone. The comparison is by properties.
+:::
+
+::: {.methods}
+| | mixup barcode | $\Delta\chi$ |
+|:--|:-:|:-:|
+| symmetric in the clouds | no | yes |
+| $k>2$ clouds | open | inclusion–exclusion |
+| hypothesis test | open | exact permutation tests |
+| cost | image persistence, cubic in the simplex count | sweep, $O(n^{\lceil d/2\rceil}\log n)$ |
+| measured, identical clouds | $31.7$ s per pair | $3.7$ s per pair |
+:::
+
+::: {.aside-note}
+Timing on the final-epoch representations of $104$ networks ([arXiv:2609.08561](https://arxiv.org/abs/2609.08561)). In fairness: there, total mixup predicts generalization better than the null-normalized quotient, $R^2=0.84$ against $0.34$.
+:::
+
+::: {.notes}
+Backup. The barcode keeps graded homology we throw away, and neither invariant determines the other. What we gain is symmetry, every k, an exact integer readout, and no matrix reduction: about eight and a half times faster per pair on the same clouds, which is what makes a thousand permutations per test affordable. In fairness, total mixup predicted generalization better than our quotient, because the quotient divides out the feature scale on purpose.
+:::
+
+
+## The relative refinement {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+:::
+
+::: {.definition data-num="A" data-name="Relative interaction module"}
+What each cloud adds to the others:
+$$
+\mathrm{RPH}_*(\mathcal X)=\bigoplus_{i=1}^{k}\Big\{H_*\big(\mathcal U(X_i;t_i),\ \mathcal U(X_i;t_i)\cap\textstyle\bigcup_{j\ne i}\mathcal U(X_j;t_j)\big)\Big\}_{\mathbf t\ge0}.
+$$
+:::
+
+::: {.theorem data-num="A" data-name="Stability" data-cite="Kawamura–Majhi–Mitra"}
+[For color-matched perturbations, $\epsilon=\max_i d_H(X_i,X_i')$,]{.hyp} $d_I\big(\mathrm{RPH}_*(\mathcal X),\mathrm{RPH}_*(\mathcal X')\big)\le\epsilon$ in the multiparameter interleaving distance.
+:::
+
+::: {.rmk data-name="What it sees, and what it does not"}
+Sample $Y$ on a torus and $X$ on a longitude: the overlap is a band and every $\chi$ vanishes, yet $H_1(T^2,S^1)=H_2(T^2,S^1)=\mathbb Z$. For $k\ge3$ it is not complete, and it needs persistence rather than a sweep.
+:::
+
+::: {.notes}
+Backup. Keep the inclusions, not just chi: for each cloud, its homology relative to its overlap with the others, summed over the clouds. It is interleaving-stable under color-matched perturbation. It sees the torus-and-longitude example that chi misses; for three or more clouds it is provably incomplete, and it costs a persistence computation. We do not yet test with it, which is open question one.
+:::
+
+
+## High dimensions {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
+:::
+
+::: {.proposition data-num="A" data-name="Projection is conservative for separation" data-cite="Majhi"}
+[For an orthogonal projection $P$ and $r^\ast(X,Y)=\tfrac12\min_{x\in X,y\in Y}\|x-y\|$,]{.hyp} $r^\ast(PX,PY)\le r^\ast(X,Y)$: offsets disjoint in the shadow are disjoint in the ambient space.
+:::
+
+::: {.env-row}
+::: {.rmk data-name="What we do"}
+Measure on a PCA shadow fitted to the pooled clouds, blind to labels, so the tests stay exact: $d_0=5$, or $4$ for triple scans. Depth conclusions are unchanged at $d_0=3,4,6$: median Spearman $0.91$, $0.96$, $0.97$ against $d_0=5$.
+:::
+
+::: {.rmk data-name="Where it breaks"}
+Concentration of measure. In embeddings of high effective rank the scale window collapses: on copy-detection features (effective rank $574$) the topological statistics go null while a nearest-neighbour fraction still fires ([arXiv:2610.00251](https://arxiv.org/abs/2610.00251)).
+:::
+:::
+
+::: {.notes}
+Backup. We measure on a five-dimensional PCA shadow fitted without labels, so exactness survives. Projection can only bring first contact earlier, so disjointness in the shadow is disjointness in the ambient space. The depth conclusions do not move between three and six dimensions. The real limit is concentration of measure: in high effective rank the scale window collapses, and there a nearest-neighbour statistic still works where ours goes null.
+:::
+
+
+## The guard in practice {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
+:::
+
+::: {.rmk data-name="On trained networks: never"}
+Zero firings in $52{,}650$ pairwise measurements ($42{,}570$ distinct clouds), and zero again when $45{,}225$ cells were re-evaluated under three forms of the guard. Class overlaps are blobs: $\Delta\chi$ first returns to zero a median $78$ of $181$ grid points after contact. Zero says the pattern never occurred, not that cancellation is impossible.
+:::
+
+::: {.rmk data-name="Where it matters"}
+$X$ uniform on a disc, $Y$ on a circle inside it: the overlap is an annular band, and the unguarded test certifies separation at $p_\downarrow=0.005$. The first interaction scale, $\hat r^\ast=0.005<0.40$, blocks it, at no cost: it falls out of the same sweep.
+:::
+
+::: {.notes}
+Backup. Never, on trained networks: zero firings in fifty-two thousand measurements, and zero again under stricter forms of the guard, because class overlaps are blobs, not annuli. It still matters: on a disc with a circle inside, the unguarded test certifies separation at p of half a percent, and the guard blocks it for free. The synthetic case is from the statistics paper in preparation.
+:::
+
+
+## Simpler statistics {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2609.08561](https://arxiv.org/abs/2609.08561) · [arXiv:2610.00251](https://arxiv.org/abs/2610.00251) · [arXiv:2604.15262](https://arxiv.org/abs/2604.15262)
+:::
+
+::: {.methods}
+| question | simpler statistic | the profile |
+|:--|:-:|:-:|
+| rank MNIST pairs by confusability (Spearman) | $5$-NN $0.86$, probe $0.83$, energy $0.77$, Fisher $0.74$ | quotient $0.83$ |
+| memorization: of $24$ generators that copy nothing, rejected | nearest-neighbour $7$, count at $r_0$ $0$ | $T_{\rm small}$ $1$ |
+| memorization: copies needed to be seen, of $500$ | nearest-neighbour $50$ | $T_{\rm small}$ $10$, as the count |
+| monsoon onset against persistence diagrams | — | ahead by $8.2$ days (WNP), $11.6$ (Australian) |
+:::
+
+::: {.aside-note}
+Often a simpler statistic does as well, and the papers say so. What the profile adds is the exact certificate, the $k$-fold terms and the scale resolution. MMD has not been benchmarked.
+:::
+
+::: {.notes}
+Backup. Honestly, a five-nearest-neighbour count ranks MNIST confusability as well as we do, and in the memorization audit a thresholded count at the same scale is as specific. The profile earns its place with exact certificates, the k-fold and scale-resolved forms, and steadiness in the scale. Against persistence diagrams on the monsoon it wins on the two gradual-onset systems, though persistence is faster there. We have not benchmarked MMD.
 :::

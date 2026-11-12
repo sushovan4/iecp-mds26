@@ -2738,3 +2738,8 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 // Colophon links: never hyphenate or break an address.
 .reveal .contact, .reveal .contact p { hyphens: none; -webkit-hyphens: none; }
 .reveal .contact a { white-space: nowrap; }
+
+// What remains: each question over its figure, side by side.
+.reveal .remains-row > .qcol { display: flex; flex-direction: column; margin: 0.2rem 0; }
+.reveal .remains-row > .qcol > .question { margin: 0 0 0.2rem; max-width: none; flex: 0 0 auto; }
+.reveal .remains-row img.remains-fig { display: block; height: 330px; width: auto; max-width: 100%; margin: 0.1rem auto 0; }
