@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b133c1fcf1f770a7d9321a9547cb0e61.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-be6389a92c2ae68b0fe2863ef9e3b829.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -160,25 +160,38 @@ Sushovan Majhi
 <section class="slide level2">
 <h2>How much do they interact?</h2>
 <div class="opener-quote">
-<p>Several point clouds in <span class="math inline">\mathbb R^d</span>: species occurrences, cell types, sensor tracks.</p>
-<p>How much do they interact <strong>topologically</strong>, and <strong>at what scale</strong>?</p>
+<p>How much do several point clouds interact <strong>topologically</strong>, and <strong>at what scale</strong>?</p>
 </div>
-<div class="env-row">
-<div class="rmk fragment" data-name="One cloud at a time">
-<p>The barcode of <span class="math inline">X</span> is blind to <span class="math inline">Y</span>: it is the same wherever <span class="math inline">Y</span> sits.</p>
+<div class="chain-stack">
+<div class="chain fragment fade-out" data-fragment-index="2">
+<p><img data-src="assets/approach-1.svg" class="approach-fig"></p>
 </div>
-<div class="rmk fragment" data-name="All clouds at once">
-<p>The barcode of <span class="math inline">X\cup Y</span> reacts to where they sit while they are still apart: a bar of <span class="math inline">H_0</span> dies at half their distance.</p>
+<div class="chain fragment fade-in-then-out" data-fragment-index="2">
+<p><img data-src="assets/approach-2.svg" class="approach-fig"></p>
+</div>
+<div class="chain fragment fade-in" data-fragment-index="3">
+<p><img data-src="assets/approach-3.svg" class="approach-fig"></p>
 </div>
 </div>
-<div class="aside-note fragment">
-<p>What we want is the topology of the <strong>overlap</strong>, scale by scale.</p>
+<div class="chain-stack">
+<div class="chain aside-note fragment fade-out" data-fragment-index="2">
+<p><strong>Far apart.</strong> <span class="math inline">X</span>’s barcode ignores <span class="math inline">Y</span>; that of <span class="math inline">X\cup Y</span> gains a bar dying at half their distance. The overlap stays empty until the balls meet.</p>
+</div>
+<div class="chain aside-note fragment fade-in-then-out" data-fragment-index="2">
+<p><strong>Touching.</strong> The overlap is a lens: <span class="math inline">\Delta\chi=1</span>.</p>
+</div>
+<div class="chain aside-note fragment fade-in" data-fragment-index="3">
+<p><strong>Inside the hole.</strong> <span class="math inline">X\cup Y</span>’s barcode changes <span class="math inline">X</span>’s own loop (it dies at <span class="math inline">0.55</span>, not <span class="math inline">1.40</span>) and gains the gap’s. The <strong>overlap</strong> is the meeting.</p>
+</div>
 </div>
 <aside class="notes">
-<p>Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, tracks of sensors. How much do they interact topologically, and at what scale?</p>
-<p>[click] Persistence answers a different question. The barcode of one cloud is blind to the others; move Y anywhere and the barcode of X does not change.</p>
-<p>[click] The barcode of the union does see Y, but too early: it reacts to the relative position while the clouds are still apart. A bar in degree zero dies at half their distance, whether or not they ever overlap.</p>
-<p>[click] What we want is the topology of the overlap itself, as a function of the scale.</p>
+<p>⏱ 2:00 (title included) · by 2:20</p>
+<p>[MDS26, after Bei Wang: Bei’s descriptors summarize one space at a time. I want to ask what happens when there are several.]</p>
+<p>Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, the tracks of sensors. How much do they interact topologically, and at what scale?</p>
+<p>Here is a ring X and a blob Y. As Y moves I show three readouts: the barcode of X alone, the barcode of the union, and at the bottom the Euler characteristic of the overlap of the two ball unions, as a function of the scale r.</p>
+<p>Far apart: the barcode of X does not know Y exists. The union’s barcode gains one bar, a component that dies at half their distance. The overlap stays empty until the balls meet, just past one.</p>
+<p>[click] Touching: the overlap is a lens, and the bottom curve steps up to one at the scale where they meet.</p>
+<p>[click] Inside the hole: look at the union’s barcode. X’s own loop now dies at 0.55 instead of 1.40, because Y fills the hole, and a new loop appears, the gap between them. The union’s barcode mixes the topology of each cloud with their meeting. The overlap is the meeting itself, and its Euler characteristic, scale by scale, is the object of this talk.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -198,6 +211,7 @@ Sushovan Majhi
 <p><img data-src="assets/section-i-plate.svg"></p>
 </div>
 <aside class="notes">
+<p>⏱ 0:10 · by 2:30</p>
 <p>Section one: the definition, three examples, and why this curve and not another.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -213,6 +227,9 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>The profile</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
 <div class="env-row">
 <div class="definition" data-num="1" data-name="Intersection ECP">
 <p>For pairwise disjoint finite clouds <span class="math inline">\mathcal X=(X_1,\dots,X_k)</span> in <span class="math inline">\mathbb R^d</span>, with <span class="math inline">\mathcal U(X;t)=\bigcup_{p\in X}B(p,t)</span>, and scales <span class="math inline">\mathbf t\in\mathbb R^k_{\ge0}</span>, <span class="math display">
@@ -222,16 +239,19 @@ Sushovan Majhi
 <div class="theorem fragment" data-num="1" data-name="Intersection theorem" data-cite="Kawamura–Majhi–Mitra">
 <p><span class="math display">
 \Delta\chi(\mathbf t;\mathcal X)\;=\;\chi\Big(\bigcap_{i=1}^k\mathcal U(X_i;t_i)\Big).
-</span> On the diagonal, for two clouds, <span class="math inline">\Delta\chi(r)=\chi_X(r)+\chi_Y(r)-\chi_{X\cup Y}(r)</span>.</p>
+</span> On the diagonal, for two clouds, <span class="math display">
+\Delta\chi(r)=\chi_X(r)+\chi_Y(r)-\chi_{X\cup Y}(r).
+</span></p>
 </div>
 </div>
 <div class="aside-note fragment">
 <p>An integer-valued curve, not a diagram: it enters a test or a learning pipeline as it is, with no vectorization.</p>
 </div>
 <aside class="notes">
-<p>The definition. Take the ball union of each cloud at its own scale, multiply the indicator functions, and integrate against the Euler characteristic. Euler calculus.</p>
-<p>[click] The integral of a product of indicators is the Euler characteristic of the intersection. So the profile is the Euler characteristic of the overlap of the clouds’ ball unions. On the diagonal, for two clouds, inclusion and exclusion give three Euler characteristic curves: X, Y, and the pooled cloud.</p>
-<p>[click] It is an integer-valued curve. A test or a classifier can take it as it is; nothing has to be vectorized.</p>
+<p>⏱ 1:15 · by 3:45</p>
+<p>The definition. Give each cloud its ball union at its own scale, multiply the indicator functions, and integrate against the Euler characteristic. That is Euler calculus. On the diagonal, one scale for all the clouds, it is a curve in r.</p>
+<p>[click] The integral of a product of indicators is the Euler characteristic of the intersection, so the profile is simply the Euler characteristic of the overlap. For two clouds on the diagonal, inclusion and exclusion write it with three ordinary Euler characteristic curves: of X, of Y, and of the pooled cloud. Hold on to that formula; it is the whole algorithm.</p>
+<p>[click] And it is an integer-valued curve, not a diagram: a test or a classifier takes it as it is, with nothing to vectorize.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -246,15 +266,64 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Three configurations</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
 <div class="example" data-num="1" data-name="Separated, overlapping, encircling">
-<p>At the marked scale the overlap is empty, one lens, and an annulus: <span class="math inline">\Delta\chi=0,\ 1,\ 0</span>. The encircling clouds <strong>meet</strong>, yet <span class="math inline">\chi</span> of an annulus is <span class="math inline">0</span>.</p>
+<p>At the marked scale the overlap is empty, a single region, and an annulus: <span class="math inline">\Delta\chi=0,\ 1,\ 0</span>. The encircling clouds <strong>meet</strong>, yet <span class="math inline">\chi</span> of an annulus is <span class="math inline">0</span>.</p>
 </div>
 <div class="fig-wide" style="width: 69%; margin: 0.1rem auto 0;">
 <p><img data-src="assets/trio.svg"></p>
 </div>
 <aside class="notes">
-<p>Three configurations, computed. Separated: nothing until the unions touch. Overlapping: one overlap region, and the profile is one, after a burst of small lenses at tiny scales. Encircling: a ring around a blob. At the marked scale they meet, but the overlap is an annulus, whose Euler characteristic is zero.</p>
-<p>That is the blind spot of any Euler-characteristic invariant, and we do not hide it: the test of section three carries a guard for it, the first scale at which the unions provably meet.</p>
+<p>⏱ 1:15 · by 5:00</p>
+<p>Three configurations, computed. On top, the two ball unions at one scale, with the overlap in dark red; below, the three profiles.</p>
+<p>Separated: zero until the unions touch. Overlapping: at small scales a burst of tiny lenses, where single points of X and Y meet; then one overlap region, and the profile settles at one. Encircling: a ring around a blob. At the marked scale they clearly meet, but the overlap is an annulus, and the Euler characteristic of an annulus is zero.</p>
+<p>That is the blind spot of any Euler-characteristic invariant, and I will not hide it: the test in section three carries a guard for exactly this case.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>Why not persistence of the overlap?</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
+<div class="env-row">
+<div class="proposition" data-num="1" data-name="Mayer–Vietoris" data-cite="Kawamura–Majhi–Mitra">
+<p>For <span class="math inline">A=\mathcal U(X;t)</span>, <span class="math inline">B=\mathcal U(Y;s)</span> and <span class="math inline">\Delta\beta_q=\beta_q(A)+\beta_q(B)-\beta_q(A\cup B)</span>, <span class="math display">
+\beta_q(A\cap B)=\Delta\beta_q+\delta_q+\delta_{q+1},
+</span> with <span class="math inline">\delta_q</span> the rank of the connecting map <span class="math inline">H_q(A\cup B)\to H_{q-1}(A\cap B)</span>. The alternating sum cancels the <span class="math inline">\delta</span>’s: <span class="math display">
+\chi(A\cap B)=\chi(A)+\chi(B)-\chi(A\cup B).
+</span></p>
+</div>
+<div class="proposition fragment" data-num="2" data-name="The overlap's own complex" data-cite="Kawamura–Majhi–Mitra">
+<p>The nerve of the cross-cloud lenses <span class="math inline">B(x,t)\cap B(y,s)</span> computes the overlap. It has up to <span class="math inline">mn</span> vertices, and <span class="math inline">\ell</span> lenses with a common point span <span class="math inline">2^\ell-1</span> faces, with <span class="math inline">\ell</span> as large as <span class="math inline">mn.</span></p>
+</div>
+</div>
+<div class="env-row">
+<div class="rmk fragment" data-name="So: the Euler characteristic">
+<p><span class="math inline">\Delta\chi</span> is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union: cheap enough for <span class="math inline">999</span> permutations per test. The persistence of the overlap is stable too (Theorem 4), and the paper refines <span class="math inline">\chi</span> by a relative module.</p>
+</div>
+<div class="rmk fragment" data-name="What it gives up">
+<p>On an annulus <span class="math inline">\beta_0=\beta_1=1</span> and <span class="math inline">\chi=0</span>: the encircling clouds. Hence the guard of § III.</p>
+</div>
+</div>
+<aside class="notes">
+<p>⏱ 1:45 · by 6:45</p>
+<p>The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap?</p>
+<p>Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the clouds’ Betti numbers, plus the ranks of the connecting maps, the deltas. To get those ranks from the sequence you need the homology of the overlap itself, with its inclusion maps. In the alternating sum the deltas cancel, and what is left is exactly the inclusion–exclusion of the clouds’ own Euler characteristics.</p>
+<p>[click] And a complex for the overlap is expensive. The nerve of the lenses has a vertex for every meeting pair, up to m times n, and all m times n lenses can share a point, so it can have two to the m n faces.</p>
+<p>[click] So the profile is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union, never the overlap’s. That matters for inference, because a permutation test recomputes it a thousand times. Nothing is thrown away: the persistence of the overlap is stable too, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.</p>
+<p>[click] What it gives up: an annulus has one component and one loop, so Euler characteristic zero. That is the encircling picture again, and the reason for the guard.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -269,6 +338,10 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Why this curve</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
+<div class="vbody">
 <div class="theorem" data-num="2" data-name="Universality" data-cite="Kawamura–Majhi–Mitra">
 <p><span class="hyp">Let <span class="math inline">\Phi</span> assign to each <span class="math inline">\mathcal X</span> an integer profile, with</span></p>
 <ul>
@@ -279,11 +352,13 @@ Sushovan Majhi
 <p>Then <span class="math inline">\Phi=\Delta\chi</span>.</p>
 </div>
 <div class="rmk fragment" data-name="What it says, and what it does not">
-<p>It decides <strong>which</strong> Euler-level summary of the overlap, not that its value measures strength: <span class="math inline">\chi</span> is signed and not monotone. A stronger form asks only for a valuation, homotopy invariance, separation and normalization.</p>
+<p>It decides <strong>which</strong> Euler-level summary of the overlap, not that its value measures strength: <span class="math inline">\chi</span> is signed and not monotone. A stronger form asks only for a valuation in each cloud that depends on the overlap’s homotopy type, with separation and normalization.</p>
+</div>
 </div>
 <aside class="notes">
-<p>Why this curve and not another Euler integral. Suppose an assignment is an Euler integral of some pointwise function of the indicators, registers nothing when the clouds have no common overlap, and gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.</p>
-<p>[click] What this does not say: that a bigger value means a stronger interaction. The Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. There is a stronger version in the paper, assuming only a valuation, homotopy invariance and the same two axioms.</p>
+<p>⏱ 0:45 · by 7:30 · can be cut: say “separation and normalization single out this curve among Euler integrals” and move on.</p>
+<p>Why this curve, and not some other Euler integral? Suppose an assignment is an Euler integral of a pointwise function of the indicators; it registers nothing when the clouds have no common overlap; and it gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.</p>
+<p>[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; whether clouds interact is for the tests to decide.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -303,6 +378,7 @@ Sushovan Majhi
 <p><img data-src="assets/section-ii-plate.svg"></p>
 </div>
 <aside class="notes">
+<p>⏱ 0:10 · by 7:40</p>
 <p>Section two: what it costs, and how it moves when the data move.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -318,21 +394,30 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Computation</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
 <div class="theorem" data-num="3" data-name="Complexity" data-cite="Kawamura–Majhi–Mitra">
 <p>For <span class="math inline">|X|+|Y|=n</span> in fixed dimension <span class="math inline">d</span>, sweeping the Alpha complexes of <span class="math inline">X</span>, <span class="math inline">Y</span> and <span class="math inline">X\cup Y</span> in birth order computes <span class="math inline">\Delta\chi</span> in <span class="math inline">O\big(n^{\lceil d/2\rceil}\log n\big)</span> time and <span class="math inline">O\big(n^{\lceil d/2\rceil}\big)</span> space, forming no boundary matrix.</p>
 </div>
-<div class="env-row">
-<div class="rmk fragment" data-name="The sweep">
+<div class="fig-row">
+<div class="fig fragment" data-fragment-index="1" style="flex-basis: 57%;">
+<p><img data-src="assets/sweep.svg"></p>
+</div>
+<div class="stmts">
+<div class="rmk fragment" data-fragment-index="1" data-name="The sweep">
 <p>Each Euler characteristic curve is a running sum <span class="math inline">\sum_{a(\sigma)\le r}(-1)^{\dim\sigma}</span> over simplices sorted by birth. No persistence reduction.</p>
 </div>
-<div class="rmk fragment" data-name="Optimal, and beyond two">
-<p>Worst-case optimal in even <span class="math inline">d</span> among algorithms that build the filtration. <span class="math inline">k</span> clouds by inclusion–exclusion, <span class="math inline">O\big(2^k n^{\lceil d/2\rceil}\log n\big)</span>; off the diagonal, a weighted Alpha complex.</p>
+<div class="rmk fragment" data-fragment-index="2" data-name="Optimal, and beyond two">
+<p>In even <span class="math inline">d</span> the exponent is optimal for any algorithm that builds the filtration. <span class="math inline">k</span> clouds by inclusion–exclusion, <span class="math inline">O\big(2^k n^{\lceil d/2\rceil}\log n\big)</span>; off the diagonal, a weighted Alpha complex.</p>
+</div>
 </div>
 </div>
 <aside class="notes">
-<p>The cost. Three Alpha complexes, of X, of Y and of the pooled cloud. Sort each by birth scale, and the Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.</p>
-<p>[click] That is n to the ceiling of d over 2, times log n, the size of the Alpha complex.</p>
-<p>[click] In even dimension it is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.</p>
+<p>⏱ 1:30 · by 9:10</p>
+<p>The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each by birth scale, and its Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.</p>
+<p>[click] Here are the ring and the blob from the opening. The strip is the sweep for the pooled cloud: every edge a minus one at its birth, every triangle a plus one. Above, the solid curve is the Euler characteristic of X plus that of Y, and the dashed one is that of the union. Both start at a hundred and eighty, one per point, and fall together. The gap between them is the profile, below: first the loops in the gap between the clouds, then the ring filling in. The cost is that of the Alpha complex, n to the ceiling of d over 2, times log n.</p>
+<p>[click] In even dimension the exponent cannot be lowered by any algorithm that builds the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -347,6 +432,9 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Stability</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
 <div class="theorem" data-num="4" data-name="Stability" data-cite="Kawamura–Majhi–Mitra">
 <p><span class="hyp">Let <span class="math inline">\epsilon=\max_i d_H(X_i,X_i')</span>.</span> The overlap filtrations of <span class="math inline">\mathcal X</span> and <span class="math inline">\mathcal X'</span> are <span class="math inline">\epsilon</span>-interleaved; <span class="math inline">\Delta\chi(r)=\Delta\chi'(r)</span> whenever <span class="math inline">[r-\epsilon,r+\epsilon]</span> holds no critical scale of either; and <span class="math inline">\|\Delta\chi-\Delta\chi'\|_{L^1}\le2\epsilon\,(N+N')</span>, with <span class="math inline">N,N'</span> the numbers of bars.</p>
 </div>
@@ -357,8 +445,9 @@ Sushovan Majhi
 <p><span class="math inline">\Delta\chi</span> itself admits no interleaving distance, and no <span class="math inline">L^1</span> bound free of the bar count can hold.</p>
 </div>
 <aside class="notes">
-<p>Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is bounded by epsilon times the numbers of bars.</p>
-<p>[click] In the picture, two crossing rings and a perturbation: the curves coincide except near the scales where something happens. The long plateau at two is the two lenses where the rings cross.</p>
+<p>⏱ 1:30 · by 10:40</p>
+<p>Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is at most twice epsilon times the total number of bars.</p>
+<p>[click] In the picture: two crossing rings, and the same rings with every point moved. The curves coincide except in the shaded strips, near the scales where something happens. The long plateau at two is the two lenses where the rings cross.</p>
 <p>[click] And the honest form: the profile itself carries no interleaving distance, and the bar count in the L1 bound cannot be removed. Integer-valued means that close becomes equal, away from the critical scales.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -374,15 +463,21 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Consistency</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
+<div class="vbody">
 <div class="theorem" data-num="5" data-name="Consistency" data-cite="Kawamura–Majhi–Mitra">
-<p><span class="hyp">Let <span class="math inline">A_1,\dots,A_k\subset\mathbb R^d</span> be compact with reach at least <span class="math inline">\tau&gt;0</span>, sampled i.i.d. from measures positive on balls, and let <span class="math inline">r\in(0,\tau)</span> be a regular scale of <span class="math inline">\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)</span>.</span> Then almost surely, for all large samples, the <span class="math inline">\epsilon</span>-persistent Euler characteristic of the sample overlap equals <span class="math inline">\chi(T_r)</span>; and if <span class="math inline">r</span> is also regular for the sample, <span class="math inline">\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)</span> <strong>exactly</strong>.</p>
+<p><span class="hyp">Let <span class="math inline">A_1,\dots,A_k\subset\mathbb R^d</span> be compact with reach at least <span class="math inline">\tau&gt;0</span>, sampled i.i.d. from measures supported on them and positive on balls; let <span class="math inline">\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)</span> have finitely many critical values in <span class="math inline">(0,\tau)</span>, and <span class="math inline">r\in(0,\tau)</span> be regular for it.</span> Then almost surely, for all large samples, the <span class="math inline">\epsilon_{\max}</span>-persistent Euler characteristic of the sample overlap equals <span class="math inline">\chi(T_r)</span>, where <span class="math inline">\epsilon_{\max}=\max_i d_H(X_i,A_i)\to0</span>; and if <span class="math inline">r</span> is also regular for the sample, <span class="math inline">\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)</span> <strong>exactly</strong>.</p>
 </div>
 <div class="rmk fragment" data-name="How many samples">
-<p><span class="math inline">O\big(\epsilon^{-k_i}\log(1/\delta)\big)</span> points from <span class="math inline">A_i</span>, in its <strong>intrinsic</strong> dimension <span class="math inline">k_i</span>, not the ambient <span class="math inline">d</span>.</p>
+<p><span class="math inline">O\big(\epsilon^{-k_i}(\log\tfrac1\epsilon+\log\tfrac1\delta)\big)</span> points from <span class="math inline">A_i</span> for confidence <span class="math inline">1-\delta</span>, with <span class="math inline">\epsilon</span> set by the distance from <span class="math inline">r</span> to the critical scales: the <strong>intrinsic</strong> dimension <span class="math inline">k_i</span>, not the ambient <span class="math inline">d</span>.</p>
+</div>
 </div>
 <aside class="notes">
-<p>Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap, persistently in general, and exactly at scales that are regular for both.</p>
-<p>[click] The sample size depends on the intrinsic dimension of each set, as in Niyogi, Smale and Weinberger.</p>
+<p>⏱ 0:30 · by 11:10 · can be cut: keep the first sentence only.</p>
+<p>Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap at any regular scale: persistently, up to the sampling error, and exactly when the scale is regular for the sample too.</p>
+<p>[click] The sample size depends on the intrinsic dimension of each set, not the ambient one, as in Niyogi, Smale and Weinberger.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -402,6 +497,7 @@ Sushovan Majhi
 <p><img data-src="assets/section-iii-plate.svg"></p>
 </div>
 <aside class="notes">
+<p>⏱ 0:10 · by 11:20</p>
 <p>Section three: every number carries a test, and two applications.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -417,29 +513,35 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Every number carries a test</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
+</div>
 <div class="env-row">
 <div class="definition" data-num="2" data-name="Interaction quotient">
 <p>With <span class="math inline">\Phi(\Delta\chi)=\int|\Delta\chi(r)|\,dr</span>, <span class="math display">
 \widehat E=\frac{\Phi\big(\Delta\chi(\cdot;X_1,\dots,X_k)\big)}{\mathbb E_{H_0}\,\Phi}\,,
 </span> about <span class="math inline">1</span> when the labels are exchangeable, tending to <span class="math inline">0</span> under separation.</p>
 </div>
-<div class="proposition fragment" data-num="1" data-name="Exact tests" data-cite="Majhi">
+<div class="proposition fragment" data-fragment-index="0" data-num="3" data-name="Exact tests" data-cite="Majhi">
 <p><span class="hyp">If the labels of the pooled sample are exchangeable,</span> the two one-sided permutation <span class="math inline">p</span>-values satisfy <span class="math inline">\Pr[p\le\alpha]\le\alpha</span> for every statistic, every <span class="math inline">\alpha</span>, every sample size and every number <span class="math inline">B</span> of permutations.</p>
 </div>
 </div>
-<div class="env-row">
-<div class="rmk fragment" data-name="A guard for the blind spot">
-<p>A separation certificate also checks that the unions provably meet, from the first interaction scale <span class="math inline">r^\ast</span>; without it, an annular overlap is certified as separated.</p>
+<div class="fig-row">
+<div class="fig fragment" data-fragment-index="1" style="flex-basis: 57%;">
+<p><img data-src="assets/permtest.svg"></p>
 </div>
-<div class="rmk fragment" data-name="Comparisons">
-<p>A paired sign-flip test for claims such as <em>layer <span class="math inline">\ell+1</span> is more disentangled than layer <span class="math inline">\ell</span></em>. The statistic must be <strong>scale-free</strong>.</p>
+<div class="stmts">
+<div class="rmk fragment" data-fragment-index="2" data-name="A guard for the blind spot">
+<p>A separation claim is withheld when <span class="math inline">\Delta\chi</span> is silent just beyond the first interaction scale <span class="math inline">\hat r^\ast</span>, where the unions provably meet. Unguarded, the test certifies an annular overlap as separated, with probability tending to one.</p>
+</div>
 </div>
 </div>
 <aside class="notes">
-<p>The inferential layer. The interaction quotient: the profile’s mass, divided by its mean under relabeling. About one when the labels are exchangeable, near zero when the clouds are separated.</p>
-<p>[click] Relabel the pooled sample, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.</p>
-<p>[click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.</p>
-<p>[click] For comparisons, a paired sign-flip test. One lesson from building it: the statistic must be scale-free. On the raw mass, which has units of length, training dynamics of the feature norm masquerade as disentanglement.</p>
+<p>⏱ 1:45 · by 13:05</p>
+<p>The inferential layer. The interaction quotient is the profile’s mass divided by its mean under relabeling: about one when the labels are exchangeable, near zero when the clouds are separated.</p>
+<p>[click] To test: pool the points, relabel, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.</p>
+<p>[click] Two overlapping blobs. The band is what relabeling produces; the observed profile lies below it at almost every scale. On the right, the mass under 999 relabelings, and the observed mass far to its left: a quotient of 0.38, and p of one in a thousand, the smallest p that 999 relabelings can give. Separation, certified.</p>
+<p>[click] The guard. On the encircling example the profile vanishes, so the separation test would reject, with probability tending to one, exactly where the clouds meet. The repair costs nothing: the first interaction scale falls out of the same sweep, and if the profile is silent just beyond it, where the unions provably meet, we withhold the separation claim.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -454,19 +556,24 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Monsoon onset</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a></p>
+</div>
 <div class="standfirst math">
-<p>A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile and test the paired change in error.</p>
+<p>A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile, or swap it for a channel that sees no data, and test the paired change in error.</p>
 </div>
 <div class="methods fragment">
 <table class="caption-top" style="width:100%;">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -477,17 +584,21 @@ Sushovan Majhi
 <th style="text-align: center;">without</th>
 <th style="text-align: center;"><span class="math inline">\Delta</span>MAE, days (95% CI)</th>
 <th style="text-align: center;"><span class="math inline">p</span></th>
+<th style="text-align: center;">vs.&nbsp;null channel</th>
+<th style="text-align: center;"><span class="math inline">p</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">sharp</td>
+<td style="text-align: left;">moderate</td>
 <td style="text-align: left;">Nepal</td>
 <td style="text-align: center;">48</td>
 <td style="text-align: center;">9.27</td>
 <td style="text-align: center;">9.38</td>
 <td style="text-align: center;"><span class="math inline">-0.10</span> <span class="math inline">[-1.48,\,1.21]</span></td>
 <td style="text-align: center;">0.905</td>
+<td style="text-align: center;"><span class="math inline">+1.94</span></td>
+<td style="text-align: center;">0.028</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sharp</td>
@@ -497,6 +608,8 @@ Sushovan Majhi
 <td style="text-align: center;">7.02</td>
 <td style="text-align: center;"><span class="math inline">-0.84</span> <span class="math inline">[-2.07,\,0.38]</span></td>
 <td style="text-align: center;">0.200</td>
+<td style="text-align: center;"><span class="math inline">+0.11</span></td>
+<td style="text-align: center;">0.887</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">gradual</td>
@@ -506,6 +619,8 @@ Sushovan Majhi
 <td style="text-align: center;">20.39</td>
 <td style="text-align: center;"><span class="math inline">\mathbf{-3.03}</span> <span class="math inline">[-4.89,\,-1.15]</span></td>
 <td style="text-align: center;"><strong>0.003</strong></td>
+<td style="text-align: center;"><span class="math inline">-1.02</span></td>
+<td style="text-align: center;">0.246</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">gradual</td>
@@ -515,17 +630,20 @@ Sushovan Majhi
 <td style="text-align: center;">20.18</td>
 <td style="text-align: center;"><span class="math inline">\mathbf{-3.66}</span> <span class="math inline">[-5.13,\,-2.21]</span></td>
 <td style="text-align: center;"><strong>&lt; 0.001</strong></td>
+<td style="text-align: center;"><span class="math inline">-1.00</span></td>
+<td style="text-align: center;">0.204</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="aside-note fragment">
-<p>It helps where onset is gradual and the signal-to-noise ratio is low, and only there. Paired sign-flip randomization test, <span class="math inline">10^5</span> sign assignments. With Atish Mitra, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
+<p>Where onset is gradual, deleting the profile costs three days, but a channel that sees no data recovers two thirds of that: about one day is the topology’s, and it does not reach significance. The firmer evidence is at the detector level: the multi-delay profile is the best unsupervised onset detector on both gradual targets. Paired sign-flip tests, <span class="math inline">10^5</span> sign assignments. With Atish Mitra, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
 </div>
 <aside class="notes">
-<p>An application where the answer is mixed, and that is the point. Monsoon onset from daily rainfall: four signals, one of them the profile between the windows before and after each day, delay-embedded. To see what the topology contributes, delete it and test the paired change in error across years.</p>
-<p>[click] On the two Indian targets, where onset is sharp, deleting it changes nothing that survives the test. On the Western North Pacific and the Australian monsoons, where onset is gradual and noisy, deleting it costs three to three and a half days.</p>
-<p>[click] So: it helps in the low signal-to-noise regime, and only there. The test is a paired sign-flip randomization test. The Western North Pacific effect is negative under all eighty onset definitions we tried and significant in sixty-five; the Australian is significant in all eighty. Joint work with Atish, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
+<p>⏱ 1:30 · by 14:35</p>
+<p>An application where the honest answer is smaller than the first one, which is why every number carries a test. Monsoon onset from a daily monsoon index, with four signals; one is the profile between the windows before and after each day. To see what the topology contributes, delete it and test the paired change in error.</p>
+<p>[click] On the Indian targets, nothing survives the test. Where onset is gradual and noisy, the Western North Pacific and the Australian, deleting it costs three days or more, significantly. Our first version stopped there. But the other three channels share a late bias, and any fourth channel dilutes it. So we swapped the profile for a channel that sees no data: that recovers two thirds of the gain, and the day left for the topology is not significant.</p>
+<p>[click] What survives is narrower: the multi-delay profile is the best unsupervised onset detector on both gradual targets, ahead of the standard baselines. Joint work with Atish, Santanu Nandi, Md Nurujjaman and Buddha Nath Sharma.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -540,6 +658,9 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Disentanglement, certified</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
+</div>
 <div class="standfirst math">
 <p>Class-conditional clouds of <span class="math inline">111</span> trained networks: <span class="math inline">1{,}170</span> (network, layer, checkpoint) cells, <span class="math inline">52{,}650</span> certified pairwise measurements.</p>
 </div>
@@ -552,14 +673,15 @@ Sushovan Majhi
 <p>The mean pairwise quotient falls with depth: <span class="math inline">0.72\to0.63\to0.57\to0.18</span> on ResNet-56, CIFAR-10.</p>
 </div>
 <div class="rmk fragment" data-name="Early, step by step">
-<p><span class="math inline">12{,}375</span> paired tests between consecutive checkpoints: <span class="math inline">2{,}707</span> significant steps, <span class="math inline">2{,}026</span> of them decreases, <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
+<p><span class="math inline">12{,}375</span> paired sign-flip tests between consecutive checkpoints, on a <strong>scale-free</strong> statistic: <span class="math inline">2{,}707</span> significant steps, <span class="math inline">2{,}026</span> of them decreases, <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
 </div>
 </div>
 </div>
 <aside class="notes">
+<p>⏱ 1:30 · by 16:05</p>
 <p>Second application: when does a classifier pull its classes apart? Take the class-conditional point clouds at each layer and checkpoint of 111 trained networks. Every pairwise number is a certified measurement.</p>
-<p>[click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at its middle block.</p>
-<p>[click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. This is where the scale-free statistic matters: on the raw mass, every first-epoch step points the wrong way.</p>
+<p>[click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at block 6 of 8 and re-entangles toward its head.</p>
+<p>[click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. One lesson from building the test: the statistic must be scale-free. The raw mass has units of length, so the training dynamics of the feature norm masquerade as disentanglement; on it, every first-epoch step points the wrong way.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -574,6 +696,9 @@ Sushovan Majhi
 </section>
 <section class="slide level2">
 <h2>Mostly pairwise</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
+</div>
 <div class="definition" data-num="3" data-name="Triple versus strongest pair">
 <p>For classes <span class="math inline">c,c',c''</span> at layer <span class="math inline">\ell</span>: <span class="math inline">\ \rho_\ell=\widehat E_\ell(c,c',c'')\,\big/\,\max\big\{\widehat E_\ell(c,c'),\widehat E_\ell(c,c''),\widehat E_\ell(c',c'')\big\}</span>. Only a <span class="math inline">k</span>-fold profile can pose it.</p>
 </div>
@@ -584,6 +709,7 @@ Sushovan Majhi
 <p><span class="math inline">\rho\le1</span> in <span class="math inline">1{,}509</span> of <span class="math inline">1{,}560</span> cells (<span class="math inline">96.7\%</span>), median <span class="math inline">0.63</span>. An unstructured null already reaches <span class="math inline">83\%</span>; the evidence is the medians, <span class="math inline">0.44</span>–<span class="math inline">0.89</span> against <span class="math inline">0.85</span>–<span class="math inline">1.03</span> (<span class="math inline">p=3.3\times10^{-8}</span>). A regularity, not a law.</p>
 </div>
 <aside class="notes">
+<p>⏱ 1:15 · by 17:20 · can be cut: give the 96.7% and the median 0.63, skip the null comparison.</p>
 <p>A structural question only a k-fold statistic can ask: is a triple of classes more entangled than its most entangled pair?</p>
 <p>[click] Every triple of classes, at every layer of the three architectures: the ratio of the triple’s quotient to its strongest pair’s.</p>
 <p>[click] At or below one in ninety-seven percent of the cells, median 0.63. But be careful with the ninety-seven: an unstructured null already scores eighty-three. The evidence is in the medians: every cell median against the null medians, an exact one-sided Mann–Whitney test, p of three in a hundred million. In the deep layers, 597 of 600, median 0.47. And it is a regularity, not a law: an adversarial search finds configurations with ratio near two.</p>
@@ -600,23 +726,70 @@ Sushovan Majhi
       }</style></aside>
 </section>
 <section class="slide level2">
-<h2>What remains</h2>
-<div class="question" data-num="1" data-name="Whether, not how much">
-<p><span class="math inline">\chi</span> is signed and blind on annuli. The relative-homology refinement of the paper is stable in the interleaving distance; can a test use it directly?</p>
+<h2>Memorization, counted</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a></p>
 </div>
-<div class="question fragment" data-num="2" data-name="Off the diagonal">
-<p>A different scale per cloud: what does the multiparameter profile certify that the diagonal cannot?</p>
+<div class="standfirst math">
+<p>Does a generator copy its training images? Compare its samples’ overlap with training images <span class="math inline">T</span> and held-out images <span class="math inline">H</span>; if it copies nothing, relabelling <span class="math inline">T</span> and <span class="math inline">H</span> is an exact null.</p>
 </div>
-<div class="rmk fragment" data-name="Next">
-<ul>
-<li><em>Statistical Inference for Topological Interaction</em>, with Kazuhiro Kawamura, Atish Mitra and <span class="name-hl">Pramita Bagchi</span>.</li>
-<li><em>Reconstruction of Transversal Intersections from Separate Samples</em>, with Kazuhiro Kawamura.</li>
-</ul>
+<div class="definition" data-num="4" data-name="Small-scale mass">
+<p><span class="math inline">T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr</span> below the near-duplicate scale <span class="math inline">r_0</span>, where excess overlap components count distinct images copied.</p>
+</div>
+<div class="fig-row">
+<div class="fig fragment" data-fragment-index="1" style="flex-basis: 57%;">
+<p><img data-src="assets/memo.svg"></p>
+</div>
+<div class="stmts">
+<div class="rmk fragment" data-fragment-index="1" data-name="Copies, counted">
+<p>CIFAR-10 diffusion models at <span class="math inline">r_0</span>: <span class="math inline">132</span> against <span class="math inline">7</span> on a <span class="math inline">200</span>-image memorizer, <span class="math inline">13</span> against <span class="math inline">14</span> on the control. With Pramita Bagchi.</p>
+</div>
+<div class="rmk fragment" data-fragment-index="2" data-name="What the scale buys">
+<p>Of <span class="math inline">24</span> generators that copy nothing, a nearest-neighbour statistic rejects <span class="math inline">7</span>, <span class="math inline">T_{\rm small}</span> one; a count at <span class="math inline">r_0</span> is as specific. The profile adds steadiness in <span class="math inline">r_0</span> and a <span class="math inline">3</span>-fold form.</p>
+</div>
+</div>
 </div>
 <aside class="notes">
-<p>What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.</p>
-<p>[click] Off the diagonal, each cloud at its own scale: what does the multiparameter profile certify that the diagonal cannot?</p>
-<p>[click] Two pieces of work in progress: the statistics of topological interaction, with Kazuhiro, Atish and Pramita Bagchi; and reconstructing a transversal intersection from separate samples, with Kazuhiro.</p>
+<p>⏱ 1:15 · by 18:35 · can be cut: one sentence, “the same profile counts the training images a generative model copies, with an exact null”.</p>
+<p>A third application, with Pramita Bagchi. Does a generative model copy its training images? Take its samples, the training images, and images held out. If the model copies nothing, training and held-out images are exchangeable given the samples, so relabelling them is an exact test. The statistic is the profile’s mass below the near-duplicate scale, against training minus against held-out.</p>
+<p>[click] At that scale, shaded, a diffusion model trained on 200 images has 132 overlap components with its training set and 7 with held-out images; each excess component is a distinct image copied. The control, trained on fifty thousand, has 13 against 14.</p>
+<p>[click] Honestly, the scale buys the specificity, not the topology: a plain count at that scale is as specific. The profile adds steadiness in the choice of scale, and a three-fold form that asks which images two models both copy.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+<h2>What remains</h2>
+<div class="env-row remains-row">
+<div class="qcol">
+<div class="question" data-num="1" data-name="Whether, not how much">
+<p><span class="math inline">\chi</span> is signed and blind on annuli. The paper’s relative-homology refinement sees them and is stable; can a test use it directly?</p>
+</div>
+<p><img data-src="assets/remains-annulus.svg" class="remains-fig"></p>
+</div>
+<div class="qcol fragment">
+<div class="question" data-num="2" data-name="Off the diagonal">
+<p>A different scale per cloud: what does the two-parameter profile <span class="math inline">\Delta\chi(r,s)</span> certify that the diagonal cannot?</p>
+</div>
+<p><img data-src="assets/remains-surface.svg" class="remains-fig"></p>
+</div>
+</div>
+<div class="rmk fragment" data-name="Next, with Kazuhiro Kawamura and Atish Mitra">
+<p><em>Statistical Inference for Topological Interaction</em> · <em>Reconstruction of Transversal Intersections from Separate Samples</em></p>
+</div>
+<aside class="notes">
+<p>⏱ 1:00 · by 19:35; Thank-you slide to about 19:50, leaving 5 minutes for questions.</p>
+<p>What remains. The opening picture once more, at a scale where the ring and the blob plainly meet: the overlap is an annulus, one component and one loop, and its Euler characteristic is zero. The paper’s relative-homology refinement sees it, and is stable; can a test use it directly?</p>
+<p>[click] And off the diagonal, each cloud at its own scale. This is the whole surface for the same two clouds; this talk has lived on the dashed line, and most of the surface is that blind zero. What does the surface certify that the line cannot? [MDS26: Robyn is about to tell us how to read two-parameter objects like this one.]</p>
+<p>[click] Two pieces of work in progress, both with Kazuhiro and Atish: the statistics of topological interaction, and reconstructing a transversal intersection from separate samples.</p>
 <p>Thank you.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -634,11 +807,224 @@ Sushovan Majhi
 <h2>Thank you</h2>
 <div class="finis">Q . E . D .</div>
 <div class="contact">
-<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a> · <a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a> · <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a> · <a href="https://smajhi.com">smajhi.com</a> · <a href="mailto:s.majhi@gwu.edu">s.majhi@gwu.edu</a></p>
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a> · <a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a> · <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a> · <a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a> · <a href="https://smajhi.com">smajhi.com</a> · <a href="mailto:s.majhi@gwu.edu">s.majhi@gwu.edu</a></p>
 </div>
 <div class="subscription">
 <p><em>Joint work with</em> Kazuhiro Kawamura and Atish Mitra. SIAM Conference on Mathematics of Data Science · Salt Lake City · 16 November 2026.</p>
 </div>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>Mixup barcodes</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
+<div class="rmk" data-name="Neither refines the other">
+<p>The mixup barcode of Wagner et al.&nbsp;is the image persistence of <span class="math inline">\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)</span>. It keeps graded homology that <span class="math inline">\Delta\chi</span> collapses, yet it does not determine <span class="math inline">\Delta\chi</span>, which needs <span class="math inline">\chi</span> of one cloud alone. The comparison is by properties.</p>
+</div>
+<div class="methods">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">mixup barcode</th>
+<th style="text-align: center;"><span class="math inline">\Delta\chi</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">symmetric in the clouds</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">k&gt;2</span> clouds</td>
+<td style="text-align: center;">open</td>
+<td style="text-align: center;">inclusion–exclusion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hypothesis test</td>
+<td style="text-align: center;">open</td>
+<td style="text-align: center;">exact permutation tests</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cost</td>
+<td style="text-align: center;">image persistence, cubic in the simplex count</td>
+<td style="text-align: center;">sweep, <span class="math inline">O(n^{\lceil d/2\rceil}\log n)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">measured, identical clouds</td>
+<td style="text-align: center;"><span class="math inline">31.7</span> s per pair</td>
+<td style="text-align: center;"><span class="math inline">3.7</span> s per pair</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="aside-note">
+<p>Timing on the final-epoch representations of <span class="math inline">104</span> networks (<a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a>). In fairness: there, total mixup predicts generalization better than the null-normalized quotient, <span class="math inline">R^2=0.84</span> against <span class="math inline">0.34</span>.</p>
+</div>
+<aside class="notes">
+<p>Backup. The barcode keeps graded homology we throw away, and neither invariant determines the other. What we gain is symmetry, every k, an exact integer readout, and no matrix reduction: about eight and a half times faster per pair on the same clouds, which is what makes a thousand permutations per test affordable. In fairness, total mixup predicted generalization better than our quotient, because the quotient divides out the feature scale on purpose.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>The relative refinement</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+</div>
+<div class="definition" data-num="A" data-name="Relative interaction module">
+<p>What each cloud adds to the others: <span class="math display">
+\mathrm{RPH}_*(\mathcal X)=\bigoplus_{i=1}^{k}\Big\{H_*\big(\mathcal U(X_i;t_i),\ \mathcal U(X_i;t_i)\cap\textstyle\bigcup_{j\ne i}\mathcal U(X_j;t_j)\big)\Big\}_{\mathbf t\ge0}.
+</span></p>
+</div>
+<div class="theorem" data-num="A" data-name="Stability" data-cite="Kawamura–Majhi–Mitra">
+<p><span class="hyp">For color-matched perturbations, <span class="math inline">\epsilon=\max_i d_H(X_i,X_i')</span>,</span> <span class="math inline">d_I\big(\mathrm{RPH}_*(\mathcal X),\mathrm{RPH}_*(\mathcal X')\big)\le\epsilon</span> in the multiparameter interleaving distance.</p>
+</div>
+<div class="rmk" data-name="What it sees, and what it does not">
+<p>Sample <span class="math inline">Y</span> on a torus and <span class="math inline">X</span> on a longitude: the overlap is a band and every <span class="math inline">\chi</span> vanishes, yet <span class="math inline">H_1(T^2,S^1)=H_2(T^2,S^1)=\mathbb Z</span>. For <span class="math inline">k\ge3</span> it is not complete, and it needs persistence rather than a sweep.</p>
+</div>
+<aside class="notes">
+<p>Backup. Keep the inclusions, not just chi: for each cloud, its homology relative to its overlap with the others, summed over the clouds. It is interleaving-stable under color-matched perturbation. It sees the torus-and-longitude example that chi misses; for three or more clouds it is provably incomplete, and it costs a persistence computation. We do not yet test with it, which is open question one.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>High dimensions</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
+</div>
+<div class="proposition" data-num="A" data-name="Projection is conservative for separation" data-cite="Majhi">
+<p><span class="hyp">For an orthogonal projection <span class="math inline">P</span> and <span class="math inline">r^\ast(X,Y)=\tfrac12\min_{x\in X,y\in Y}\|x-y\|</span>,</span> <span class="math inline">r^\ast(PX,PY)\le r^\ast(X,Y)</span>: offsets disjoint in the shadow are disjoint in the ambient space.</p>
+</div>
+<div class="env-row">
+<div class="rmk" data-name="What we do">
+<p>Measure on a PCA shadow fitted to the pooled clouds, blind to labels, so the tests stay exact: <span class="math inline">d_0=5</span>, or <span class="math inline">4</span> for triple scans. Depth conclusions are unchanged at <span class="math inline">d_0=3,4,6</span>: median Spearman <span class="math inline">0.91</span>, <span class="math inline">0.96</span>, <span class="math inline">0.97</span> against <span class="math inline">d_0=5</span>.</p>
+</div>
+<div class="rmk" data-name="Where it breaks">
+<p>Concentration of measure. In embeddings of high effective rank the scale window collapses: on copy-detection features (effective rank <span class="math inline">574</span>) the topological statistics go null while a nearest-neighbour fraction still fires (<a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a>).</p>
+</div>
+</div>
+<aside class="notes">
+<p>Backup. We measure on a five-dimensional PCA shadow fitted without labels, so exactness survives. Projection can only bring first contact earlier, so disjointness in the shadow is disjointness in the ambient space. The depth conclusions do not move between three and six dimensions. The real limit is concentration of measure: in high effective rank the scale window collapses, and there a nearest-neighbour statistic still works where ours goes null.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>The guard in practice</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
+</div>
+<div class="rmk" data-name="On trained networks: never">
+<p>Zero firings in <span class="math inline">52{,}650</span> pairwise measurements (<span class="math inline">42{,}570</span> distinct clouds), and zero again when <span class="math inline">45{,}225</span> cells were re-evaluated under three forms of the guard. Class overlaps are blobs: <span class="math inline">\Delta\chi</span> first returns to zero a median <span class="math inline">78</span> of <span class="math inline">181</span> grid points after contact. Zero says the pattern never occurred, not that cancellation is impossible.</p>
+</div>
+<div class="rmk" data-name="Where it matters">
+<p><span class="math inline">X</span> uniform on a disc, <span class="math inline">Y</span> on a circle inside it: the overlap is an annular band, and the unguarded test certifies separation at <span class="math inline">p_\downarrow=0.005</span>. The first interaction scale, <span class="math inline">\hat r^\ast=0.005&lt;0.40</span>, blocks it, at no cost: it falls out of the same sweep.</p>
+</div>
+<aside class="notes">
+<p>Backup. Never, on trained networks: zero firings in fifty-two thousand measurements, and zero again under stricter forms of the guard, because class overlaps are blobs, not annuli. It still matters: on a disc with a circle inside, the unguarded test certifies separation at p of half a percent, and the guard blocks it for free. The synthetic case is from the statistics paper in preparation.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>Simpler statistics</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a> · <a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a> · <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a></p>
+</div>
+<div class="methods">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">question</th>
+<th style="text-align: center;">simpler statistic</th>
+<th style="text-align: center;">the profile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">rank MNIST pairs by confusability (Spearman)</td>
+<td style="text-align: center;"><span class="math inline">5</span>-NN <span class="math inline">0.86</span>, probe <span class="math inline">0.83</span>, energy <span class="math inline">0.77</span>, Fisher <span class="math inline">0.74</span></td>
+<td style="text-align: center;">quotient <span class="math inline">0.83</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">memorization: of <span class="math inline">24</span> generators that copy nothing, rejected</td>
+<td style="text-align: center;">nearest-neighbour <span class="math inline">7</span>, count at <span class="math inline">r_0</span> <span class="math inline">0</span></td>
+<td style="text-align: center;"><span class="math inline">T_{\rm small}</span> <span class="math inline">1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">memorization: copies needed to be seen, of <span class="math inline">500</span></td>
+<td style="text-align: center;">nearest-neighbour <span class="math inline">50</span></td>
+<td style="text-align: center;"><span class="math inline">T_{\rm small}</span> <span class="math inline">10</span>, as the count</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">monsoon onset against persistence diagrams</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">ahead by <span class="math inline">8.2</span> days (WNP), <span class="math inline">11.6</span> (Australian)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="aside-note">
+<p>Often a simpler statistic does as well, and the papers say so. What the profile adds is the exact certificate, the <span class="math inline">k</span>-fold terms and the scale resolution. MMD has not been benchmarked.</p>
+</div>
+<aside class="notes">
+<p>Backup. Honestly, a five-nearest-neighbour count ranks MNIST confusability as well as we do, and in the memorization audit a thresholded count at the same scale is as specific. The profile earns its place with exact certificates, the k-fold and scale-resolved forms, and steadiness in the scale. Against persistence diagrams on the monsoon it wins on the two gradual-onset systems, though persistence is faster there. We have not benchmarked MMD.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 </section></section>
     </div>
