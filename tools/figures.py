@@ -129,6 +129,7 @@ def write(name, content):
 # computed figures (matplotlib, text kept as text)
 # --------------------------------------------------------------------------
 import intersection_ecp as iecp
+from intersection_ecp import core as iecp_core
 
 
 def _save(fig, name):
@@ -391,6 +392,134 @@ def fig_approach():
         _save(fig, f"approach-{i}.svg")
 
 
+def _signed_births(P):
+    """(birth radius, sign) of every simplex of the Alpha complex of P."""
+    import gudhi
+    st = gudhi.AlphaComplex(points=P, precision="fast").create_simplex_tree()
+    out = [(np.sqrt(max(v, 0.0)), (-1) ** (len(s) - 1)) for s, v in st.get_filtration()]
+    return np.array(out)
+
+
+def fig_sweep():
+    """Theorem 3 in a picture: chi_X + chi_Y against chi_{X u Y}; the gap is Delta chi.
+
+    The ring and blob of the opener's last frame.  Each Euler characteristic
+    curve is a running sum of signs over the Alpha complex's simplices in birth
+    order; the strip shows those signs for X u Y.
+    """
+    rng = np.random.default_rng(5)
+    X = _ring(rng, (0, 0), 1.5, 0.1, 120)
+    Y = _blob(rng, (0, 0), 0.28, 60)
+    rmax = 1.6
+    r = np.linspace(0, rmax, 641)
+    cx, cy = iecp_core.ecc_alpha(X, r), iecp_core.ecc_alpha(Y, r)
+    cu = iecp_core.ecc_alpha(np.r_[X, Y], r)
+    d = cx + cy - cu
+    assert np.array_equal(d, iecp.intersection_profile([X, Y], r))
+    sb = _signed_births(np.r_[X, Y])
+    sb = sb[sb[:, 0] > 0]                       # vertices are all born at 0
+
+    fig = plt.figure(figsize=(7.0, 4.1))
+    gs = fig.add_gridspec(3, 2, width_ratios=[0.9, 3.0], height_ratios=[2.1, 0.42, 1.25],
+                          hspace=0.16, wspace=0.1)
+    ins = fig.add_subplot(gs[:2, 0])
+    ins.scatter(X[:, 0], X[:, 1], s=3, color=OX, lw=0); ins.scatter(Y[:, 0], Y[:, 1], s=3, color=INK, lw=0)
+    ins.text(-1.55, 1.45, "$X$", color=OX, fontsize=15); ins.text(0.0, -0.95, "$Y$", color=INK, fontsize=15, ha="center")
+    ins.set_xlim(-1.8, 1.8); ins.set_ylim(-1.8, 1.8); ins.set_aspect("equal"); ins.axis("off")
+
+    top = 9
+    a1 = fig.add_subplot(gs[0, 1])
+    a1.fill_between(r, cx + cy, cu, step="post", color=OX, alpha=0.22, lw=0)
+    a1.step(r, cx + cy, where="post", color=OX, lw=1.6, label=r"$\chi_X+\chi_Y$")
+    a1.step(r, cu, where="post", color=INK, lw=1.2, ls="--", label=r"$\chi_{X\cup Y}$")
+    a1.set_ylim(-6, top); a1.set_xlim(0, rmax)
+    a1.legend(fontsize=12, loc="lower right")
+    a1.annotate(f"both start at $|X|+|Y|={len(X) + len(Y)}$", xy=(0.14, top - 0.3), xytext=(0.62, 6.2),
+                fontsize=11, color=PENCIL, style="italic", va="center",
+                arrowprops=dict(arrowstyle="-", color=PENCIL, lw=0.7))
+    a1.text(0.555, -5.2, "loops in the gap", fontsize=11, color=OX, style="italic", ha="left", va="bottom")
+    a1.text(1.42, 2.6, "the ring fills", fontsize=11, color=OX, style="italic", ha="left", va="bottom")
+    a1.tick_params(labelbottom=False, labelsize=10)
+    a1.set_ylabel(r"$\chi$", fontsize=13)
+
+    a2 = fig.add_subplot(gs[1, 1], sharex=a1)
+    up, dn = sb[sb[:, 1] > 0, 0], sb[sb[:, 1] < 0, 0]
+    a2.vlines(up, 0, 1, color=SEPIA, lw=0.35, alpha=0.7)
+    a2.vlines(dn, -1, 0, color=OX, lw=0.35, alpha=0.7)
+    a2.axhline(0, color=RULE, lw=0.6)
+    a2.set_ylim(-1.15, 1.15); a2.set_yticks([])
+    for s in ("left", "bottom"):
+        a2.spines[s].set_visible(False)
+    a2.tick_params(bottom=False, labelbottom=False)
+    a2.text(rmax, 0.55, "triangles $+1$", fontsize=10.5, color=SEPIA, style="italic", ha="right", va="center")
+    a2.text(rmax, -0.55, "edges $-1$", fontsize=10.5, color=OX, style="italic", ha="right", va="center")
+    a2.set_ylabel("births", fontsize=11, rotation=0, ha="right", va="center", color=PENCIL)
+
+    a3 = fig.add_subplot(gs[2, 1], sharex=a1)
+    a3.fill_between(r, 0, d, step="post", color=OX, alpha=0.22, lw=0)
+    a3.step(r, d, where="post", color=OX, lw=1.6)
+    a3.set_ylim(-0.8, max(d.max(), 1) + 1.5)
+    a3.set_ylabel(r"$\Delta\chi$", fontsize=13)
+    a3.set_xlabel("scale $r$", fontsize=12)
+    a3.tick_params(labelsize=10)
+    a3.text(0.012, a3.get_ylim()[1] - 0.3, "the gap above", fontsize=11, color=PENCIL, style="italic", va="top")
+    print("  sweep:", len(sb), "simplices of positive birth; max Delta chi", d.max())
+    _save(fig, "sweep.svg")
+
+
+def fig_permtest():
+    """Proposition 3 in a picture: the observed profile against its relabelings,
+    and the statistic against its permutation distribution."""
+    rng = np.random.default_rng(11)
+    X = _blob(rng, (-0.6, 0), 0.4, 60); Y = _blob(rng, (0.6, 0), 0.4, 60)
+    r = iecp_core.default_r_grid([X, Y], num=200)
+    B = 999
+    Z = np.r_[X, Y]
+    cache = {(0, 1): iecp_core.ecc_alpha(Z, r)}
+    d = iecp.intersection_profile([X, Y], r, _cache=dict(cache))
+    T = iecp.profile_stat(d, r, "int")
+    prof, Tp = [], np.empty(B)
+    for b in range(B):
+        idx = rng.permutation(len(Z))
+        dp = iecp.intersection_profile([Z[idx[:60]], Z[idx[60:]]], r, _cache=dict(cache))
+        prof.append(dp); Tp[b] = iecp.profile_stat(dp, r, "int")
+    prof = np.array(prof)
+    p_down = (1 + np.sum(Tp <= T)) / (1 + B)
+    E = T / Tp.mean()
+    lo, hi = np.percentile(prof, 5, axis=0), np.percentile(prof, 95, axis=0)
+    med = np.median(prof, axis=0)
+
+    fig = plt.figure(figsize=(7.0, 3.2))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.7, 1.0], wspace=0.28)
+    a1 = fig.add_subplot(gs[0, 0])
+    a1.fill_between(r, lo, hi, step="post", color=RULE, alpha=0.6, lw=0, label="relabelings, 5–95%")
+    a1.step(r, med, where="post", color=SEPIA, lw=0.9, ls=":", label="relabelings, median")
+    a1.step(r, d, where="post", color=OX, lw=1.7, label="observed")
+    a1.set_xlim(0, r[-1]); a1.set_ylim(-1.5, hi.max() + 2)
+    a1.set_xlabel("scale $r$", fontsize=12); a1.set_ylabel(r"$\Delta\chi(r)$", fontsize=13)
+    a1.legend(fontsize=11, loc="upper right")
+    a1.tick_params(labelsize=10)
+    ins = fig.add_axes([0.42, 0.24, 0.15, 0.3])
+    ins.scatter(X[:, 0], X[:, 1], s=2.5, color=OX, lw=0); ins.scatter(Y[:, 0], Y[:, 1], s=2.5, color=INK, lw=0)
+    ins.set_aspect("equal"); ins.axis("off")
+
+    a2 = fig.add_subplot(gs[0, 1])
+    a2.hist(Tp, bins=32, color=RULE, edgecolor=PAPER, lw=0.4)
+    a2.axvline(T, color=OX, lw=1.8)
+    a2.axvline(Tp.mean(), color=SEPIA, lw=0.9, ls=":")
+    ytop = a2.get_ylim()[1]
+    a2.text(T, ytop * 0.98, "  observed", color=OX, fontsize=11, style="italic", va="top")
+    a2.text(Tp.mean(), ytop * 1.02, r"$\mathbb{E}_{H_0}\Phi$", color=SEPIA, fontsize=11, ha="center", va="bottom")
+    pstr = f"{p_down:.3f}" if p_down >= 0.001 else "0.001"
+    a2.text(0.1, 0.62, rf"$\widehat E = {E:.2f}$" + "\n" + rf"$p = {pstr}$" + "\n" + rf"$B = {B}$",
+            transform=a2.transAxes, ha="left", va="top", fontsize=12.5, color=INK, linespacing=1.5)
+    a2.set_xlabel(r"$\Phi = \int|\Delta\chi|\,dr$", fontsize=12)
+    a2.set_yticks([]); a2.spines["left"].set_visible(False)
+    a2.tick_params(labelsize=10)
+    print(f"  permtest: T={T:.4f} null mean={Tp.mean():.4f} E={E:.3f} p_down={p_down:.4f} min Tp={Tp.min():.4f}")
+    _save(fig, "permtest.svg")
+
+
 # --------------------------------------------------------------------------
 # section plates and the title plate
 # --------------------------------------------------------------------------
@@ -460,14 +589,15 @@ def title_plate():
     _save(fig, "title-plate.svg")
 
 
+FIGURES = {
+    "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples,
+    "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
+}
+
 if __name__ == "__main__":
+    # python3 tools/figures.py            -> every figure
+    # python3 tools/figures.py sweep ...  -> just those
     os.makedirs(OUT, exist_ok=True)
-    fig_approach()
-    fig_trio()
-    fig_stability()
-    fig_depth()
-    fig_triples()
-    plate_i()
-    plate_ii()
-    plate_iii()
-    title_plate()
+    for name in sys.argv[1:] or FIGURES:
+        FIGURES[name]()

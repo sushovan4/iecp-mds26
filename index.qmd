@@ -86,7 +86,10 @@ $$
 $$
 \Delta\chi(\mathbf t;\mathcal X)\;=\;\chi\Big(\bigcap_{i=1}^k\mathcal U(X_i;t_i)\Big).
 $$
-On the diagonal, for two clouds, $\Delta\chi(r)=\chi_X(r)+\chi_Y(r)-\chi_{X\cup Y}(r)$.
+On the diagonal, for two clouds,
+$$
+\Delta\chi(r)=\chi_X(r)+\chi_Y(r)-\chi_{X\cup Y}(r).
+$$
 :::
 :::
 
@@ -129,7 +132,9 @@ $$
 \beta_q(A\cap B)=\Delta\beta_q+\delta_q+\delta_{q+1},
 $$
 with $\delta_q$ the rank of the connecting map $H_q(A\cup B)\to H_{q-1}(A\cap B)$. The alternating sum cancels the $\delta$'s:
-$\chi(A\cap B)=\chi(A)+\chi(B)-\chi(A\cup B)$.
+$$
+\chi(A\cap B)=\chi(A)+\chi(B)-\chi(A\cup B).
+$$
 :::
 
 ::: {.proposition .fragment data-num="2" data-name="The overlap's own complex" data-cite="Kawamura–Majhi–Mitra"}
@@ -162,6 +167,7 @@ Because homology does not split over a union. Mayer–Vietoris gives the Betti n
 
 ## Why this curve
 
+:::: {.vbody}
 ::: {.theorem data-num="2" data-name="Universality" data-cite="Kawamura–Majhi–Mitra"}
 [Let $\Phi$ assign to each $\mathcal X$ an integer profile, with]{.hyp}
 
@@ -175,6 +181,7 @@ Then $\Phi=\Delta\chi$.
 ::: {.rmk .fragment data-name="What it says, and what it does not"}
 It decides **which** Euler-level summary of the overlap, not that its value measures strength: $\chi$ is signed and not monotone. A stronger form asks only for a valuation, homotopy invariance, separation and normalization.
 :::
+::::
 
 ::: {.notes}
 Why this curve and not another Euler integral. Suppose an assignment is an Euler integral of some pointwise function of the indicators, registers nothing when the clouds have no common overlap, and gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.
@@ -200,20 +207,26 @@ Section two: what it costs, and how it moves when the data move.
 For $|X|+|Y|=n$ in fixed dimension $d$, sweeping the Alpha complexes of $X$, $Y$ and $X\cup Y$ in birth order computes $\Delta\chi$ in $O\big(n^{\lceil d/2\rceil}\log n\big)$ time and $O\big(n^{\lceil d/2\rceil}\big)$ space, forming no boundary matrix.
 :::
 
-::: {.env-row}
-::: {.rmk .fragment data-name="The sweep"}
+::: {.fig-row}
+::: {.fig .fragment data-fragment-index="1" style="flex-basis: 57%;"}
+![](assets/sweep.svg)
+:::
+
+::: {.stmts}
+::: {.rmk .fragment data-fragment-index="1" data-name="The sweep"}
 Each Euler characteristic curve is a running sum $\sum_{a(\sigma)\le r}(-1)^{\dim\sigma}$ over simplices sorted by birth. No persistence reduction.
 :::
 
-::: {.rmk .fragment data-name="Optimal, and beyond two"}
+::: {.rmk .fragment data-fragment-index="2" data-name="Optimal, and beyond two"}
 Worst-case optimal in even $d$ among algorithms that build the filtration. $k$ clouds by inclusion–exclusion, $O\big(2^k n^{\lceil d/2\rceil}\log n\big)$; off the diagonal, a weighted Alpha complex.
+:::
 :::
 :::
 
 ::: {.notes}
 The cost. Three Alpha complexes, of X, of Y and of the pooled cloud. Sort each by birth scale, and the Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.
 
-[click] That is n to the ceiling of d over 2, times log n, the size of the Alpha complex.
+[click] In the picture, the ring and the blob from the opening. The strip is the sweep: every edge is a minus one at its birth, every triangle a plus one. The solid curve is the Euler characteristic of X plus that of Y, the dashed one that of the union, and the gap between them is the profile: the loops in the gap between the clouds, then the ring filling in. The cost is that of the Alpha complex, n to the ceiling of d over 2, times log n.
 
 [click] In even dimension it is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.
 :::
@@ -244,6 +257,7 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 
 ## Consistency
 
+:::: {.vbody}
 ::: {.theorem data-num="5" data-name="Consistency" data-cite="Kawamura–Majhi–Mitra"}
 [Let $A_1,\dots,A_k\subset\mathbb R^d$ be compact with reach at least $\tau>0$, sampled i.i.d. from measures positive on balls, and let $r\in(0,\tau)$ be a regular scale of $\rho\mapsto T_\rho=\bigcap_i\mathcal U(A_i;\rho)$.]{.hyp} Then almost surely, for all large samples, the $\epsilon$-persistent Euler characteristic of the sample overlap equals $\chi(T_r)$; and if $r$ is also regular for the sample, $\Delta\chi(r;X_1,\dots,X_k)=\chi(T_r)$ **exactly**.
 :::
@@ -251,6 +265,7 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 ::: {.rmk .fragment data-name="How many samples"}
 $O\big(\epsilon^{-k_i}\log(1/\delta)\big)$ points from $A_i$, in its **intrinsic** dimension $k_i$, not the ambient $d$.
 :::
+::::
 
 ::: {.notes}
 Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap, persistently in general, and exactly at scales that are regular for both.
@@ -281,18 +296,24 @@ $$
 about $1$ when the labels are exchangeable, tending to $0$ under separation.
 :::
 
-::: {.proposition .fragment data-num="3" data-name="Exact tests" data-cite="Majhi"}
+::: {.proposition .fragment data-fragment-index="0" data-num="3" data-name="Exact tests" data-cite="Majhi"}
 [If the labels of the pooled sample are exchangeable,]{.hyp} the two one-sided permutation $p$-values satisfy $\Pr[p\le\alpha]\le\alpha$ for every statistic, every $\alpha$, every sample size and every number $B$ of permutations.
 :::
 :::
 
-::: {.env-row}
-::: {.rmk .fragment data-name="A guard for the blind spot"}
+::: {.fig-row}
+::: {.fig .fragment data-fragment-index="1" style="flex-basis: 57%;"}
+![](assets/permtest.svg)
+:::
+
+::: {.stmts}
+::: {.rmk .fragment data-fragment-index="2" data-name="A guard for the blind spot"}
 A separation certificate also checks that the unions provably meet, from the first interaction scale $r^\ast$; without it, an annular overlap is certified as separated.
 :::
 
-::: {.rmk .fragment data-name="Comparisons"}
+::: {.rmk .fragment data-fragment-index="3" data-name="Comparisons"}
 A paired sign-flip test for claims such as *layer $\ell+1$ is more disentangled than layer $\ell$*. The statistic must be **scale-free**.
+:::
 :::
 :::
 
@@ -300,6 +321,8 @@ A paired sign-flip test for claims such as *layer $\ell+1$ is more disentangled 
 The inferential layer. The interaction quotient: the profile's mass, divided by its mean under relabeling. About one when the labels are exchangeable, near zero when the clouds are separated.
 
 [click] Relabel the pooled sample, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.
+
+[click] Two overlapping blobs. The observed profile lies below the whole band of relabelings, and its mass sits far left of the null distribution: a quotient of 0.38, p of one in a thousand with 999 relabelings, the smallest p that many permutations can give. Separation, certified.
 
 [click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.
 
@@ -391,6 +414,7 @@ A structural question only a k-fold statistic can ask: is a triple of classes mo
 
 ## What remains
 
+:::: {.vbody}
 ::: {.question data-num="1" data-name="Whether, not how much"}
 $\chi$ is signed and blind on annuli. The relative-homology refinement of the paper is stable in the interleaving distance; can a test use it directly?
 :::
@@ -403,6 +427,7 @@ A different scale per cloud: what does the multiparameter profile certify that t
 - *Statistical Inference for Topological Interaction*, with Kazuhiro Kawamura, Atish Mitra and [Pramita Bagchi]{.name-hl}.
 - *Reconstruction of Transversal Intersections from Separate Samples*, with Kazuhiro Kawamura.
 :::
+::::
 
 ::: {.notes}
 What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.

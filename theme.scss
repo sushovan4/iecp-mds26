@@ -2705,3 +2705,18 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 // The opener's animation: three frames of the approach, crossfaded
 .reveal img.approach-fig { display: block; width: 84%; max-width: 1000px; margin: 0.1rem auto 0; }
 .reveal .chain-stack > .chain.aside-note { margin-top: 0.1rem; }
+
+// Fixes after the full-deck review
+// The margin note's <p> inherits `.reveal p { hyphens: auto }`; keep words whole.
+.reveal .aside-note, .reveal .aside-note p { hyphens: none; -webkit-hyphens: none; }
+// The results table sits inside the slide's text measure, not edge to edge.
+.reveal .methods table { width: 90% !important; }
+// A sparse slide: centre the content in the space under the heading.
+.reveal .vbody {
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+// In a flex column auto margins shrink-wrap; restore the block width (capped by max-width).
+.reveal .vbody > div { width: 100%; box-sizing: border-box; }
