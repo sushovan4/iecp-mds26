@@ -49,15 +49,19 @@ How much do several point clouds interact **topologically**, and **at what scale
 ::::
 
 ::: {.notes}
-Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, tracks of sensors. How much do they interact topologically, and at what scale?
+⏱ 2:00 (title included) · by 2:20
 
-Here is a ring X and a blob Y, and three readouts as Y moves: the barcode of X alone, the barcode of the union, and the Euler characteristic of the overlap of their ball unions, as functions of the scale.
+[MDS26, after Bei Wang: Bei's descriptors summarize one space at a time. I want to ask what happens when there are several.]
 
-Far apart: the barcode of X does not know Y is there. The barcode of the union gains one bar, a component that dies at half their distance. The overlap is empty until they meet.
+Thank you. The question is simple to state. We have several point clouds in the same space: where species occur, where cell types sit in an expression space, the tracks of sensors. How much do they interact topologically, and at what scale?
 
-[click] Touching: the overlap is a lens, and the profile is one from the scale at which they meet.
+Here is a ring X and a blob Y. As Y moves I show three readouts: the barcode of X alone, the barcode of the union, and at the bottom the Euler characteristic of the overlap of the two ball unions, as a function of the scale r.
 
-[click] Inside the hole: the union's barcode has changed X's own loop. The loop of the ring now dies at 0.55 instead of 1.40, because Y fills the hole, and a new loop appears, the gap between them. The union's barcode mixes the topology of each cloud with their meeting. The overlap is the meeting itself, and its Euler characteristic, scale by scale, is the object of this talk.
+Far apart: the barcode of X does not know Y exists. The union's barcode gains one bar, a component that dies at half their distance. The overlap stays empty until the balls meet, just past one.
+
+[click] Touching: the overlap is a lens, and the bottom curve steps up to one at the scale where they meet.
+
+[click] Inside the hole: look at the union's barcode. X's own loop now dies at 0.55 instead of 1.40, because Y fills the hole, and a new loop appears, the gap between them. The union's barcode mixes the topology of each cloud with their meeting. The overlap is the meeting itself, and its Euler characteristic, scale by scale, is the object of this talk.
 :::
 
 
@@ -68,6 +72,8 @@ Far apart: the barcode of X does not know Y is there. The barcode of the union g
 :::
 
 ::: {.notes}
+⏱ 0:10 · by 2:30
+
 Section one: the definition, three examples, and why this curve and not another.
 :::
 
@@ -98,11 +104,13 @@ An integer-valued curve, not a diagram: it enters a test or a learning pipeline 
 :::
 
 ::: {.notes}
-The definition. Take the ball union of each cloud at its own scale, multiply the indicator functions, and integrate against the Euler characteristic. Euler calculus.
+⏱ 1:15 · by 3:45
 
-[click] The integral of a product of indicators is the Euler characteristic of the intersection. So the profile is the Euler characteristic of the overlap of the clouds' ball unions. On the diagonal, for two clouds, inclusion and exclusion give three Euler characteristic curves: X, Y, and the pooled cloud.
+The definition. Give each cloud its ball union at its own scale, multiply the indicator functions, and integrate against the Euler characteristic. That is Euler calculus. On the diagonal, one scale for all the clouds, it is a curve in r.
 
-[click] It is an integer-valued curve. A test or a classifier can take it as it is; nothing has to be vectorized.
+[click] The integral of a product of indicators is the Euler characteristic of the intersection, so the profile is simply the Euler characteristic of the overlap. For two clouds on the diagonal, inclusion and exclusion write it with three ordinary Euler characteristic curves: of X, of Y, and of the pooled cloud. Hold on to that formula; it is the whole algorithm.
+
+[click] And it is an integer-valued curve, not a diagram: a test or a classifier takes it as it is, with nothing to vectorize.
 :::
 
 
@@ -117,9 +125,13 @@ At the marked scale the overlap is empty, one lens, and an annulus: $\Delta\chi=
 :::
 
 ::: {.notes}
-Three configurations, computed. Separated: nothing until the unions touch. Overlapping: one overlap region, and the profile is one, after a burst of small lenses at tiny scales. Encircling: a ring around a blob. At the marked scale they meet, but the overlap is an annulus, whose Euler characteristic is zero.
+⏱ 1:15 · by 5:00
 
-That is the blind spot of any Euler-characteristic invariant, and we do not hide it: the test of section three carries a guard for it, the first scale at which the unions provably meet.
+Three configurations, computed. On top, the two ball unions at one scale, with the overlap in dark red; below, the three profiles.
+
+Separated: zero until the unions touch. Overlapping: at small scales a burst of tiny lenses, where single points of X and Y meet; then one overlap region, and the profile settles at one. Encircling: a ring around a blob. At the marked scale they clearly meet, but the overlap is an annulus, and the Euler characteristic of an annulus is zero.
+
+That is the blind spot of any Euler-characteristic invariant, and I will not hide it: the test in section three carries a guard for exactly this case.
 :::
 
 
@@ -153,15 +165,17 @@ On an annulus $\beta_0=\beta_1=1$ and $\chi=0$: the encircling clouds. Hence the
 :::
 
 ::: {.notes}
-The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap itself?
+⏱ 1:45 · by 6:45
 
-Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the three clouds' Betti numbers plus the ranks of the connecting maps. To know those ranks you need a complex for the overlap itself. In the alternating sum they cancel, and the Euler characteristic of the overlap is exactly an inclusion–exclusion of the clouds' own.
+The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap?
 
-[click] And the overlap's own complex is expensive: the nerve of the lenses has a vertex per meeting pair, and a region where many lenses meet spans exponentially many faces.
+Because homology does not split over a union. Mayer–Vietoris gives the Betti numbers of the overlap as the inclusion–exclusion of the clouds' Betti numbers, plus the ranks of the connecting maps, the deltas. To know those ranks you need a complex for the overlap itself. In the alternating sum the deltas cancel, and what is left is exactly the inclusion–exclusion of the clouds' own Euler characteristics.
 
-[click] So the profile is the Euler characteristic curve of the overlap's filtration, the alternating sum of its Betti curves, computed from the clouds' own Alpha complexes. That matters for inference: a test reruns it for every permutation. Nothing is thrown away: the persistence of the overlap is stable, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.
+[click] And a complex for the overlap is expensive. The nerve of the lenses has a vertex for every meeting pair, up to m times n, and where many lenses share a point it spans exponentially many faces.
 
-[click] What it gives up: an annulus has one component and one loop, and Euler characteristic zero. That is the encircling picture, and why the test carries a guard.
+[click] So the profile is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the clouds' own Alpha complexes. That matters for inference, because a permutation test recomputes it a thousand times. Nothing is thrown away: the persistence of the overlap is stable too, as the next section says, and the paper refines the Euler characteristic by a relative persistence module.
+
+[click] What it gives up: an annulus has one component and one loop, so Euler characteristic zero. That is the encircling picture again, and the reason for the guard.
 :::
 
 
@@ -184,9 +198,11 @@ It decides **which** Euler-level summary of the overlap, not that its value meas
 ::::
 
 ::: {.notes}
-Why this curve and not another Euler integral. Suppose an assignment is an Euler integral of some pointwise function of the indicators, registers nothing when the clouds have no common overlap, and gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.
+⏱ 1:00 · by 7:45 · can be cut: say "separation and normalization single out this curve among Euler integrals" and move on.
 
-[click] What this does not say: that a bigger value means a stronger interaction. The Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. There is a stronger version in the paper, assuming only a valuation, homotopy invariance and the same two axioms.
+Why this curve, and not some other Euler integral? Suppose an assignment is an Euler integral of a pointwise function of the indicators; it registers nothing when the clouds have no common overlap; and it gives one on a single lens. Then it is the intersection profile. Separation and normalization force it.
+
+[click] What this does not say is that a bigger value means a stronger interaction: the Euler characteristic is signed and not monotone. Universality picks the summary; deciding whether clouds interact is the job of the tests. The paper has a stronger version that assumes only a valuation, homotopy invariance and the same two axioms.
 :::
 
 
@@ -197,6 +213,8 @@ Why this curve and not another Euler integral. Suppose an assignment is an Euler
 :::
 
 ::: {.notes}
+⏱ 0:10 · by 7:55
+
 Section two: what it costs, and how it moves when the data move.
 :::
 
@@ -224,11 +242,13 @@ Worst-case optimal in even $d$ among algorithms that build the filtration. $k$ c
 :::
 
 ::: {.notes}
-The cost. Three Alpha complexes, of X, of Y and of the pooled cloud. Sort each by birth scale, and the Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.
+⏱ 1:30 · by 9:25
 
-[click] In the picture, the ring and the blob from the opening. The strip is the sweep: every edge is a minus one at its birth, every triangle a plus one. The solid curve is the Euler characteristic of X plus that of Y, the dashed one that of the union, and the gap between them is the profile: the loops in the gap between the clouds, then the ring filling in. The cost is that of the Alpha complex, n to the ceiling of d over 2, times log n.
+The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each by birth scale, and its Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.
 
-[click] In even dimension it is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.
+[click] Here are the ring and the blob from the opening. The strip is the sweep for the pooled cloud: every edge a minus one at its birth, every triangle a plus one. Above, the solid curve is the Euler characteristic of X plus that of Y, and the dashed one is that of the union. Both start at a hundred and eighty, one per point, and fall together. The gap between them is the profile, below: first the loops in the gap between the clouds, then the ring filling in. The cost is that of the Alpha complex, n to the ceiling of d over 2, times log n.
+
+[click] In even dimension that is worst-case optimal among algorithms that build the filtration. For k clouds, inclusion and exclusion over the subsets; off the diagonal, with a different scale per cloud, a weighted Alpha complex does the same job.
 :::
 
 
@@ -247,9 +267,11 @@ $\Delta\chi$ itself admits no interleaving distance, and no $L^1$ bound free of 
 :::
 
 ::: {.notes}
+⏱ 1:30 · by 10:55
+
 Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is bounded by epsilon times the numbers of bars.
 
-[click] In the picture, two crossing rings and a perturbation: the curves coincide except near the scales where something happens. The long plateau at two is the two lenses where the rings cross.
+[click] In the picture: two crossing rings, and the same rings with every point moved. The curves coincide except in the shaded strips, near the scales where something happens. The long plateau at two is the two lenses where the rings cross.
 
 [click] And the honest form: the profile itself carries no interleaving distance, and the bar count in the L1 bound cannot be removed. Integer-valued means that close becomes equal, away from the critical scales.
 :::
@@ -268,9 +290,11 @@ $O\big(\epsilon^{-k_i}\log(1/\delta)\big)$ points from $A_i$, in its **intrinsic
 ::::
 
 ::: {.notes}
-Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap, persistently in general, and exactly at scales that are regular for both.
+⏱ 0:45 · by 11:40 · can be cut: keep the first sentence only.
 
-[click] The sample size depends on the intrinsic dimension of each set, as in Niyogi, Smale and Weinberger.
+Consistency. If the clouds are samples from compact sets of positive reach, then for large samples the profile recovers the Euler characteristic of the population overlap: persistently in general, and exactly at scales that are regular for both.
+
+[click] The sample size depends on the intrinsic dimension of each set, not the ambient one, as in Niyogi, Smale and Weinberger.
 :::
 
 
@@ -281,6 +305,8 @@ Consistency. If the clouds are samples from compact sets of positive reach, then
 :::
 
 ::: {.notes}
+⏱ 0:10 · by 11:50
+
 Section three: every number carries a test, and two applications.
 :::
 
@@ -314,11 +340,13 @@ A separation certificate also checks that the unions provably meet, from the fir
 :::
 
 ::: {.notes}
-The inferential layer. The interaction quotient: the profile's mass, divided by its mean under relabeling. About one when the labels are exchangeable, near zero when the clouds are separated.
+⏱ 1:45 · by 13:35
 
-[click] Relabel the pooled sample, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.
+The inferential layer. The interaction quotient is the profile's mass divided by its mean under relabeling: about one when the labels are exchangeable, near zero when the clouds are separated.
 
-[click] Two overlapping blobs. The observed profile lies below the whole band of relabelings, and its mass sits far left of the null distribution: a quotient of 0.38, p of one in a thousand with 999 relabelings, the smallest p that many permutations can give. Separation, certified.
+[click] To test: pool the points, relabel, recompute, compare. Both one-sided tests are exact: valid at every level, for every sample size and every number of permutations.
+
+[click] Two overlapping blobs. The band is what relabeling produces; the observed profile lies below it at almost every scale. On the right, the mass under 999 relabelings, and the observed mass far to its left: a quotient of 0.38, and p of one in a thousand, the smallest p that 999 relabelings can give. Separation, certified.
 
 [click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.
 :::
@@ -344,6 +372,8 @@ It helps where onset is gradual and the signal-to-noise ratio is low, and only t
 :::
 
 ::: {.notes}
+⏱ 1:30 · by 15:05
+
 An application where the answer is mixed, and that is the point. Monsoon onset from daily rainfall: four signals, one of them the profile between the windows before and after each day, delay-embedded. To see what the topology contributes, delete it and test the paired change in error across years.
 
 [click] On the two Indian targets, where onset is sharp, deleting it changes nothing that survives the test. On the Western North Pacific and the Australian monsoons, where onset is gradual and noisy, deleting it costs three to three and a half days.
@@ -375,6 +405,8 @@ $12{,}375$ paired sign-flip tests between consecutive checkpoints, on a **scale-
 :::
 
 ::: {.notes}
+⏱ 1:30 · by 16:35
+
 Second application: when does a classifier pull its classes apart? Take the class-conditional point clouds at each layer and checkpoint of 111 trained networks. Every pairwise number is a certified measurement.
 
 [click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at its middle block.
@@ -398,6 +430,8 @@ $\rho\le1$ in $1{,}509$ of $1{,}560$ cells ($96.7\%$), median $0.63$. An unstruc
 :::
 
 ::: {.notes}
+⏱ 1:30 · by 18:05 · can be cut: give the 96.7% and the median 0.63, skip the null comparison.
+
 A structural question only a k-fold statistic can ask: is a triple of classes more entangled than its most entangled pair?
 
 [click] Every triple of classes, at every layer of the three architectures: the ratio of the triple's quotient to its strongest pair's.
@@ -424,6 +458,8 @@ A different scale per cloud: what does the multiparameter profile certify that t
 ::::
 
 ::: {.notes}
+⏱ 1:00 · by 19:05; Thank-you slide to about 19:20, leaving 5 minutes for questions.
+
 What remains. The Euler characteristic is signed and blind on annuli. The paper has a relative-homology refinement that is stable in the interleaving distance; the question is a test built on it.
 
 [click] Off the diagonal, each cloud at its own scale: what does the multiparameter profile certify that the diagonal cannot?
