@@ -310,10 +310,6 @@ about $1$ when the labels are exchangeable, tending to $0$ under separation.
 ::: {.rmk .fragment data-fragment-index="2" data-name="A guard for the blind spot"}
 A separation certificate also checks that the unions provably meet, from the first interaction scale $r^\ast$; without it, an annular overlap is certified as separated.
 :::
-
-::: {.rmk .fragment data-fragment-index="3" data-name="Comparisons"}
-A paired sign-flip test for claims such as *layer $\ell+1$ is more disentangled than layer $\ell$*. The statistic must be **scale-free**.
-:::
 :::
 :::
 
@@ -325,8 +321,6 @@ The inferential layer. The interaction quotient: the profile's mass, divided by 
 [click] Two overlapping blobs. The observed profile lies below the whole band of relabelings, and its mass sits far left of the null distribution: a quotient of 0.38, p of one in a thousand with 999 relabelings, the smallest p that many permutations can give. Separation, certified.
 
 [click] The guard: the encircling example would read as separated, because its profile vanishes. So a separation certificate also checks the first scale at which the unions provably meet.
-
-[click] For comparisons, a paired sign-flip test. One lesson from building it: the statistic must be scale-free. On the raw mass, which has units of length, training dynamics of the feature norm masquerade as disentanglement.
 :::
 
 
@@ -375,7 +369,7 @@ The mean pairwise quotient falls with depth: $0.72\to0.63\to0.57\to0.18$ on ResN
 :::
 
 ::: {.rmk .fragment data-name="Early, step by step"}
-$12{,}375$ paired tests between consecutive checkpoints: $2{,}707$ significant steps, $2{,}026$ of them decreases, $1{,}728$ within the first $8$ epochs.
+$12{,}375$ paired sign-flip tests between consecutive checkpoints, on a **scale-free** statistic: $2{,}707$ significant steps, $2{,}026$ of them decreases, $1{,}728$ within the first $8$ epochs.
 :::
 :::
 :::
@@ -385,7 +379,7 @@ Second application: when does a classifier pull its classes apart? Take the clas
 
 [click] Disentanglement is graded by depth: the quotient falls stage by stage, and the deep stage is far from the null. The ViT turns at its middle block.
 
-[click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. This is where the scale-free statistic matters: on the raw mass, every first-epoch step points the wrong way.
+[click] Over training, paired sign-flip tests between consecutive checkpoints, corrected for multiple testing: two thousand seven hundred significant steps, three quarters of them decreases, most in the first eight epochs. One lesson from building the test: the statistic must be scale-free. The raw mass has units of length, so the training dynamics of the feature norm masquerade as disentanglement; on it, every first-epoch step points the wrong way.
 :::
 
 
