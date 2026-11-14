@@ -2757,7 +2757,7 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 .reveal svg.opener-anim { display: block; width: 94%; max-width: 1150px; height: auto; margin: 0.1rem auto 0; }
 
 // "Why not a barcode?": the comparison table, first column as row labels.
-.reveal .hard-table table { width: 96% !important; font-size: 0.72em; }
+.reveal .hard-table table { width: 96% !important; font-size: 0.76em; }
 .reveal .hard-table td { vertical-align: top; }
 .reveal .hard-table table { table-layout: fixed; }
 .reveal .hard-table th:nth-child(1) { width: 18%; }
@@ -2766,4 +2766,9 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 .reveal .hard-table td:last-child { color: var(--oxblood); }
 
 // Monsoon ablation: fewer columns, larger type.
-.reveal .monsoon-table table { width: 92% !important; font-size: 0.7em; }
+.reveal .monsoon-table table { width: 92% !important; font-size: 0.8em; }
+
+// References (backup): compact, hanging, linked.
+.reveal .refs ul { list-style: none; padding-left: 0; margin: 0.4rem auto 0; max-width: 1120px; }
+.reveal .refs li { font-size: 0.78em; line-height: 1.35; margin: 0 0 0.55em; padding-left: 1.4em; text-indent: -1.4em; }
+.reveal .backup-table table { width: 96% !important; font-size: 0.7em; }

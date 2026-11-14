@@ -128,7 +128,7 @@ So: how much do several clouds interact topologically, and at what scale? A ring
 ## Why not a barcode?
 
 ::: {.source}
-[arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
+[arXiv:2608.06180](https://arxiv.org/abs/2608.06180) · mixup barcode: Wagner et al., [arXiv:2402.15058](https://arxiv.org/abs/2402.15058)
 :::
 
 ::: {.methods .hard-table}
@@ -250,6 +250,7 @@ Before the theory, how to read a profile. Three configurations, and their profil
 [arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
 :::
 
+:::: {.vbody}
 ::: {.env-row}
 ::: {.proposition data-num="1" data-name="Mayer–Vietoris" data-cite="Kawamura–Majhi–Mitra"}
 For $A=\mathcal U(X;t)$, $B=\mathcal U(Y;s)$ and $\Delta\beta_q=\beta_q(A)+\beta_q(B)-\beta_q(A\cup B)$,
@@ -270,6 +271,7 @@ The nerve of the cross-cloud lenses $B(x,t)\cap B(y,s)$ computes the overlap. It
 ::: {.rmk .fragment data-name="So: the Euler characteristic"}
 $\Delta\chi$ is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union, never the overlap's: cheap enough for $999$ permutations per test.
 :::
+::::
 
 ::: {.notes}
 ⏱ 1:15 · by 7:25
@@ -385,7 +387,7 @@ The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Sort each 
 :::
 
 ::: {.fig-wide .fragment style="margin: 0 auto;"}
-![](assets/stability.svg){style="width: 560px;"}
+![](assets/stability.svg){style="width: 580px;"}
 :::
 
 ::: {.rmk .fragment data-name="The honest form"}
@@ -534,7 +536,7 @@ Class-conditional clouds of $111$ trained networks: $1{,}170$ (network, layer, c
 :::
 
 ::: {.fig-row}
-::: {.fig style="flex-basis: 56%;"}
+::: {.fig style="flex-basis: 61%;"}
 ![](assets/depth.svg)
 :::
 
@@ -688,17 +690,36 @@ Thank you.
 :::
 
 
+## References {visibility="uncounted"}
+
+:::: {.vbody}
+::: {.refs}
+- K. Kawamura, S. Majhi, A. Mitra. *The Intersection Euler Characteristic Profile: Euler Calculus and Stability for Topological Interaction of Ball Unions.* [arXiv:2608.06180](https://arxiv.org/abs/2608.06180), 2026.
+- S. Majhi. *Certified Topological Interaction in Neural Representations: Exact Tests and the Statistic They Require.* [arXiv:2609.08561](https://arxiv.org/abs/2609.08561), 2026.
+- S. Majhi, A. Mitra, S. Nandi, Md. Nurujjaman, B. N. Sharma. *Detecting Regime Transitions in Dynamical Systems via the Mixup Euler Characteristic Profile: When Topology Helps, and When It Does Not.* [arXiv:2604.15262](https://arxiv.org/abs/2604.15262), 2026.
+- S. Majhi, P. Bagchi. *The Null Is the Hard Part: Exact Tests for Memorization in Generative Models.* [arXiv:2610.00251](https://arxiv.org/abs/2610.00251), 2026.
+- H. Wagner, S. Arustamyan, M. Wheeler, P. Bubenik. *Mixup barcodes: quantifying geometric-topological interactions between point clouds.* [arXiv:2402.15058](https://arxiv.org/abs/2402.15058), 2024.
+- S. Cultrera di Montesano, O. Draganov, H. Edelsbrunner, M. Saghafian. *Chromatic alpha complexes.* [arXiv:2212.03128](https://arxiv.org/abs/2212.03128), 2022.
+:::
+::::
+
+::: {.notes}
+Backup: the references.
+:::
+
+
 ## Mixup barcodes {visibility="uncounted"}
 
 ::: {.source}
 [arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
 :::
 
+:::: {.vbody}
 ::: {.rmk data-name="Neither refines the other"}
-The mixup barcode of Wagner et al. is the image persistence of $\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)$. It keeps graded homology that $\Delta\chi$ collapses, yet it does not determine $\Delta\chi$, which needs $\chi$ of one cloud alone. The comparison is by properties.
+The mixup barcode of [Wagner et al.](https://arxiv.org/abs/2402.15058) is the image persistence of $\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)$. It keeps graded homology that $\Delta\chi$ collapses, yet it does not determine $\Delta\chi$, which needs $\chi$ of one cloud alone. The comparison is by properties.
 :::
 
-::: {.methods}
+::: {.methods .backup-table}
 | | mixup barcode | $\Delta\chi$ |
 |:--|:-:|:-:|
 | symmetric in the clouds | no | yes |
@@ -711,6 +732,7 @@ The mixup barcode of Wagner et al. is the image persistence of $\mathcal U(Y;r)\
 ::: {.aside-note}
 Timing on the final-epoch representations of $104$ networks ([arXiv:2609.08561](https://arxiv.org/abs/2609.08561)). In fairness: there, total mixup predicts generalization better than the null-normalized quotient, $R^2=0.84$ against $0.34$.
 :::
+::::
 
 ::: {.notes}
 Backup. The barcode keeps graded homology we throw away, and neither invariant determines the other. What we gain is symmetry, every k, an exact integer readout, and no matrix reduction: about eight and a half times faster per pair on the same clouds, which is what makes a thousand permutations per test affordable. In fairness, total mixup predicted generalization better than our quotient, because the quotient divides out the feature scale on purpose.
@@ -723,6 +745,7 @@ Backup. The barcode keeps graded homology we throw away, and neither invariant d
 [arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
 :::
 
+:::: {.vbody}
 ::: {.definition data-num="A" data-name="Relative interaction module"}
 What each cloud adds to the others:
 $$
@@ -737,6 +760,7 @@ $$
 ::: {.rmk data-name="What it sees, and what it does not"}
 Sample $Y$ on a torus and $X$ on a longitude: the overlap is a band and every $\chi$ vanishes, yet $H_1(T^2,S^1)=H_2(T^2,S^1)=\mathbb Z$. For $k\ge3$ it is not complete, and it needs persistence rather than a sweep.
 :::
+::::
 
 ::: {.notes}
 Backup. Keep the inclusions, not just chi: for each cloud, its homology relative to its overlap with the others, summed over the clouds. It is interleaving-stable under color-matched perturbation. It sees the torus-and-longitude example that chi misses; for three or more clouds it is provably incomplete, and it costs a persistence computation. We do not yet test with it, which is open question one.
@@ -749,6 +773,7 @@ Backup. Keep the inclusions, not just chi: for each cloud, its homology relative
 [arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
 :::
 
+:::: {.vbody}
 ::: {.proposition data-num="A" data-name="Projection is conservative for separation" data-cite="Majhi"}
 [For an orthogonal projection $P$ and $r^\ast(X,Y)=\tfrac12\min_{x\in X,y\in Y}\|x-y\|$,]{.hyp} $r^\ast(PX,PY)\le r^\ast(X,Y)$: offsets disjoint in the shadow are disjoint in the ambient space.
 :::
@@ -762,6 +787,7 @@ Measure on a PCA shadow fitted to the pooled clouds, blind to labels, so the tes
 Concentration of measure. In embeddings of high effective rank the scale window collapses: on copy-detection features (effective rank $574$) the topological statistics go null while a nearest-neighbour fraction still fires ([arXiv:2610.00251](https://arxiv.org/abs/2610.00251)).
 :::
 :::
+::::
 
 ::: {.notes}
 Backup. We measure on a five-dimensional PCA shadow fitted without labels, so exactness survives. Projection can only bring first contact earlier, so disjointness in the shadow is disjointness in the ambient space. The depth conclusions do not move between three and six dimensions. The real limit is concentration of measure: in high effective rank the scale window collapses, and there a nearest-neighbour statistic still works where ours goes null.
@@ -774,6 +800,7 @@ Backup. We measure on a five-dimensional PCA shadow fitted without labels, so ex
 [arXiv:2609.08561](https://arxiv.org/abs/2609.08561)
 :::
 
+:::: {.vbody}
 ::: {.rmk data-name="On trained networks: never"}
 Zero firings in $52{,}650$ pairwise measurements ($42{,}570$ distinct clouds), and zero again when $45{,}225$ cells were re-evaluated under three forms of the guard. Class overlaps are blobs: $\Delta\chi$ first returns to zero a median $78$ of $181$ grid points after contact. Zero says the pattern never occurred, not that cancellation is impossible.
 :::
@@ -781,6 +808,7 @@ Zero firings in $52{,}650$ pairwise measurements ($42{,}570$ distinct clouds), a
 ::: {.rmk data-name="Where it matters"}
 $X$ uniform on a disc, $Y$ on a circle inside it: the overlap is an annular band, and the unguarded test certifies separation at $p_\downarrow=0.005$. The first interaction scale, $\hat r^\ast=0.005<0.40$, blocks it, at no cost: it falls out of the same sweep.
 :::
+::::
 
 ::: {.notes}
 Backup. Never, on trained networks: zero firings in fifty-two thousand measurements, and zero again under stricter forms of the guard, because class overlaps are blobs, not annuli. It still matters: on a disc with a circle inside, the unguarded test certifies separation at p of half a percent, and the guard blocks it for free. The synthetic case is from the statistics paper in preparation.
@@ -793,7 +821,8 @@ Backup. Never, on trained networks: zero firings in fifty-two thousand measureme
 [arXiv:2609.08561](https://arxiv.org/abs/2609.08561) · [arXiv:2610.00251](https://arxiv.org/abs/2610.00251) · [arXiv:2604.15262](https://arxiv.org/abs/2604.15262)
 :::
 
-::: {.methods}
+:::: {.vbody}
+::: {.methods .backup-table}
 | question | simpler statistic | the profile |
 |:--|:-:|:-:|
 | rank MNIST pairs by confusability (Spearman) | $5$-NN $0.86$, probe $0.83$, energy $0.77$, Fisher $0.74$ | quotient $0.83$ |
@@ -805,6 +834,7 @@ Backup. Never, on trained networks: zero firings in fifty-two thousand measureme
 ::: {.aside-note}
 Often a simpler statistic does as well, and the papers say so. What the profile adds is the exact certificate, the $k$-fold terms and the scale resolution. MMD has not been benchmarked.
 :::
+::::
 
 ::: {.notes}
 Backup. Honestly, a five-nearest-neighbour count ranks MNIST confusability as well as we do, and in the memorization audit a thresholded count at the same scale is as specific. The profile earns its place with exact certificates, the k-fold and scale-resolved forms, and steadiness in the scale. Against persistence diagrams on the monsoon it wins on the two gradual-onset systems, though persistence is faster there. We have not benchmarked MMD.
