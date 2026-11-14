@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-266f5482e0453ed0e72241f278925226.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-23707221da3383b13a81492bc1422e5c.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -2011,7 +2011,7 @@ Sushovan Majhi
 <section class="slide level2">
 <h2>Why not a barcode?</h2>
 <div class="source">
-<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
+<p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a> · mixup barcode: Wagner et al., <a href="https://arxiv.org/abs/2402.15058">arXiv:2402.15058</a></p>
 </div>
 <div class="methods hard-table">
 <table class="caption-top">
@@ -2124,6 +2124,7 @@ Sushovan Majhi
 <div class="source">
 <p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
 </div>
+<div class="vbody">
 <div class="env-row">
 <div class="proposition" data-num="1" data-name="Mayer–Vietoris" data-cite="Kawamura–Majhi–Mitra">
 <p>For <span class="math inline">A=\mathcal U(X;t)</span>, <span class="math inline">B=\mathcal U(Y;s)</span> and <span class="math inline">\Delta\beta_q=\beta_q(A)+\beta_q(B)-\beta_q(A\cup B)</span>, <span class="math display">
@@ -2138,6 +2139,7 @@ Sushovan Majhi
 </div>
 <div class="rmk fragment" data-name="So: the Euler characteristic">
 <p><span class="math inline">\Delta\chi</span> is the Euler characteristic curve of the overlap filtration, the alternating sum of its Betti curves, read off the Alpha complexes of the clouds and of their union, never the overlap’s: cheap enough for <span class="math inline">999</span> permutations per test.</p>
+</div>
 </div>
 </section>
 <section class="slide level2">
@@ -2204,7 +2206,7 @@ Sushovan Majhi
 </ul>
 </div>
 <div class="fig-wide fragment" style="margin: 0 auto;">
-<p><img data-src="assets/stability.svg" style="width: 560px;"></p>
+<p><img data-src="assets/stability.svg" style="width: 580px;"></p>
 </div>
 <div class="rmk fragment" data-name="The honest form">
 <p><span class="math inline">\Delta\chi</span> itself admits no interleaving distance, and no <span class="math inline">L^1</span> bound free of the bar count can hold.</p>
@@ -2338,7 +2340,7 @@ Sushovan Majhi
 <p>Class-conditional clouds of <span class="math inline">111</span> trained networks: <span class="math inline">1{,}170</span> (network, layer, checkpoint) cells, <span class="math inline">52{,}650</span> pairwise measurements, each with an exact test.</p>
 </div>
 <div class="fig-row">
-<div class="fig" style="flex-basis: 56%;">
+<div class="fig" style="flex-basis: 61%;">
 <p><img data-src="assets/depth.svg"></p>
 </div>
 <div class="stmts">
@@ -2425,14 +2427,30 @@ Sushovan Majhi
 </div>
 </section>
 <section class="slide level2" data-visibility="uncounted">
+<h2>References</h2>
+<div class="vbody">
+<div class="refs">
+<ul>
+<li>K. Kawamura, S. Majhi, A. Mitra. <em>The Intersection Euler Characteristic Profile: Euler Calculus and Stability for Topological Interaction of Ball Unions.</em> <a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a>, 2026.</li>
+<li>S. Majhi. <em>Certified Topological Interaction in Neural Representations: Exact Tests and the Statistic They Require.</em> <a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a>, 2026.</li>
+<li>S. Majhi, A. Mitra, S. Nandi, Md. Nurujjaman, B. N. Sharma. <em>Detecting Regime Transitions in Dynamical Systems via the Mixup Euler Characteristic Profile: When Topology Helps, and When It Does Not.</em> <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a>, 2026.</li>
+<li>S. Majhi, P. Bagchi. <em>The Null Is the Hard Part: Exact Tests for Memorization in Generative Models.</em> <a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a>, 2026.</li>
+<li>H. Wagner, S. Arustamyan, M. Wheeler, P. Bubenik. <em>Mixup barcodes: quantifying geometric-topological interactions between point clouds.</em> <a href="https://arxiv.org/abs/2402.15058">arXiv:2402.15058</a>, 2024.</li>
+<li>S. Cultrera di Montesano, O. Draganov, H. Edelsbrunner, M. Saghafian. <em>Chromatic alpha complexes.</em> <a href="https://arxiv.org/abs/2212.03128">arXiv:2212.03128</a>, 2022.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2" data-visibility="uncounted">
 <h2>Mixup barcodes</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
 </div>
+<div class="vbody">
 <div class="rmk" data-name="Neither refines the other">
-<p>The mixup barcode of Wagner et al.&nbsp;is the image persistence of <span class="math inline">\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)</span>. It keeps graded homology that <span class="math inline">\Delta\chi</span> collapses, yet it does not determine <span class="math inline">\Delta\chi</span>, which needs <span class="math inline">\chi</span> of one cloud alone. The comparison is by properties.</p>
+<p>The mixup barcode of <a href="https://arxiv.org/abs/2402.15058">Wagner et al.</a> is the image persistence of <span class="math inline">\mathcal U(Y;r)\hookrightarrow\mathcal U(X\cup Y;r)</span>. It keeps graded homology that <span class="math inline">\Delta\chi</span> collapses, yet it does not determine <span class="math inline">\Delta\chi</span>, which needs <span class="math inline">\chi</span> of one cloud alone. The comparison is by properties.</p>
 </div>
-<div class="methods">
+<div class="methods backup-table">
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -2478,12 +2496,14 @@ Sushovan Majhi
 <div class="aside-note">
 <p>Timing on the final-epoch representations of <span class="math inline">104</span> networks (<a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a>). In fairness: there, total mixup predicts generalization better than the null-normalized quotient, <span class="math inline">R^2=0.84</span> against <span class="math inline">0.34</span>.</p>
 </div>
+</div>
 </section>
 <section class="slide level2" data-visibility="uncounted">
 <h2>The relative refinement</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
 </div>
+<div class="vbody">
 <div class="definition" data-num="A" data-name="Relative interaction module">
 <p>What each cloud adds to the others: <span class="math display">
 \mathrm{RPH}_*(\mathcal X)=\bigoplus_{i=1}^{k}\Big\{H_*\big(\mathcal U(X_i;t_i),\ \mathcal U(X_i;t_i)\cap\textstyle\bigcup_{j\ne i}\mathcal U(X_j;t_j)\big)\Big\}_{\mathbf t\ge0}.
@@ -2495,12 +2515,14 @@ Sushovan Majhi
 <div class="rmk" data-name="What it sees, and what it does not">
 <p>Sample <span class="math inline">Y</span> on a torus and <span class="math inline">X</span> on a longitude: the overlap is a band and every <span class="math inline">\chi</span> vanishes, yet <span class="math inline">H_1(T^2,S^1)=H_2(T^2,S^1)=\mathbb Z</span>. For <span class="math inline">k\ge3</span> it is not complete, and it needs persistence rather than a sweep.</p>
 </div>
+</div>
 </section>
 <section class="slide level2" data-visibility="uncounted">
 <h2>High dimensions</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
 </div>
+<div class="vbody">
 <div class="proposition" data-num="A" data-name="Projection is conservative for separation" data-cite="Majhi">
 <p><span class="hyp">For an orthogonal projection <span class="math inline">P</span> and <span class="math inline">r^\ast(X,Y)=\tfrac12\min_{x\in X,y\in Y}\|x-y\|</span>,</span> <span class="math inline">r^\ast(PX,PY)\le r^\ast(X,Y)</span>: offsets disjoint in the shadow are disjoint in the ambient space.</p>
 </div>
@@ -2512,17 +2534,20 @@ Sushovan Majhi
 <p>Concentration of measure. In embeddings of high effective rank the scale window collapses: on copy-detection features (effective rank <span class="math inline">574</span>) the topological statistics go null while a nearest-neighbour fraction still fires (<a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a>).</p>
 </div>
 </div>
+</div>
 </section>
 <section class="slide level2" data-visibility="uncounted">
 <h2>The guard in practice</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
 </div>
+<div class="vbody">
 <div class="rmk" data-name="On trained networks: never">
 <p>Zero firings in <span class="math inline">52{,}650</span> pairwise measurements (<span class="math inline">42{,}570</span> distinct clouds), and zero again when <span class="math inline">45{,}225</span> cells were re-evaluated under three forms of the guard. Class overlaps are blobs: <span class="math inline">\Delta\chi</span> first returns to zero a median <span class="math inline">78</span> of <span class="math inline">181</span> grid points after contact. Zero says the pattern never occurred, not that cancellation is impossible.</p>
 </div>
 <div class="rmk" data-name="Where it matters">
 <p><span class="math inline">X</span> uniform on a disc, <span class="math inline">Y</span> on a circle inside it: the overlap is an annular band, and the unguarded test certifies separation at <span class="math inline">p_\downarrow=0.005</span>. The first interaction scale, <span class="math inline">\hat r^\ast=0.005&lt;0.40</span>, blocks it, at no cost: it falls out of the same sweep.</p>
+</div>
 </div>
 </section>
 <section class="slide level2" data-visibility="uncounted">
@@ -2530,7 +2555,8 @@ Sushovan Majhi
 <div class="source">
 <p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a> · <a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a> · <a href="https://arxiv.org/abs/2604.15262">arXiv:2604.15262</a></p>
 </div>
-<div class="methods">
+<div class="vbody">
+<div class="methods backup-table">
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -2570,6 +2596,7 @@ Sushovan Majhi
 </div>
 <div class="aside-note">
 <p>Often a simpler statistic does as well, and the papers say so. What the profile adds is the exact certificate, the <span class="math inline">k</span>-fold terms and the scale resolution. MMD has not been benchmarked.</p>
+</div>
 </div>
 
 </section></section>
