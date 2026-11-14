@@ -2745,9 +2745,13 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 .reveal .remains-row img.remains-fig { display: block; height: 330px; width: auto; max-width: 100%; margin: 0.1rem auto 0; }
 
 // Three plates side by side (the motivating slide).
-.reveal .plate-row { display: flex; gap: 1.1rem; justify-content: center; align-items: flex-start; margin: 0.3rem auto 0; max-width: 1200px; }
-.reveal .plate-row > .plate { flex: 0 1 31%; margin: 0; padding: 0.3rem 0.3rem 0.5rem; }
-.reveal .plate-row > .plate img { width: 100%; height: auto; }
+.reveal .plate-row { display: flex; gap: 0.7rem; justify-content: center; align-items: flex-start; margin: 0.1rem auto 0; max-width: 1260px; }
+.reveal .plate-row > .plate-col { flex: 0 1 32.6%; display: flex; flex-direction: column; }
+.reveal .plate-row .plate { margin: 0; padding: 0.2rem 0.2rem 0.35rem; max-width: none; }
+.reveal .plate-row .plate img { width: 100%; height: auto; }
+.reveal .plate-row .plate-cap { display: block; font-family: var(--serif); font-style: italic; font-size: 0.66em;
+  line-height: 1.3; color: var(--ink-soft); text-align: center; margin: 0.35rem 0.4rem 0; hyphens: none; }
+.reveal .plate-row .plate::before { background: var(--paper); padding: 0 0.3em; z-index: 2; }
 
 // The animated opener: inline SVG frames, crossfaded by the chain-stack.
 .reveal svg.opener-anim { display: block; width: 94%; max-width: 1150px; height: auto; margin: 0.1rem auto 0; }

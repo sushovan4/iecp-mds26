@@ -17,21 +17,33 @@ footer: "The Intersection Euler Characteristic Profile  ·  S. Majhi  ·  SIAM M
 ## Several clouds, one space
 
 ::: {.plate-row}
+::: {.plate-col}
 ::: {.plate data-plate="A"}
 ![](assets/motive-species.svg)
 :::
 
-::: {.plate .fragment data-plate="B"}
+[Sightings of two species. Where their ranges overlap, the two can meet.]{.plate-cap}
+:::
+
+::: {.plate-col .fragment}
+::: {.plate data-plate="B"}
 ![](assets/motive-cells.svg)
 :::
 
-::: {.plate .fragment data-plate="C"}
+[Single cells of two types. Where the populations blend, one type is turning into the other.]{.plate-cap}
+:::
+
+::: {.plate-col .fragment}
+::: {.plate data-plate="C"}
 ![](assets/motive-tracks.svg)
+:::
+
+[GPS fixes of two vehicles. Their routes cross at two intersections.]{.plate-cap}
 :::
 :::
 
 ::: {.aside-note}
-In each plate: points, their ball unions, and in dark red the overlap; $\Delta\chi$ is its Euler characteristic at the drawn scale.
+Each point carries a ball; in dark red, the overlap. $\Delta\chi$ is its Euler characteristic at the drawn scale.
 :::
 
 ::: {.notes}

@@ -807,7 +807,8 @@ def plate_tall(title, deck, caption, readout, art, label, w=400, h=480):
     body.append(text((w / 2, h - 66), readout, 17, fill=OX, italic=True))
     body.append(text((w / 2, h - 38), caption, 10, caps=True, fill=SEPIA, spacing=2.6))
     body += _corner_fleurons(36, 36, w - 36, h - 36)
-    return svg(w, h, body, label)
+    # crop the empty outer margin so the drawing fills its frame on the slide
+    return svg(w, h, body, label).replace(f'viewBox="0 0 {w} {h}"', f'viewBox="14 26 {w - 28} {h - 46}"')
 
 
 def _union(P, r, fill, opacity):
