@@ -25,13 +25,13 @@ no speaker notes. The plain `quarto render` keeps them for presenting from the s
 The slot is 25 minutes (MS8, Monday 16 November, 10:00–10:25, Room 251B): about 20 minutes of
 talk, then questions. Each slide's speaker notes open with its budget and the elapsed time it
 should finish by, e.g. `⏱ 1:30 · by 9:25`. The notes mark the slides that can be cut for a
-shorter talk (*Why this curve*, *Consistency*, *Mostly pairwise*, *Memorization*), each with a one-sentence
+shorter talk (*Why this curve*, *Memorization*), each with a one-sentence
 fallback. A bracketed `[MDS26 …]` line in the opener is specific to this session.
 
 | Part | Slides | Ends by |
 |:--|:--|--:|
 | Opener | title, *Several clouds, one space*, *How much do they interact?*, *Why not a barcode?* | 3:30 |
-| § I Euler calculus | *The profile*, *Reading a profile*, *Why not the overlap's homology?*, *Why this curve* | 8:05 |
-| § II Computation and stability | *Computation*, *Stability*, *Consistency* | 11:35 |
-| § III Certified interaction | *Every number carries a test*, *Monsoon*, *Disentanglement*, *Mostly pairwise*, *Memorization* | 18:45 |
-| Close | *What remains*, *Thank you* | 19:50 |
+| § I Euler calculus | *The profile*, *Reading a profile*, *Why this curve*, *Why not the overlap's homology?* | 8:05 |
+| § II Computation and stability | *Computation*, *Stability* (*Consistency* is a backup) | 11:15 |
+| § III Certified interaction | *Every number carries a test*, *Monsoon*, *Disentanglement*, *Memorization* (*Mostly pairwise* is a backup) | 17:25 |
+| Close | *What remains*, *Thank you* | 18:30 |

@@ -2772,3 +2772,6 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 .reveal .refs ul { list-style: none; padding-left: 0; margin: 0.4rem auto 0; max-width: 1120px; }
 .reveal .refs li { font-size: 0.78em; line-height: 1.35; margin: 0 0 0.55em; padding-left: 1.4em; text-indent: -1.4em; }
 .reveal .backup-table table { width: 96% !important; font-size: 0.7em; }
+
+// Slide 8: the lens-nerve picture inside Proposition 2.
+.reveal .nerve-fig, .reveal img.nerve-fig { display: block; width: 100%; max-width: 600px; margin: 0.4rem auto 0; }

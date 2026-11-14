@@ -13,6 +13,7 @@ import random
 import sys
 
 import numpy as np
+import gudhi as gd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -266,7 +267,9 @@ def fig_reading():
 
 
 def fig_stability():
-    """Two crossing rings and a Hausdorff perturbation: equal off critical scales."""
+    """Two crossing rings and a Hausdorff perturbation: equal off critical scales. Two frames on
+    identical axes: stability-1.svg (the rings and their profile), stability-2.svg (adds the moved
+    rings, their profile, and the strips where the two differ); stability.svg = frame 2."""
     rng = np.random.default_rng(7)
     X = _ring(rng, (-0.7, 0), 1.25, 0.05, 140)
     Y = _ring(rng, (0.7, 0), 1.25, 0.05, 140)
@@ -278,20 +281,54 @@ def fig_stability():
     r_grid = np.linspace(0, 0.75, 751)
     d = iecp.intersection_profile([X, Y], r_grid)
     dp = iecp.intersection_profile([Xp, Yp], r_grid)
-    fig, ax = plt.subplots(figsize=(8.2, 3.3))
     diff = d != dp
-    ax.fill_between(r_grid, -1, 1 + max(d.max(), dp.max()), where=diff, color=RULE, alpha=0.55, lw=0, step="post")
-    ax.step(r_grid, d, where="post", color=OX, lw=1.7, label="two crossing rings")
-    ax.step(r_grid, dp, where="post", color=INK, lw=1.1, ls="--", label="every point moved by at most $\\epsilon$")
-    ax.set_ylim(-0.5, max(d.max(), dp.max()) + 1)
-    ax.set_xlabel("scale $r$"); ax.set_ylabel(r"$\Delta\chi(r)$")
-    ax.legend(fontsize=12, loc="upper right")
-    ax.text(0.99, 0.66, "shaded: where the two differ", transform=ax.transAxes, fontsize=11, color=PENCIL, style="italic", ha="right")
-    ins = fig.add_axes([0.33, 0.52, 0.17, 0.42])
-    ins.scatter(X[:, 0], X[:, 1], s=2, color=OX, lw=0); ins.scatter(Y[:, 0], Y[:, 1], s=2, color=INK, lw=0)
-    ins.set_aspect("equal"); ins.axis("off")
+    top = max(d.max(), dp.max())
+    # exact L1 and a certified bar count: evaluate both profiles on every interval between
+    # entry radii of the six Alpha complexes; each bar moves the profile by at most 2 in total,
+    # so N >= TV/2 and the theorem's bound 2 eps (N + N') >= eps (TV + TV').
+    from scipy.spatial.distance import directed_hausdorff
+    def _ev(A, B):
+        ev = set()
+        for P in (A, B, np.r_[A, B]):
+            ev |= {np.sqrt(f_) for _, f_ in gd.AlphaComplex(points=P, precision="exact").create_simplex_tree().get_filtration()}
+        return ev
+    E = np.array(sorted(_ev(X, Y) | _ev(Xp, Yp) | {0.0}))
+    mid = np.r_[(E[:-1] + E[1:]) / 2, E[-1] + 1.0]
+    de, dpe = iecp.intersection_profile([X, Y], mid), iecp.intersection_profile([Xp, Yp], mid)
+    L1 = float((np.abs(de - dpe) * np.r_[np.diff(E), 0.0]).sum())
+    eps_h = max(max(directed_hausdorff(A, B)[0], directed_hausdorff(B, A)[0]) for A, B in ((X, Xp), (Y, Yp)))
+    TV = np.abs(np.diff(np.r_[0, de])).sum() + np.abs(np.diff(np.r_[0, dpe])).sum()
+    bound = eps_h * TV
+    print(f"  stability numbers: eps {eps_h:.4f}, L1 {L1:.4f}, N+N' >= {TV // 2}, bound >= {bound:.2f}")
+    for frame in (1, 2):
+        fig, ax = plt.subplots(figsize=(8.2, 3.3))
+        if frame == 2:
+            ax.fill_between(r_grid, -1, 1 + top, where=diff, color=RULE, alpha=0.55, lw=0, step="post")
+        ax.step(r_grid, d, where="post", color=OX, lw=1.7, label="two crossing rings")
+        # frame 1 draws the moved profile invisibly, so the legend box is the same in both frames
+        ax.step(r_grid, dp, where="post", color=INK if frame == 2 else "none", lw=1.1, ls="--",
+                label="every point moved by at most $\\epsilon$")
+        ax.set_xlim(-0.0375, 0.7875); ax.set_ylim(-0.5, top + 1)
+        ax.set_xlabel("scale $r$"); ax.set_ylabel(r"$\Delta\chi(r)$")
+        leg = ax.legend(fontsize=12, loc="upper right")
+        if frame == 1:
+            leg.get_texts()[1].set_color("none"); leg.legend_handles[1].set_color("none")
+        if frame == 2:
+            ax.text(0.99, 0.66, "shaded: where the two differ", transform=ax.transAxes, fontsize=11, color=PENCIL, style="italic", ha="right")
+        # the numbers, exact over all event radii (computed below); invisible in frame 1 to keep the bounding box
+        ax.text(0.99, 0.555, f"ε = {eps_h:.2f}:  L¹ = {L1:.2f},  bound 2ε(N + N′) ≥ {bound:.1f}",
+                transform=ax.transAxes, fontsize=12, color=OX if frame == 2 else "none", ha="right", style="italic")
+        for k, (A, B, lab) in enumerate(((X, Y, "the rings"), (Xp, Yp, "moved by $\\leq\\epsilon$"))):
+            ghost = k == 1 and frame == 1          # drawn invisibly so both frames share one bounding box
+            ins = fig.add_axes([0.262 + 0.118 * k, 0.53, 0.12, 0.36])
+            ins.scatter(A[:, 0], A[:, 1], s=2, color="none" if ghost else OX, lw=0)
+            ins.scatter(B[:, 0], B[:, 1], s=2, color="none" if ghost else INK, lw=0)
+            ins.set_aspect("equal"); ins.axis("off")
+            ins.set_title(lab, fontsize=10, color="none" if ghost else PENCIL, style="italic", pad=1)
+        _save(fig, f"stability-{frame}.svg")
+        if frame == 2:
+            _save(fig, "stability.svg")
     print("  stability: profiles differ on", round(diff.mean() * 100, 1), "% of the grid; max value", d.max())
-    _save(fig, "stability.svg")
 
 
 def _e2_finals():
@@ -506,7 +543,7 @@ def fig_sweep():
     a2.tick_params(bottom=False, labelbottom=False)
     a2.text(rmax, 0.55, "triangles $+1$", fontsize=10.5, color=SEPIA, style="italic", ha="right", va="center")
     a2.text(rmax, -0.55, "edges $-1$", fontsize=10.5, color=OX, style="italic", ha="right", va="center")
-    a2.set_ylabel("births", fontsize=11, rotation=0, ha="right", va="center", color=PENCIL)
+    a2.set_ylabel("entry radii", fontsize=11, rotation=0, ha="right", va="center", color=PENCIL)
 
     a3 = fig.add_subplot(gs[2, 1], sharex=a1)
     a3.fill_between(r, 0, d, step="post", color=OX, alpha=0.22, lw=0)
@@ -561,10 +598,10 @@ def fig_permtest():
     a2.axvline(T, color=OX, lw=1.8)
     a2.axvline(Tp.mean(), color=SEPIA, lw=0.9, ls=":")
     ytop = a2.get_ylim()[1]
-    a2.text(T, ytop * 0.98, "  observed", color=OX, fontsize=11, style="italic", va="top")
-    a2.text(Tp.mean(), ytop * 1.02, r"$\mathbb{E}_{H_0}\Phi$", color=SEPIA, fontsize=11, ha="center", va="bottom")
+    a2.annotate("observed", (T, ytop * 0.98), xytext=(5, 0), textcoords="offset points", color=OX, fontsize=11, style="italic", va="top")
+    a2.text(Tp.mean(), ytop * 1.02, r"$\overline{\Phi}_B$", color=SEPIA, fontsize=11, ha="center", va="bottom")
     pstr = f"{p_down:.3f}" if p_down >= 0.001 else "0.001"
-    a2.text(0.1, 0.62, rf"$\widehat E = {E:.2f}$" + "\n" + rf"$p = {pstr}$" + "\n" + rf"$B = {B}$",
+    a2.text(0.1, 0.62, rf"$\widehat E = {E:.2f}$" + "\n" + rf"$p_{{\downarrow}} = {pstr}$" + "\n" + rf"$B = {B}$",
             transform=a2.transAxes, ha="left", va="top", fontsize=12.5, color=INK, linespacing=1.5)
     a2.set_xlabel(r"$\Phi = \int|\Delta\chi|\,dr$", fontsize=12)
     a2.set_yticks([]); a2.spines["left"].set_visible(False)
@@ -781,6 +818,54 @@ def fig_opener():
         with open(os.path.join(OUT, f"opener-{k}.md"), "w") as fh:
             fh.write("```{=html}\n" + "\n".join(o) + "\n```\n")
         print(f"  opener {k} ({label}): image H1 {np.round(im1[(im1[:,1]-im1[:,0])>0.05],3).tolist()}, max dchi {d.max()}")
+
+
+# --------------------------------------------------------------------------
+# Proposition 2: the overlap is a union of lenses; its nerve has a simplex per common point
+# --------------------------------------------------------------------------
+def fig_nerve():
+    """Two points of X, three of Y, radius t = 0.62. Left: the balls and the five lenses
+    B(x,t) n B(y,t) whose union is the overlap. Right: their nerve, one vertex per lens, a
+    simplex per common point. Four lenses share the centre: a 3-simplex, 2^4 - 1 = 15 faces.
+    The fifth lens is apart: chi(overlap) = 1 + 1 = 2. Written as assets/nerve.svg."""
+    import itertools
+    X = np.array([[-0.55, 0.0], [0.55, 0.05]]); Y = np.array([[0.0, 0.55], [0.05, -0.5], [1.35, 0.4]]); t = 0.62
+    L = [(i, j) for i in range(2) for j in range(3) if np.linalg.norm(X[i] - Y[j]) <= 2 * t]
+    gx, gy = np.meshgrid(np.linspace(-1.3, 2.1, 680), np.linspace(-1.2, 1.2, 480)); G = np.c_[gx.ravel(), gy.ravel()]
+    inl = np.stack([(np.linalg.norm(G - X[i], axis=1) <= t) & (np.linalg.norm(G - Y[j], axis=1) <= t) for i, j in L], 1)
+    cent = np.array([G[inl[:, a]].mean(0) for a in range(len(L))])
+    simp = {k: [c for c in itertools.combinations(range(len(L)), k) if inl[:, list(c)].all(1).any()] for k in (2, 3, 4)}
+    W, H = 600, 214
+    sc = 66.0; ox, oy = 95, 95
+    P = lambda q: (ox + q[0] * sc, oy - q[1] * sc)
+    o = ['<defs><clipPath id="nv-ux">'] + [circle(P(x), t * sc) for x in X] + ['</clipPath></defs>',
+         f'<g fill="{OX}" opacity="0.13">'] + [circle(P(x), t * sc) for x in X] + ['</g>',
+         f'<g fill="{INK}" opacity="0.10">'] + [circle(P(y), t * sc) for y in Y] + ['</g>',
+         f'<g fill="{OX}" opacity="0.80" clip-path="url(#nv-ux)">'] + [circle(P(y), t * sc) for y in Y] + ['</g>']
+    o += [circle(P(x), 3.2, fill=OX) for x in X] + [circle(P(y), 3.2, fill=INK) for y in Y]
+    o += [text((P(X[0])[0] - 34, P(X[0])[1] - 40), "X", 24, fill=OX),
+          text((P(Y[2])[0] + 34, P(Y[2])[1] - 32), "Y", 24, fill=INK),
+          text((P((0.4, -1.12))[0], 190), "five lenses: the overlap", 20, fill=SEPIA)]
+    # arrow
+    o += [line((268, 92), (318, 92), stroke=SEPIA, stroke_width=1.2),
+          poly([(318, 87), (327, 92), (318, 97)], fill=SEPIA),
+          text((297, 78), "nerve", 20, fill=SEPIA)]
+    # the nerve: lens centres, the shared cluster spread out for legibility
+    core = [a for a in range(len(L)) if any(a in c for c in simp[4])]
+    mid = cent[core].mean(0)
+    Q = {a: (430 + (cent[a][0] - mid[0]) * 2.4 * sc, 92 - (cent[a][1] - mid[1]) * 2.4 * sc) for a in core}
+    for a in range(len(L)):
+        if a not in Q:
+            Q[a] = (565, 60)
+    hull = sorted(core, key=lambda a: np.arctan2(Q[a][1] - 92, Q[a][0] - 430))
+    o += [poly([Q[a] for a in hull], fill=OX, opacity=0.16)]
+    o += [line(Q[a], Q[b], stroke=OX, stroke_width=1.3, opacity=0.8) for a, b in simp[2]]
+    o += [circle(Q[a], 4.2, fill=OX) for a in range(len(L))]
+    o += [text((440, 172), "4 lenses share a point: a 3-simplex,", 19, fill=SEPIA),
+          text((440, 198), "2⁴ − 1 = 15 faces;  χ = 1 + 1 = 2", 19, fill=SEPIA)]
+    with open(os.path.join(OUT, "nerve.svg"), "w") as fh:
+        fh.write(svg(W, H, o, "Five lenses where the balls of X and Y meet, and their nerve: a 3-simplex and an isolated vertex"))
+    print("  nerve: lenses", L, "simplices", {k: len(v) for k, v in simp.items()})
 
 
 # --------------------------------------------------------------------------
@@ -1014,7 +1099,7 @@ def title_plate():
 
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "profile_chi": fig_profile_chi, "reading": fig_reading,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "nerve": fig_nerve, "profile_chi": fig_profile_chi, "reading": fig_reading,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 

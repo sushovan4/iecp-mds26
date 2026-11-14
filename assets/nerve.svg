@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 214" role="img" aria-label="Five lenses where the balls of X and Y meet, and their nerve: a 3-simplex and an isolated vertex">
+<defs><clipPath id="nv-ux">
+<circle cx="58.7" cy="95" r="40.9"/>
+<circle cx="131.3" cy="91.7" r="40.9"/>
+</clipPath></defs>
+<g fill="#6c1d1a" opacity="0.13">
+<circle cx="58.7" cy="95" r="40.9"/>
+<circle cx="131.3" cy="91.7" r="40.9"/>
+</g>
+<g fill="#2b211a" opacity="0.10">
+<circle cx="95" cy="58.7" r="40.9"/>
+<circle cx="98.3" cy="128" r="40.9"/>
+<circle cx="184.1" cy="68.6" r="40.9"/>
+</g>
+<g fill="#6c1d1a" opacity="0.80" clip-path="url(#nv-ux)">
+<circle cx="95" cy="58.7" r="40.9"/>
+<circle cx="98.3" cy="128" r="40.9"/>
+<circle cx="184.1" cy="68.6" r="40.9"/>
+</g>
+<circle cx="58.7" cy="95" r="3.2" fill="#6c1d1a"/>
+<circle cx="131.3" cy="91.7" r="3.2" fill="#6c1d1a"/>
+<circle cx="95" cy="58.7" r="3.2" fill="#2b211a"/>
+<circle cx="98.3" cy="128" r="3.2" fill="#2b211a"/>
+<circle cx="184.1" cy="68.6" r="3.2" fill="#2b211a"/>
+<text x="24.7" y="55" fill="#6c1d1a" font-family="EB Garamond, Georgia, serif" font-size="24" font-style="italic" text-anchor="middle">X</text>
+<text x="218.1" y="36.6" fill="#2b211a" font-family="EB Garamond, Georgia, serif" font-size="24" font-style="italic" text-anchor="middle">Y</text>
+<text x="121.4" y="190" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="20" font-style="italic" text-anchor="middle">five lenses: the overlap</text>
+<line x1="268" y1="92" x2="318" y2="92" stroke="#57473a" stroke-width="1.2"/>
+<polygon points="318,87 327,92 318,97" fill="#57473a"/>
+<text x="297" y="78" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="20" font-style="italic" text-anchor="middle">nerve</text>
+<polygon points="384.5,52.4 471.6,48.4 475.5,131.6 388.4,135.6" fill="#6c1d1a" opacity="0.16"/>
+<line x1="384.5" y1="52.4" x2="388.4" y2="135.6" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<line x1="384.5" y1="52.4" x2="471.6" y2="48.4" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<line x1="384.5" y1="52.4" x2="475.5" y2="131.6" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<line x1="388.4" y1="135.6" x2="471.6" y2="48.4" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<line x1="388.4" y1="135.6" x2="475.5" y2="131.6" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<line x1="471.6" y1="48.4" x2="475.5" y2="131.6" stroke="#6c1d1a" stroke-width="1.3" opacity="0.8"/>
+<circle cx="384.5" cy="52.4" r="4.2" fill="#6c1d1a"/>
+<circle cx="388.4" cy="135.6" r="4.2" fill="#6c1d1a"/>
+<circle cx="471.6" cy="48.4" r="4.2" fill="#6c1d1a"/>
+<circle cx="475.5" cy="131.6" r="4.2" fill="#6c1d1a"/>
+<circle cx="565" cy="60" r="4.2" fill="#6c1d1a"/>
+<text x="440" y="172" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="19" font-style="italic" text-anchor="middle">4 lenses share a point: a 3-simplex,</text>
+<text x="440" y="198" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="19" font-style="italic" text-anchor="middle">2⁴ − 1 = 15 faces;  χ = 1 + 1 = 2</text>
+</svg>
