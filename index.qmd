@@ -74,52 +74,60 @@ How much do several point clouds interact **topologically**, and **at what scale
 {{< include assets/opener-1.md >}}
 :::
 
-::: {.chain .fragment .fade-in-then-out data-fragment-index="3"}
+::::: {.chain .fragment .fade-in data-fragment-index="3"}
+::: {.fragment .fade-out data-fragment-index="5"}
 {{< include assets/opener-2.md >}}
 :::
+:::::
 
-::: {.chain .fragment .fade-in data-fragment-index="4"}
+::: {.chain .fragment .fade-in data-fragment-index="5"}
 {{< include assets/opener-3.md >}}
 :::
 ::::
 
 :::: {.chain-stack}
 ::: {.chain .aside-note .fragment .fade-out data-fragment-index="3"}
-**Far apart.** Inside $X\cup Y$, $X$'s features are unchanged: $Y$ does not touch its topology. The overlap is empty until the balls meet.
+**Far apart.** Image persistence is just ordinary persistence of $X$: $Y$ never fills a feature of $X$. The overlap is empty until the balls meet.
 :::
 
-::: {.chain .aside-note .fragment .fade-in-then-out data-fragment-index="3"}
-**Touching.** Still unchanged. The overlap is a lens: $\Delta\chi=1$.
+::::: {.chain .aside-note .fragment .fade-in data-fragment-index="3"}
+::: {.fragment .fade-out data-fragment-index="5"}
+**Touching.** Still ordinary persistence of $X$. The overlap is a lens: $\Delta\chi=1$.
 :::
+:::::
 
-::: {.chain .aside-note .fragment .fade-in data-fragment-index="4"}
-**Inside the hole.** Inside $X\cup Y$, $X$'s loop dies at $0.55$, not $1.40$: $Y$ fills it. The **overlap** is the meeting.
+::: {.chain .aside-note .fragment .fade-in data-fragment-index="5"}
+**Inside the hole.** Ordinary persistence of $X$: its loop lives until $1.40$. Image persistence, the same loop seen inside $X\cup Y$: dead at $0.55$, filled by $Y$. The **overlap** is the meeting.
 :::
 ::::
 
 ```{=html}
 <span class="fragment anim-step" data-fragment-index="1" data-frame="1" data-r="0.7"></span>
 <span class="fragment anim-step" data-fragment-index="2" data-frame="1" data-r="1.2"></span>
-<span class="fragment anim-step" data-fragment-index="3" data-frame="2" data-r="0.3"></span>
-<span class="fragment anim-step" data-fragment-index="4" data-frame="3" data-r="0.45"></span>
-<span class="fragment anim-step" data-fragment-index="5" data-frame="3" data-r="0.7"></span>
-<span class="fragment anim-step" data-fragment-index="6" data-frame="3" data-r="1.5"></span>
+<span class="fragment anim-step" data-fragment-index="4" data-frame="2" data-r="0.3"></span>
+<span class="fragment anim-step" data-fragment-index="6" data-frame="3" data-r="0.45"></span>
+<span class="fragment anim-step" data-fragment-index="7" data-frame="3" data-r="0.7"></span>
+<span class="fragment anim-step" data-fragment-index="8" data-frame="3" data-r="1.5"></span>
 ```
 
 ::: {.notes}
 ⏱ 1:35 · by 2:35
 
-So: how much do several clouds interact topologically, and at what scale? A ring X, a blob Y, and a ball of radius r on every point; I grow r by hand. Top right: X's features as they survive inside the union, the image of H of X in H of X union Y. Below: the Euler characteristic of the overlap.
+So: how much do several clouds interact topologically, and at what scale? A ring X, a blob Y, and a ball of radius r on every point; I grow r by hand. Top right: X's features as they survive inside the union, the image of H of X in H of X union Y. Ordinary persistence lets only X's own balls fill a feature of X; image persistence lets Y's balls fill it too. Watch for the moment the two disagree. Below: the Euler characteristic of the overlap.
 
-[click] Far apart, at 0.7: X's loop is untouched, the overlap empty.
+[click] Far apart, at 0.7: the image barcode is just X's own barcode, since Y fills nothing of X. The overlap is empty.
 
 [click] At 1.2 the balls meet in a lens; the profile steps to one. X still does not see Y.
 
-[click] Touching, at 0.3: a lens again.
+[click] Now Y touches X, back at r = 0.
 
-[click] Inside the hole, at 0.45: a handful of small pieces.
+[click] At 0.3: a lens again, and still X's own barcode.
 
-[click] At 0.7 Y has filled X's loop: in the union it died at 0.55, not 1.40. The overlap is an annulus: they plainly meet, yet its Euler characteristic is zero. Hold on to that.
+[click] Now Y sits inside X's hole, again from r = 0.
+
+[click] At 0.45: a handful of small pieces.
+
+[click] At 0.7 Y has filled X's loop. This is where image persistence differs from ordinary persistence. Ordinary persistence of X asks how long the loop lives in X alone: until 1.40. Image persistence asks how long it lives as a loop of X inside X union Y: a feature of X dies as soon as it is filled, by X or by Y, and here that is 0.55. The overlap is an annulus: they plainly meet, yet its Euler characteristic is zero. Hold on to that.
 
 [click] At 1.5, one blob. The image says Y changed X, not where they meet. The overlap is the meeting, and its Euler characteristic, scale by scale, is the object of this talk.
 :::
