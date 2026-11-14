@@ -35,15 +35,10 @@
     attrib:  'a dispatch on overlaps',
   };
 
-  // Speaker notes for the title slide (HTML; presenter-only).
-  // Inline `::: {.notes}` at the top of the .qmd would create a phantom
-  // empty slide, so we inject the title's notes here instead.
-  var TITLE_NOTES_HTML =
-    '<p>Thank you, Brittany and Atish, for the invitation. This is joint work with Kazuhiro Kawamura and Atish Mitra.</p>' +
-    '<p>The question: given several point clouds, how much do they interact topologically, and at what scale? ' +
-    'The answer is an integer-valued curve, the Euler characteristic of the overlap of their ball unions. ' +
-    'Three parts: why this curve, and why it is the canonical one; how cheap and how stable it is; ' +
-    'and what it certifies, on monsoons and on trained classifiers.</p>';
+  // Speaker notes for the title slide live in assets/title-notes.html, fetched
+  // only when the deck is served locally. That file is not a published resource
+  // (only assets/*.svg and assets/*.js are), so the public site never carries it.
+  // Inline `::: {.notes}` at the top of the .qmd would create a phantom slide.
 
   // ============================================================
   // STRUCTURAL SCAFFOLDING—usually no edits needed below
@@ -212,10 +207,20 @@
     tb.insertBefore(volBadge, masthead);
     tb.appendChild(seal);
 
-    var notes = document.createElement('aside');
-    notes.className = 'notes';
-    notes.innerHTML = TITLE_NOTES_HTML;
-    tb.appendChild(notes);
+    // Presenter-only: inject the title notes only when served locally, so the
+    // public site (built with QUARTO_PROFILE=public) carries no speaker notes.
+    var local = location.protocol === 'file:' ||
+                /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    if (local) {
+      fetch('assets/title-notes.html').then(function (r) { return r.ok ? r.text() : ''; })
+        .then(function (html) {
+          if (!html) return;
+          var notes = document.createElement('aside');
+          notes.className = 'notes';
+          notes.innerHTML = html;
+          tb.appendChild(notes);
+        }).catch(function () {});
+    }
 
     var quote = document.createElement('aside');
     quote.className = 'title-pullquote';

@@ -39,7 +39,7 @@ In each plate: points, their ball unions, and in dark red the overlap; $\Delta\c
 
 [MDS26, after Bei Wang: Bei's descriptors summarize one space at a time. I want to ask what happens when there are several.]
 
-Thank you. The data I have in mind is several point clouds in one space. Where two species are recorded: each record a point, each range a union of balls, and where the ranges overlap, the species meet.
+The data I have in mind is several point clouds in one space. Where two species are recorded: each record a point, each range a union of balls, and where the ranges overlap, the species meet.
 
 [click] Cells of two types, placed in an expression space: where the populations overlap, cells of one type sit among the other.
 
