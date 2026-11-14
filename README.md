@@ -13,7 +13,7 @@ Joint work with Kazuhiro Kawamura and Atish Mitra.
 ```bash
 quarto render index.qmd --to revealjs   # render to index.html
 quarto preview index.qmd                 # live preview
-QUARTO_PROFILE=public quarto publish gh-pages   # deploy WITHOUT speaker notes
+QUARTO_PROFILE=public quarto publish gh-pages index.qmd   # deploy WITHOUT speaker notes
 ```
 
 Always publish with `QUARTO_PROFILE=public`: the profile (`_quarto-public.yml`) runs
