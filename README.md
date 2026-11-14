@@ -30,8 +30,8 @@ fallback. A bracketed `[MDS26 …]` line in the opener is specific to this sessi
 
 | Part | Slides | Ends by |
 |:--|:--|--:|
-| Opener | title, *How much do they interact?* | 2:20 |
-| § I Euler calculus | *The profile*, *Three configurations*, *Why not persistence*, *Why this curve* | 7:30 |
-| § II Computation and stability | *Computation*, *Stability*, *Consistency* | 11:10 |
-| § III Certified interaction | *Every number carries a test*, *Monsoon*, *Disentanglement*, *Mostly pairwise*, *Memorization* | 18:35 |
+| Opener | title, *Several clouds, one space*, *How much do they interact?*, *Why not a barcode?* | 3:30 |
+| § I Euler calculus | *The profile*, *Reading a profile*, *Why not the overlap's homology?*, *Why this curve* | 8:05 |
+| § II Computation and stability | *Computation*, *Stability*, *Consistency* | 11:35 |
+| § III Certified interaction | *Every number carries a test*, *Monsoon*, *Disentanglement*, *Mostly pairwise*, *Memorization* | 18:45 |
 | Close | *What remains*, *Thank you* | 19:50 |

@@ -2743,3 +2743,23 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 .reveal .remains-row > .qcol { display: flex; flex-direction: column; margin: 0.2rem 0; }
 .reveal .remains-row > .qcol > .question { margin: 0 0 0.2rem; max-width: none; flex: 0 0 auto; }
 .reveal .remains-row img.remains-fig { display: block; height: 330px; width: auto; max-width: 100%; margin: 0.1rem auto 0; }
+
+// Three plates side by side (the motivating slide).
+.reveal .plate-row { display: flex; gap: 1.1rem; justify-content: center; align-items: flex-start; margin: 0.3rem auto 0; max-width: 1200px; }
+.reveal .plate-row > .plate { flex: 0 1 31%; margin: 0; padding: 0.3rem 0.3rem 0.5rem; }
+.reveal .plate-row > .plate img { width: 100%; height: auto; }
+
+// The animated opener: inline SVG frames, crossfaded by the chain-stack.
+.reveal svg.opener-anim { display: block; width: 94%; max-width: 1150px; height: auto; margin: 0.1rem auto 0; }
+
+// "Why not a barcode?": the comparison table, first column as row labels.
+.reveal .hard-table table { width: 96% !important; font-size: 0.72em; }
+.reveal .hard-table td { vertical-align: top; }
+.reveal .hard-table table { table-layout: fixed; }
+.reveal .hard-table th:nth-child(1) { width: 18%; }
+.reveal .hard-table th:nth-child(2) { width: 52%; }
+.reveal .hard-table th:nth-child(3) { width: 30%; }
+.reveal .hard-table td:last-child { color: var(--oxblood); }
+
+// Monsoon ablation: fewer columns, larger type.
+.reveal .monsoon-table table { width: 92% !important; font-size: 0.7em; }

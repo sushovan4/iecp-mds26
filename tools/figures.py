@@ -214,6 +214,57 @@ def fig_trio():
     _save(fig, "trio.svg")
 
 
+def fig_reading():
+    """'Reading a profile': the three configurations of fig_trio, with the four readings
+    numbered on the computed curves: first contact, the small-scale burst, the plateau,
+    and a zero after contact."""
+    rng = np.random.default_rng(3)
+    configs = [
+        ("separated", _blob(rng, (-1.5, 0), 0.32, 70), _blob(rng, (1.5, 0), 0.32, 70)),
+        ("overlapping", _blob(rng, (-0.45, 0), 0.32, 70), _blob(rng, (0.45, 0), 0.32, 70)),
+        ("encircling", _ring(rng, (0, 0), 1.55, 0.12, 110), _blob(rng, (0, 0), 0.30, 70)),
+    ]
+    r_grid = np.linspace(0, 1.2, 481)
+    r_show = 0.7
+    fig = plt.figure(figsize=(8.6, 6.0))
+    gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 1.05], hspace=0.3, wspace=0.06)
+    styles = {"separated": (PENCIL, "--"), "overlapping": (OX, "-"), "encircling": (INK, "-.")}
+    axp = fig.add_subplot(gs[1, :])
+    prof, rstar = {}, {}
+    for j, (name, X, Y) in enumerate(configs):
+        ax = fig.add_subplot(gs[0, j])
+        _draw_overlap(ax, X, Y, r_show, lim=3.1)
+        ax.set_xlim(-3.05, 3.05); ax.set_ylim(-2.45, 2.45); ax.set_aspect("equal"); ax.axis("off")
+        ax.set_title(name, fontsize=15, style="italic", color=SEPIA)
+        prof[name] = iecp.intersection_profile([X, Y], r_grid)
+        rstar[name] = iecp.first_interaction_scale([X, Y])
+        col, ls = styles[name]
+        axp.step(r_grid, prof[name], where="post", color=col, ls=ls, lw=1.6, label=name)
+    axp.axvline(r_show, color=RULE, lw=1)
+    axp.text(r_show + 0.01, axp.get_ylim()[1] * 0.93, "scale shown above", fontsize=10.5, color=PENCIL, style="italic", va="top")
+
+    def badge(n, xy, off):
+        axp.annotate(str(n), xy=xy, xytext=off, textcoords="offset points", ha="center", va="center", fontsize=12,
+                     color=OX, bbox=dict(boxstyle="circle,pad=0.25", fc=PAPER, ec=OX, lw=1),
+                     arrowprops=dict(arrowstyle="-", color=OX, lw=0.8, shrinkA=0, shrinkB=2))
+    d_ov, d_en = prof["overlapping"], prof["encircling"]
+    small = r_grid < 0.25
+    i_peak = int(np.argmax(np.where(small, d_ov, -99)))
+    after = np.flatnonzero((r_grid > rstar["encircling"]) & (d_en == 0))
+    r_zero = r_grid[after[after.size // 2]] if after.size else 1.0
+    badge(1, (rstar["separated"], 1), (0, 26))
+    badge(2, (r_grid[i_peak], d_ov[i_peak]), (22, 6))
+    badge(3, (0.3, 1), (0, 26))
+    badge(4, (r_zero, 0), (0, -26))
+    axp.set_ylim(-1.6, axp.get_ylim()[1])
+    axp.set_xlabel("scale $r$", fontsize=13)
+    axp.set_ylabel(r"$\Delta\chi(r)$", fontsize=14)
+    axp.legend(fontsize=11.5, loc="upper right", bbox_to_anchor=(1.0, 0.8))
+    print(f"  reading: r* separated {rstar['separated']:.3f}, burst peak {d_ov[i_peak]} at r={r_grid[i_peak]:.3f}, "
+          f"encircling r* {rstar['encircling']:.3f}, zero marked at r={r_zero:.3f}, value there {int(d_en[np.searchsorted(r_grid, r_zero)])}")
+    _save(fig, "reading.svg")
+
+
 def fig_stability():
     """Two crossing rings and a Hausdorff perturbation: equal off critical scales."""
     rng = np.random.default_rng(7)
@@ -606,6 +657,291 @@ def fig_remains():
     _save(fig, "remains-surface.svg")
 
 
+def fig_profile_chi():
+    """'The profile': three overlaps from the opener, labelled pieces minus holes."""
+    rng = np.random.default_rng(5)
+    X = _ring(rng, (0, 0), 1.5, 0.1, 120)
+    Yb = _blob(rng, (0, 0), 0.28, 60)
+    cases = [((2.55, 0), 0.3, (-1.95, 3.3), "1 piece"), ((0, 0), 0.45, (-2.4, 2.4), "4 pieces"),
+             ((0, 0), 0.7, (-2.4, 2.4), "1 piece, 1 hole")]
+    widths = [c[2][1] - c[2][0] for c in cases]
+    fig, axes = plt.subplots(1, 3, figsize=(9.4, 2.85), gridspec_kw=dict(width_ratios=widths, wspace=0.06))
+    for ax, (c, r, xl, lab) in zip(axes, cases):
+        Y = Yb + np.array(c)
+        _draw_overlap(ax, X, Y, r, lim=3.4)
+        ax.set_xlim(*xl); ax.set_ylim(-2.4, 2.4); ax.set_aspect("equal"); ax.axis("off")
+        d = int(iecp.intersection_profile([X, Y], np.array([r]))[0])
+        ax.text(np.mean(xl), -2.55, f"{lab}:  " + rf"$\chi = {d}$", ha="center", va="top", fontsize=14, color=OX)
+        ax.text(np.mean(xl), 2.5, f"$r = {r}$", ha="center", va="bottom", fontsize=12, color=SEPIA, style="italic")
+        print(f"  profile-chi: {lab} at r={r}: Delta chi = {d}")
+    _save(fig, "profile-chi.svg")
+
+
+# --------------------------------------------------------------------------
+# the opener, animated: balls grow, a cursor sweeps the image barcode and the profile
+# --------------------------------------------------------------------------
+def _image_barcode(X, Y):
+    """Image persistence of H_*(U(X;r)) -> H_*(U(X u Y;r)) on the chromatic Alpha filtration
+    (chalc; filtration values are ball radii). Also returns X's own barcode for comparison."""
+    import chalc.sixpack as sixpack
+    P = np.r_[X, Y]
+    d = sixpack.compute(P.T, [0] * len(X) + [1] * len(Y), sixpack.SubsetInclusion({0}),
+                        filtration_algorithm="alpha", max_diagram_dimension=1)
+    im0, im1 = d.get_matrix("im", [0, 1]); dom1 = d.get_matrix("dom", 1)
+    return im0, im1, dom1
+
+
+def fig_opener():
+    """Three frames of the opener (Y far apart, touching, inside X's hole). Each is an inline SVG
+    driven by assets/opener-anim.js: the balls grow with r, a cursor sweeps the image barcode
+    of X inside X u Y, and the profile is drawn in as r grows. Written as assets/opener-k.md."""
+    rng = np.random.default_rng(5)
+    X = _ring(rng, (0, 0), 1.5, 0.1, 120)
+    Yb = _blob(rng, (0, 0), 0.28, 60)
+    RMAX, W, H = 1.6, 1180, 446
+    LX0, LX1, LY0, LY1 = 10, 470, 34, 414                      # left panel, pixels
+    xmin, xmax = -2.4, 5.6; sc = (LX1 - LX0) / (xmax - xmin); ymid = (LY0 + LY1) / 2
+    px = lambda p: (LX0 + (p[0] - xmin) * sc, ymid - p[1] * sc)
+    RX0, RX1 = 575, 1150; rx = lambda r: RX0 + (RX1 - RX0) * r / RMAX
+    BT, BB = 62, 205                                            # barcode band
+    CT, CB = 262, 382                                           # profile band
+    grid = np.round(np.linspace(0, RMAX, 321), 4)
+    frames = [("far apart", (4.3, 0)), ("touching", (2.55, 0)), ("inside the hole", (0, 0))]
+    for k, (label, c) in enumerate(frames, 1):
+        Y = Yb + np.array(c)
+        d = iecp.intersection_profile([X, Y], grid)
+        im0, im1, dom1 = _image_barcode(X, Y)
+        vmin, vmax = -1, 7; cy = lambda v: CB - (v - vmin) * (CB - CT) / (vmax - vmin)
+        o = [f'<svg class="opener-anim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+             f'data-scale="{sc:.4f}" data-rmax="{RMAX}" data-x0="{RX0}" data-x1="{RX1}" '
+             f'data-dchi="{",".join(str(int(v)) for v in d)}" role="img" '
+             f'aria-label="Opener, {label}: balls growing with r, the image barcode of X inside X union Y, and the profile">',
+             f'<defs><clipPath id="op{k}-panel"><rect x="{LX0}" y="{LY0}" width="{LX1 - LX0}" height="{LY1 - LY0}"/></clipPath>',
+             f'<clipPath id="op{k}-ux">'] + [f'<circle class="ball" cx="{px(p)[0]:.1f}" cy="{px(p)[1]:.1f}" r="0"/>' for p in X] + [
+             '</clipPath>',
+             f'<clipPath id="op{k}-prog"><rect class="prog" x="{RX0 - 2}" y="{CT - 10}" width="0" height="{CB - CT + 20}"/></clipPath></defs>']
+        # left panel: growing unions, their overlap, the points
+        o += [f'<g clip-path="url(#op{k}-panel)">',
+              f'<g fill="{OX}" opacity="0.17">'] + [f'<circle class="ball" cx="{px(p)[0]:.1f}" cy="{px(p)[1]:.1f}" r="0"/>' for p in X] + ['</g>',
+              f'<g fill="{INK}" opacity="0.14">'] + [f'<circle class="ball" cx="{px(p)[0]:.1f}" cy="{px(p)[1]:.1f}" r="0"/>' for p in Y] + ['</g>',
+              f'<g fill="{OX}" opacity="0.88" clip-path="url(#op{k}-ux)">'] + [f'<circle class="ball" cx="{px(p)[0]:.1f}" cy="{px(p)[1]:.1f}" r="0"/>' for p in Y] + ['</g>',
+              f'<g fill="{OX}">'] + [circle(px(p), 1.9) for p in X] + ['</g>',
+              f'<g fill="{INK}">'] + [circle(px(p), 1.9) for p in Y] + ['</g>', '</g>']
+        o += [text((px((-1.95, 1.75))[0], px((-1.95, 1.75))[1]), "X", 25, fill=OX),
+              text((px((c[0] + 0.62, c[1] + 0.5))[0], px((c[0] + 0.62, c[1] + 0.5))[1]), "Y", 25, fill=INK),
+              text((LX0 + (LX1 - LX0) / 2, 24), label, 24, fill=SEPIA),
+              f'<text class="rlabel" x="{LX0 + 8}" y="{LY1 - 8}" fill="{INK}" font-family="{SERIF}" font-size="24" font-style="italic">r = 0.00</text>']
+        # right top: image barcode of X inside X u Y
+        o += [text((RX0, BT - 26), "X's features inside X ∪ Y", 21, fill=SEPIA, anchor="start", italic=True),
+              text((RX1, BT - 26), "image of H(X) → H(X ∪ Y)", 16, fill=PENCIL, anchor="end", italic=True)]
+        keep0 = sorted([b for b in im0 if min(b[1], RMAX) - b[0] > 0.12], key=lambda b: -min(b[1], 9))
+        keep1 = [b for b in im1 if min(b[1], RMAX) - b[0] > 0.05]
+        rows = len(keep1) + len(keep0) + (1 if len(keep1) else 0); step = (BB - BT) / max(rows, 1)
+        yrow = BT + step / 2
+        for b in keep1:
+            ghost = [g for g in dom1 if abs(g[0] - b[0]) < 1e-6 and abs(g[1] - b[1]) > 1e-3]
+            if ghost:
+                g = ghost[0]
+                o.append(line((rx(g[0]), yrow), (rx(min(g[1], RMAX)), yrow), stroke=OX, stroke_width=1.2,
+                              stroke_dasharray="5 4", opacity=0.55))
+                o.append(text((rx(min(g[1], RMAX)) + 6, yrow + 5), f"X alone: {g[1]:.2f}", 16, fill=PENCIL, anchor="start"))
+                o.append(text((rx(min(b[1], RMAX)) + 6, yrow - 7), f"in X ∪ Y: {b[1]:.2f}", 16, fill=OX, anchor="start"))
+            o.append(line((rx(b[0]), yrow), (rx(min(b[1], RMAX)), yrow), stroke=OX, stroke_width=4.5, stroke_linecap="butt"))
+            yrow += step
+        o.append(text((RX0 - 14, BT + step * (len(keep1) / 2) + 5), "H₁", 18, fill=PENCIL, anchor="end"))
+        y0 = yrow + (step if len(keep1) else 0)
+        yrow = y0
+        for b in keep0:
+            o.append(line((rx(b[0]), yrow), (rx(min(b[1], RMAX)), yrow), stroke=SEPIA, stroke_width=3, stroke_linecap="butt"))
+            yrow += step
+        o.append(text((RX0 - 14, (y0 + yrow - step) / 2 + 5), "H₀", 18, fill=PENCIL, anchor="end"))
+        # right bottom: the profile, drawn in as r grows
+        pts = []
+        for i in range(len(grid)):
+            if i and d[i] != d[i - 1]:
+                pts.append((rx(grid[i]), cy(d[i - 1])))
+            pts.append((rx(grid[i]), cy(d[i])))
+        path = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in pts)
+        o += [text((RX0, CT - 18), "the overlap: Δχ(r)", 21, fill=SEPIA, anchor="start", italic=True),
+              line((RX0, cy(0)), (RX1, cy(0)), stroke=RULE, stroke_width=0.8),
+              f'<path d="{path}" fill="none" stroke="{RULE}" stroke-width="1.3"/>',
+              f'<path d="{path}" fill="none" stroke="{OX}" stroke-width="2.2" clip-path="url(#op{k}-prog)"/>',
+              line((RX0, CB + 6), (RX1, CB + 6), stroke=SEPIA, stroke_width=0.8)]
+        for v in (0, 5):
+            o.append(text((RX0 - 10, cy(v) + 5), str(v), 16, fill=PENCIL, anchor="end", italic=False))
+        for t in (0, 0.4, 0.8, 1.2, 1.6):
+            o += [line((rx(t), CB + 6), (rx(t), CB + 11), stroke=SEPIA, stroke_width=0.8),
+                  text((rx(t), CB + 27), f"{t:.1f}", 16, fill=SEPIA, italic=False)]
+        o.append(text(((RX0 + RX1) / 2, CB + 52), "scale r", 18, fill=SEPIA))
+        # the cursor and the readout
+        o += [f'<line class="cursor" x1="{RX0}" y1="{BT - 12}" x2="{RX0}" y2="{CB + 6}" stroke="{INK}" stroke-width="1" stroke-dasharray="3 3"/>',
+              f'<circle class="cdot" cx="{RX0}" cy="{cy(0):.1f}" r="4.5" fill="{OX}" data-cy0="{CB}" data-cyscale="{(CB - CT) / (vmax - vmin):.4f}" data-vmin="{vmin}"/>',
+              f'<text class="dlabel" x="{RX1}" y="{CT - 18}" fill="{OX}" font-family="{SERIF}" font-size="23" font-style="italic" text-anchor="end">Δχ = 0</text>',
+              '</svg>']
+        with open(os.path.join(OUT, f"opener-{k}.md"), "w") as fh:
+            fh.write("```{=html}\n" + "\n".join(o) + "\n```\n")
+        print(f"  opener {k} ({label}): image H1 {np.round(im1[(im1[:,1]-im1[:,0])>0.05],3).tolist()}, max dchi {d.max()}")
+
+
+# --------------------------------------------------------------------------
+# three motivating plates: species, cell types, sensor tracks
+# --------------------------------------------------------------------------
+def _corner_fleurons(x0, y0, x1, y1):
+    petal = ('<path d="M 0 -7 Q 4.5 -2.5 0 0 Q -4.5 -2.5 0 -7 Z"/>'
+             '<path d="M 0 7 Q 4.5 2.5 0 0 Q -4.5 2.5 0 7 Z"/>'
+             '<path d="M -7 0 Q -2.5 -4.5 0 0 Q -2.5 4.5 -7 0 Z"/>'
+             '<path d="M 7 0 Q 2.5 -4.5 0 0 Q 2.5 4.5 7 0 Z"/>'
+             '<circle cx="0" cy="0" r="1.8"/>')
+    out = [f'<g fill="{RULE}" stroke="none">']
+    for x, y in [(x0, y0), (x1, y0), (x0, y1), (x1, y1)]:
+        out.append(f'<g transform="translate({f(x)}, {f(y)})">{petal}</g>')
+    return out + ["</g>"]
+
+
+def plate_tall(title, deck, caption, readout, art, label, w=400, h=480):
+    body = [f'<rect x="20" y="20" width="{w - 40}" height="{h - 40}" fill="none" stroke="{RULE}" stroke-width="0.6"/>',
+            text((w / 2, 54), title, 15, caps=True, fill=OX, spacing=3.5, weight=500),
+            text((w / 2, 76), deck, 12.5, fill=SEPIA),
+            line((70, 88), (w - 70, 88), stroke=RULE, stroke_width=0.5)]
+    body += art
+    body.append(text((w / 2, h - 66), readout, 17, fill=OX, italic=True))
+    body.append(text((w / 2, h - 38), caption, 10, caps=True, fill=SEPIA, spacing=2.6))
+    body += _corner_fleurons(36, 36, w - 36, h - 36)
+    return svg(w, h, body, label)
+
+
+def _union(P, r, fill, opacity):
+    return [f'<g opacity="{opacity}" fill="{fill}" stroke="none">'] + [circle(p, r) for p in P] + ["</g>"]
+
+
+def _overlap(X, Y, r, cid, fill=OX, opacity=0.9):
+    out = [f'<defs><clipPath id="{cid}">'] + [circle(p, r) for p in X] + ["</clipPath></defs>"]
+    out += [f'<g clip-path="url(#{cid})" fill="{fill}" opacity="{opacity}" stroke="none">'] + [circle(p, r) for p in Y] + ["</g>"]
+    return out
+
+
+def _dchi(X, Y, r):
+    return int(iecp.intersection_profile([np.asarray(X, float), np.asarray(Y, float)], np.array([r]))[0])
+
+
+def _smooth_path(pts):
+    return "M " + " L ".join(f"{f(x)} {f(y)}" for x, y in pts)
+
+
+def plate_species():
+    """Two species' occurrence records on an engraved coast: ranges as ball unions, sympatry as their overlap."""
+    rng = np.random.default_rng(21)
+    ys = np.linspace(96, 400, 120)
+    coast = lambda y: 92 + 22 * np.sin(y / 37.0) + 10 * np.sin(y / 11.0 + 1.0)
+    sea = [(20, 96)] + [(coast(y), y) for y in ys] + [(20, 400)]
+    hatch = [line((22, y), (150, y), stroke=SEPIA, stroke_width=0.45, opacity=0.55) for y in np.arange(100, 400, 6.5)]
+    art = ['<defs><clipPath id="sea">' + poly(sea) + "</clipPath></defs>",
+           '<g clip-path="url(#sea)">'] + hatch + ["</g>",
+           f'<path d="{_smooth_path([(coast(y), y) for y in ys])}" fill="none" stroke="{INK}" stroke-width="1.1"/>',
+           text((50, 250), "sea", 12, fill=SEPIA)]
+    for cx, cy in [(296, 128), (320, 146), (344, 126), (330, 108)]:          # engraved hills
+        art.append(f'<path d="M {f(cx - 11)} {f(cy + 6)} L {f(cx)} {f(cy - 8)} L {f(cx + 11)} {f(cy + 6)}" '
+                   f'fill="none" stroke="{SEPIA}" stroke-width="0.8"/>')
+        art += [line((cx - 6 + k * 3, cy + 6), (cx - 3 + k * 3, cy - 2), stroke=SEPIA, stroke_width=0.5) for k in range(3)]
+    art += [line((340, 345), (340, 375), stroke=INK, stroke_width=0.8),
+            f'<path d="M 340 338 L 336 350 L 344 350 Z" fill="{INK}"/>', text((340, 392), "N", 11, caps=True, fill=INK)]
+    rng = np.random.default_rng(1)
+    X, Y = [], []
+    while len(X) < 85:
+        p = np.array([rng.uniform(100, 250), rng.uniform(190, 395)])
+        if p[0] > coast(p[1]) + 10 and np.hypot(*(p - (170, 300)) / (70, 80)) < 1:
+            X.append(p)
+    while len(Y) < 85:
+        p = rng.normal((245, 215), (24, 30))
+        if p[0] > coast(p[1]) + 10 and 110 < p[1] < 390 and p[0] < 345:
+            Y.append(p)
+    X, Y, r = np.array(X), np.array(Y), 14.0
+    art += _union(X, r, OX, 0.16) + _union(Y, r, INK, 0.12) + _overlap(X, Y, r, "symp")
+    art += [circle(p, 2.1, fill=OX) for p in X]
+    art += [f'<path d="M {f(p[0] - 2.6)} {f(p[1])} H {f(p[0] + 2.6)} M {f(p[0])} {f(p[1] - 2.6)} V {f(p[1] + 2.6)}" '
+            f'stroke="{INK}" stroke-width="1.1"/>' for p in Y]
+    d = _dchi(X, Y, r)
+    print("  plate species: Delta chi =", d)
+    write("motive-species.svg", plate_tall("Where species occur", "— two ranges, and where they meet —",
+                                           "— records · ranges · sympatry —", f"Δχ = {d}", art, "Plate A: species ranges"))
+
+
+def plate_cells():
+    """Two cell types in an expression space: a crescent of one type meets a cluster of the other."""
+    rng = np.random.default_rng(5)
+    art = [f'<path d="M 52 372 L 52 112" stroke="{INK}" stroke-width="0.9" fill="none"/>',
+           f'<path d="M 52 372 L 360 372" stroke="{INK}" stroke-width="0.9" fill="none"/>',
+           f'<path d="M 48 120 L 52 108 L 56 120" fill="none" stroke="{INK}" stroke-width="0.9"/>',
+           f'<path d="M 352 368 L 364 372 L 352 376" fill="none" stroke="{INK}" stroke-width="0.9"/>',
+           text((206, 390), "expression, component 1", 11, fill=SEPIA),
+           f'<text x="38" y="252" fill="{SEPIA}" font-family="{SERIF}" font-size="11" font-style="italic" '
+           f'text-anchor="middle" transform="rotate(-90 38 252)">component 2</text>']
+    rng = np.random.default_rng(9)
+    t = rng.uniform(0.15, 1.55, 90) * np.pi / 2
+    X = np.c_[150 + 95 * np.cos(t + 1.2), 290 - 120 * np.sin(t + 1.2) * 0.9] + rng.normal(0, 6, (90, 2))
+    Y = rng.normal((215, 200), (24, 26), (80, 2))
+    r = 14.0
+    art += _union(X, r, OX, 0.16) + _union(Y, r, INK, 0.12) + _overlap(X, Y, r, "trans")
+    for p in X:
+        art += [circle(p, 3.6, fill=PAPER, stroke=OX, stroke_width=0.9), circle(p, 1.3, fill=OX)]
+    for p in Y:
+        art += [circle(p, 3.6, fill=PAPER, stroke=INK, stroke_width=0.9), circle(p, 1.3, fill=INK)]
+    art += [text((96, 352), "type A", 12.5, fill=OX), text((300, 152), "type B", 12.5, fill=INK)]
+    th = np.linspace(3.35, 1.75, 40)                          # pseudotime: along the crescent, inside its curve
+    pt = np.c_[150 + 58 * np.cos(th), 290 - 72 * np.sin(th)]
+    art.append(f'<path d="{_smooth_path(pt)}" fill="none" stroke="{SEPIA}" stroke-width="1" stroke-dasharray="4 3"/>')
+    b, a = pt[-1], pt[-3]; v = (b - a) / np.linalg.norm(b - a); nn = np.array([-v[1], v[0]])
+    tip, l, rgt = b + 8 * v, b + 4.5 * nn, b - 4.5 * nn
+    art.append(f'<path d="M {f(tip[0])} {f(tip[1])} L {f(l[0])} {f(l[1])} L {f(rgt[0])} {f(rgt[1])} Z" fill="{SEPIA}"/>')
+    art.append(text((140, 292), "pseudotime", 11.5, fill=SEPIA))
+    d = _dchi(X, Y, r)
+    print("  plate cells: Delta chi =", d)
+    write("motive-cells.svg", plate_tall("Where cell types sit", "— two populations in expression space —",
+                                         "— cells · populations · transition —", f"Δχ = {d}", art, "Plate B: cell types"))
+
+
+def _along(path, n, rng, sd):
+    """n points evenly spaced by arc length along a polyline, with GPS-like jitter."""
+    P = np.asarray(path, float); seg = np.linalg.norm(np.diff(P, axis=0), axis=1)
+    cum = np.r_[0, np.cumsum(seg)]; t = np.linspace(0, cum[-1], n)
+    k = np.clip(np.searchsorted(cum, t, side="right") - 1, 0, len(seg) - 1)
+    w = (t - cum[k]) / seg[k]
+    return P[k] + w[:, None] * (P[k + 1] - P[k]) + rng.normal(0, sd, (n, 2))
+
+
+def plate_tracks():
+    """Two vehicles' GPS traces through a city grid: traces as tubes, crossings as their overlap."""
+    rng = np.random.default_rng(3)
+    art = [f'<g stroke="{RULE}" stroke-width="5" opacity="0.55">']           # side streets
+    art += [line((x, 100), (x, 405), stroke_linecap="butt") for x in (60, 110, 160, 210, 250, 290, 340)]
+    art += [line((30, y), (370, y), stroke_linecap="butt") for y in (130, 180, 220, 310, 360)]
+    art.append("</g>")
+    art.append(f'<rect x="166" y="316" width="38" height="38" fill="none" stroke="{SEPIA}" stroke-width="0.6"/>')
+    art += [line((166 + k * 6, 354), (166 + k * 6 + 10, 316), stroke=SEPIA, stroke_width=0.45, opacity=0.7) for k in range(-1, 6)]
+    art += [text((185, 340), "park", 9.5, fill=SEPIA)]
+    art += [line((30, 265), (370, 265), stroke=RULE, stroke_width=9, opacity=0.6),        # the avenue
+            text((330, 285), "avenue", 10.5, fill=SEPIA)]
+    X = _along([(40, 265), (360, 265)], 70, rng, 1.8)
+    Y = _along([(110, 130), (110, 360), (290, 360), (290, 180), (345, 180)], 90, rng, 1.8)
+    r = 7.5
+    art += _union(X, r, OX, 0.22) + _union(Y, r, INK, 0.18) + _overlap(X, Y, r, "cross")
+    art += [circle(p, 1.8, fill=OX) for p in X] + [circle(p, 1.8, fill=INK) for p in Y]
+    for P, col in ((X, OX), (Y, INK)):
+        a, b = P[-4], P[-1]; v = (b - a) / np.linalg.norm(b - a); n = np.array([-v[1], v[0]])
+        tip, l, rgt = b + 9 * v, b - 2 * v + 4 * n, b - 2 * v - 4 * n
+        art.append(f'<path d="M {f(tip[0])} {f(tip[1])} L {f(l[0])} {f(l[1])} L {f(rgt[0])} {f(rgt[1])} Z" fill="{col}"/>')
+        art.append(circle(P[0], 4, fill=PAPER, stroke=col, stroke_width=1.2))
+    art += [text((70, 254), "vehicle A", 12.5, fill=OX), text((158, 124), "vehicle B", 12.5, fill=INK)]
+    d = _dchi(X, Y, r)
+    print("  plate tracks: Delta chi =", d)
+    write("motive-tracks.svg", plate_tall("Where sensors travel", "— two GPS traces through a city —",
+                                          "— fixes · traces · crossings —", f"Δχ = {d}", art, "Plate C: GPS traces"))
+
+
+def motive_plates():
+    plate_species(); plate_cells(); plate_tracks()
+
+
 # --------------------------------------------------------------------------
 # section plates and the title plate
 # --------------------------------------------------------------------------
@@ -677,7 +1013,7 @@ def title_plate():
 
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "profile_chi": fig_profile_chi, "reading": fig_reading,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 

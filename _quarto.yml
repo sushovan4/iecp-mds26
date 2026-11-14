@@ -33,3 +33,4 @@ format:
       text: |
         <script src="assets/inject-landmark.js" defer></script>
         <script src="assets/clicker.js" defer></script>
+        <script src="assets/opener-anim.js" defer></script>
