@@ -1,0 +1,4 @@
+# Profile for the public site: QUARTO_PROFILE=public quarto publish gh-pages
+# Strips the speaker notes; the default (local) build keeps them.
+filters:
+  - tools/strip-notes.lua
