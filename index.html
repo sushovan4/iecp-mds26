@@ -2337,16 +2337,19 @@ Sushovan Majhi
 <div class="standfirst math">
 <p>Class-conditional clouds of <span class="math inline">111</span> trained networks: <span class="math inline">1{,}170</span> (network, layer, checkpoint) cells, <span class="math inline">52{,}650</span> pairwise measurements, each with an exact test.</p>
 </div>
+<div class="vbody">
 <div class="fig-row">
-<div class="fig" style="flex-basis: 61%;">
+<div class="fig" style="flex-basis: 63%;">
 <p><img data-src="assets/depth.svg"></p>
+<p><span class="table-note">Below <span class="math inline">1</span>: the classes less mixed than random labels.</span></p>
 </div>
 <div class="stmts">
 <div class="rmk fragment" data-name="Depth-graded">
 <p>The mean pairwise quotient falls with depth: <span class="math inline">0.72\to0.63\to0.57\to0.18</span> on ResNet-56, CIFAR-10.</p>
 </div>
 <div class="rmk fragment" data-name="Early, step by step">
-<p><span class="math inline">12{,}375</span> paired sign-flip tests between consecutive checkpoints, on a <strong>scale-free</strong> statistic: <span class="math inline">2{,}707</span> significant steps, <span class="math inline">2{,}026</span> of them decreases, <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
+<p><span class="math inline">12{,}375</span> paired sign-flip tests between consecutive checkpoints, on a <strong>scale-free</strong> statistic: <span class="math inline">2{,}707</span> steps significant after Benjamini–Hochberg (<span class="math inline">q=0.05</span>), <span class="math inline">2{,}026</span> of them decreases (disentangling), <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
+</div>
 </div>
 </div>
 </div>
