@@ -2335,23 +2335,11 @@ Sushovan Majhi
 <p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
 </div>
 <div class="standfirst math">
-<p>Class-conditional clouds of <span class="math inline">111</span> trained networks: <span class="math inline">1{,}170</span> (network, layer, checkpoint) cells, <span class="math inline">52{,}650</span> pairwise measurements, each with an exact test.</p>
+<p>A classifier turns each image into a point, layer by layer; one class (all the cats) forms a cloud. Do the class clouds come apart? <span class="math inline">111</span> trained classifiers, <span class="math inline">52{,}650</span> pairs of clouds, each with an exact test.</p>
 </div>
-<div class="vbody">
-<div class="fig-row">
-<div class="fig" style="flex-basis: 63%;">
-<p><img data-src="assets/depth.svg"></p>
-<p><span class="table-note">Below <span class="math inline">1</span>: the classes less mixed than random labels.</span></p>
-</div>
-<div class="stmts">
-<div class="rmk fragment" data-name="Depth-graded">
-<p>The mean pairwise quotient falls with depth: <span class="math inline">0.72\to0.63\to0.57\to0.18</span> on ResNet-56, CIFAR-10.</p>
-</div>
-<div class="rmk fragment" data-name="Early, step by step">
-<p><span class="math inline">12{,}375</span> paired sign-flip tests between consecutive checkpoints, on a <strong>scale-free</strong> statistic: <span class="math inline">2{,}707</span> steps significant after Benjamini–Hochberg (<span class="math inline">q=0.05</span>), <span class="math inline">2{,}026</span> of them decreases (disentangling), <span class="math inline">1{,}728</span> within the first <span class="math inline">8</span> epochs.</p>
-</div>
-</div>
-</div>
+<div class="fig-wide" style="width: 66%; margin: 0 auto;">
+<p><img data-src="assets/depth.svg" style="width:100.0%"></p>
+<p><span class="table-note">Below <span class="math inline">1</span>: the classes less mixed than random labels. Deeper layers separate them.</span></p>
 </div>
 </section>
 <section class="slide level2">
