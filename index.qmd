@@ -442,7 +442,7 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 ::: {.notes}
 ⏱ 0:10 · by 11:25
 
-Section three: every number carries a test, and three applications.
+Section three: every number carries a test, and two applications.
 :::
 
 
@@ -577,47 +577,6 @@ A cartoon first. Cats and dogs on two intertwined curves, sampled with noise. At
 :::
 
 
-## Memorization, counted
-
-::: {.source}
-[arXiv:2610.00251](https://arxiv.org/abs/2610.00251)
-:::
-
-::: {.standfirst .math}
-Does a generator copy its training images? Compare its samples' overlap with training images $T$ and held-out images $H$; if it copies nothing, relabelling $T$ and $H$ is an exact null, for a random held-out split.
-:::
-
-::: {.definition data-num="3" data-name="Small-scale mass"}
-$T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr$ below the near-duplicate scale $r_0$, where excess overlap components estimate the distinct images copied.
-:::
-
-::: {.fig-row}
-::: {.fig .fragment data-fragment-index="1" style="flex-basis: 57%;"}
-![](assets/memo.svg)
-:::
-
-::: {.stmts}
-::: {.rmk .fragment data-fragment-index="1" data-name="Copies, counted"}
-CIFAR-10 diffusion models at $r_0$: $132$ against $7$ on a $200$-image memorizer, $13$ against $14$ on the control. With Pramita Bagchi.
-:::
-
-::: {.rmk .fragment data-fragment-index="2" data-name="What the scale buys"}
-Of $24$ generators that copy nothing, a nearest-neighbour statistic rejects $7$, $T_{\rm small}$ one; a count at $r_0$ is as specific. The profile adds steadiness in $r_0$ and a $3$-fold form.
-:::
-:::
-:::
-
-::: {.notes}
-⏱ 1:15 · by 17:25 · can be cut: one sentence, "the same profile counts the training images a generative model copies, with an exact null".
-
-A third application, with Pramita Bagchi. Does a generative model copy its training images? Take its samples, the training images, and images held out. If the model copies nothing, and the held-out images were split off at random, training and held-out images are exchangeable given the samples, so relabelling them is an exact test. The statistic is the profile's mass below the near-duplicate scale, against training minus against held-out.
-
-[click] At that scale, shaded, a diffusion model trained on 200 images has 132 overlap components with its training set and 7 with held-out images; each excess component is, roughly, a distinct image copied. The control, trained on fifty thousand, has 13 against 14.
-
-[click] Honestly, the scale buys the specificity, not the topology: a plain count at that scale is as specific. The profile adds steadiness in the choice of scale, and a three-fold form that asks which images two models both copy: the k-fold form again, now across models.
-:::
-
-
 ## What remains
 
 ::: {.source}
@@ -647,7 +606,7 @@ A different scale per cloud: what does the two-parameter profile $\Delta\chi(r,s
 :::
 
 ::: {.notes}
-⏱ 0:50 · by 18:15; Thank-you slide to about 18:30, leaving six and a half minutes for questions.
+⏱ 0:50 · by 17:00; Thank-you slide to about 17:15, leaving almost eight minutes for questions.
 
 What remains. The opening picture once more: the ring and the blob plainly meet, but the overlap is an annulus, and its Euler characteristic is zero. The relative refinement sees it and is stable; can a test use it?
 
@@ -855,6 +814,45 @@ $X$ uniform on a disc, $Y$ on a circle inside it: the overlap is an annular band
 
 ::: {.notes}
 Backup. Never, on trained networks: zero firings in fifty-two thousand measurements, and zero again under stricter forms of the guard, because class overlaps are blobs, not annuli. It still matters: on a disc with a circle inside, the unguarded test certifies separation at p of half a percent, and the guard blocks it for free. The synthetic case is from the statistics paper in preparation.
+:::
+
+
+## Memorization, counted {visibility="uncounted"}
+
+::: {.source}
+[arXiv:2610.00251](https://arxiv.org/abs/2610.00251)
+:::
+
+::: {.standfirst .math}
+Does a generator copy its training images? Compare its samples' overlap with training images $T$ and held-out images $H$; if it copies nothing, relabelling $T$ and $H$ is an exact null, for a random held-out split.
+:::
+
+::: {.definition data-num="3" data-name="Small-scale mass"}
+$T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr$ below the near-duplicate scale $r_0$, where excess overlap components estimate the distinct images copied.
+:::
+
+::: {.fig-row}
+::: {.fig .fragment data-fragment-index="1" style="flex-basis: 57%;"}
+![](assets/memo.svg)
+:::
+
+::: {.stmts}
+::: {.rmk .fragment data-fragment-index="1" data-name="Copies, counted"}
+CIFAR-10 diffusion models at $r_0$: $132$ against $7$ on a $200$-image memorizer, $13$ against $14$ on the control. With Pramita Bagchi.
+:::
+
+::: {.rmk .fragment data-fragment-index="2" data-name="What the scale buys"}
+Of $24$ generators that copy nothing, a nearest-neighbour statistic rejects $7$, $T_{\rm small}$ one; a count at $r_0$ is as specific. The profile adds steadiness in $r_0$ and a $3$-fold form.
+:::
+:::
+:::
+
+::: {.notes}
+Backup, with Pramita Bagchi. Does a generative model copy its training images? Take its samples, the training images, and images held out. If the model copies nothing, and the held-out images were split off at random, training and held-out images are exchangeable given the samples, so relabelling them is an exact test. The statistic is the profile's mass below the near-duplicate scale, against training minus against held-out.
+
+[click] At that scale, shaded, a diffusion model trained on 200 images has 132 overlap components with its training set and 7 with held-out images; each excess component is, roughly, a distinct image copied. The control, trained on fifty thousand, has 13 against 14.
+
+[click] Honestly, the scale buys the specificity, not the topology: a plain count at that scale is as specific. The profile adds steadiness in the choice of scale, and a three-fold form that asks which images two models both copy: the k-fold form again, now across models.
 :::
 
 
