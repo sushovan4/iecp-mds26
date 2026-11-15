@@ -2630,31 +2630,6 @@ Sushovan Majhi
 <span class="fragment untangle-step" data-fragment-index="4" data-layer="5"></span>
 </section>
 <section class="slide level2">
-<h2>Memorization, counted</h2>
-<div class="source">
-<p><a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a></p>
-</div>
-<div class="standfirst math">
-<p>Does a generator copy its training images? Compare its samples’ overlap with training images <span class="math inline">T</span> and held-out images <span class="math inline">H</span>; if it copies nothing, relabelling <span class="math inline">T</span> and <span class="math inline">H</span> is an exact null, for a random held-out split.</p>
-</div>
-<div class="definition" data-num="3" data-name="Small-scale mass">
-<p><span class="math inline">T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr</span> below the near-duplicate scale <span class="math inline">r_0</span>, where excess overlap components estimate the distinct images copied.</p>
-</div>
-<div class="fig-row">
-<div class="fig fragment" data-fragment-index="1" style="flex-basis: 57%;">
-<p><img data-src="assets/memo.svg"></p>
-</div>
-<div class="stmts">
-<div class="rmk fragment" data-fragment-index="1" data-name="Copies, counted">
-<p>CIFAR-10 diffusion models at <span class="math inline">r_0</span>: <span class="math inline">132</span> against <span class="math inline">7</span> on a <span class="math inline">200</span>-image memorizer, <span class="math inline">13</span> against <span class="math inline">14</span> on the control. With Pramita Bagchi.</p>
-</div>
-<div class="rmk fragment" data-fragment-index="2" data-name="What the scale buys">
-<p>Of <span class="math inline">24</span> generators that copy nothing, a nearest-neighbour statistic rejects <span class="math inline">7</span>, <span class="math inline">T_{\rm small}</span> one; a count at <span class="math inline">r_0</span> is as specific. The profile adds steadiness in <span class="math inline">r_0</span> and a <span class="math inline">3</span>-fold form.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="slide level2">
 <h2>What remains</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
@@ -2843,6 +2818,31 @@ Sushovan Majhi
 </div>
 <div class="rmk" data-name="Where it matters">
 <p><span class="math inline">X</span> uniform on a disc, <span class="math inline">Y</span> on a circle inside it: the overlap is an annular band, and the unguarded test certifies separation at <span class="math inline">p_\downarrow=0.005</span>. The first interaction scale, <span class="math inline">\hat r^\ast=0.005&lt;0.40</span>, blocks it, at no cost: it falls out of the same sweep.</p>
+</div>
+</div>
+</section>
+<section class="slide level2" data-visibility="uncounted">
+<h2>Memorization, counted</h2>
+<div class="source">
+<p><a href="https://arxiv.org/abs/2610.00251">arXiv:2610.00251</a></p>
+</div>
+<div class="standfirst math">
+<p>Does a generator copy its training images? Compare its samples’ overlap with training images <span class="math inline">T</span> and held-out images <span class="math inline">H</span>; if it copies nothing, relabelling <span class="math inline">T</span> and <span class="math inline">H</span> is an exact null, for a random held-out split.</p>
+</div>
+<div class="definition" data-num="3" data-name="Small-scale mass">
+<p><span class="math inline">T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr</span> below the near-duplicate scale <span class="math inline">r_0</span>, where excess overlap components estimate the distinct images copied.</p>
+</div>
+<div class="fig-row">
+<div class="fig fragment" data-fragment-index="1" style="flex-basis: 57%;">
+<p><img data-src="assets/memo.svg"></p>
+</div>
+<div class="stmts">
+<div class="rmk fragment" data-fragment-index="1" data-name="Copies, counted">
+<p>CIFAR-10 diffusion models at <span class="math inline">r_0</span>: <span class="math inline">132</span> against <span class="math inline">7</span> on a <span class="math inline">200</span>-image memorizer, <span class="math inline">13</span> against <span class="math inline">14</span> on the control. With Pramita Bagchi.</p>
+</div>
+<div class="rmk fragment" data-fragment-index="2" data-name="What the scale buys">
+<p>Of <span class="math inline">24</span> generators that copy nothing, a nearest-neighbour statistic rejects <span class="math inline">7</span>, <span class="math inline">T_{\rm small}</span> one; a count at <span class="math inline">r_0</span> is as specific. The profile adds steadiness in <span class="math inline">r_0</span> and a <span class="math inline">3</span>-fold form.</p>
+</div>
 </div>
 </div>
 </section>
