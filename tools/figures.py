@@ -360,11 +360,10 @@ def fig_depth():
         ax.plot(range(len(L)), ys, marker=marks[lab], color=cols[lab], lw=1.6, ms=6, label=lab)
         print("  depth:", lab, [round(y, 2) for y in ys])
     ax.axhline(1, color=RULE, lw=1, ls=":")
-    ax.text(4.05, 1.0, "exchangeable", fontsize=11, color=PENCIL, va="center", style="italic")
+    ax.text(4.05, 1.0, "random labels", fontsize=11, color=PENCIL, va="center", style="italic")
     ax.set_xticks(range(5))
-    ax.set_xticklabels(["stem\nblock 2", "stage 1\nblock 4", "stage 2\nblock 6", "stage 3\nblock 8",
-                        "penultimate\npenultimate"], fontsize=11.5, linespacing=1.25)
-    ax.set_xlabel("depth  (ResNet-56 stage, above; ViT block, below)")
+    ax.set_xticklabels(["1", "2", "3", "4", "5"], fontsize=11.5)
+    ax.set_xlabel("layer, from input (left) to the last before the output (right)")
     ax.set_ylabel(r"mean pairwise quotient $\widehat E_\ell$")
     ax.set_ylim(0, 1.15)
     ax.legend(fontsize=10.5, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3, handlelength=1.6, columnspacing=1.2)
@@ -1097,9 +1096,93 @@ def title_plate():
     _save(fig, "title-plate.svg")
 
 
+# --------------------------------------------------------------------------
+# Disentanglement, a cartoon: two interleaved spirals untangled layer by layer
+# --------------------------------------------------------------------------
+def fig_untangle():
+    """Two classes as interleaved noisy spirals; five 'layers' unwind them, then pull them
+    apart. Inline SVG driven by assets/untangle-anim.js (clicks step the layer; the points
+    tween). Each layer's quotient is the exact permutation test of the deck (B = 999,
+    scale-free statistic) on these very clouds. Written as assets/untangle.md."""
+    sys.path.insert(0, os.path.join(MIXUP, "disentangle"))
+    from experiments.ecp import permutation_test, default_r_grid
+    rng = np.random.default_rng(3)
+    n, sd, turns = 120, 0.09, 5.0
+    U, D = (0, .25, .55, .85, 1), (0, 0, 0, .05, .5)          # unwinding, pull-apart
+    t = [0.12 + 0.88 * np.sqrt(rng.uniform(0, 1, n)) for _ in (0, 1)]
+    jit = [rng.normal(0, sd, (n, 2)) for _ in (0, 1)]
+
+    def cloud(c, u, d):
+        th = (1 - u) * turns * np.pi * t[c] + (np.pi if c else 0.0)
+        Q = np.c_[t[c] * np.cos(th), t[c] * np.sin(th)] + jit[c]
+        Q[:, 0] += d * (-1 if c else 1)
+        return Q
+
+    qs, ps = [], []
+    for u, d in zip(U, D):
+        P = [cloud(0, u, d), cloud(1, u, d)]
+        o = permutation_test(P, default_r_grid(P), B=999, stat="intnorm", rng=0)
+        qs.append(o["quotient"]); ps.append(o["p_down"])
+    print("  untangle: quotients", [round(q, 2) for q in qs], "p", ps)
+
+    W, H = 1180, 470
+    LX0, LX1, LY0, LY1 = 10, 650, 50, 460
+    sc = min((LX1 - LX0) / 3.8, (LY1 - LY0) / 2.5)
+    cx, cy = (LX0 + LX1) / 2, (LY0 + LY1) / 2
+    RX0, RX1, RT, RB = 790, 1120, 120, 380                     # the small quotient chart
+    qx = lambda k: RX0 + (RX1 - RX0) * k / 4
+    qy = lambda v: RB - (RB - RT) * v / 1.1
+    o = [f'<svg class="untangle-anim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+         f'data-u="{",".join(map(str, U))}" data-d="{",".join(map(str, D))}" data-turns="{turns}" '
+         f'data-sc="{sc:.4f}" data-cx="{cx:.1f}" data-cy="{cy:.1f}" '
+         f'data-q="{",".join(f"{q:.2f}" for q in qs)}" role="img" '
+         f'aria-label="Two classes as interleaved spirals, untangled layer by layer; the quotient falls from {qs[0]:.2f} to {qs[-1]:.2f}">']
+    tt = np.linspace(0.12, 1.0, 160)                             # the manifolds themselves
+    for c, col in ((0, OX), (1, INK)):
+        th = turns * np.pi * tt + (np.pi if c else 0.0)
+        d0 = "M " + " L ".join(f"{cx + a * np.cos(b) * sc:.1f} {cy - a * np.sin(b) * sc:.1f}" for a, b in zip(tt, th))
+        o.append(f'<path class="arm" data-c="{c}" d="{d0}" fill="none" stroke="{col}" stroke-width="5" '
+                 f'stroke-linecap="round" stroke-linejoin="round" opacity="0.28"/>')
+    for c, col in ((0, OX), (1, INK)):
+        o.append(f'<g fill="{col}" opacity="0.85">')
+        P = cloud(c, 0, 0)
+        for i in range(n):
+            o.append(f'<circle class="pt" cx="{cx + P[i, 0] * sc:.1f}" cy="{cy - P[i, 1] * sc:.1f}" r="3.2" '
+                     f'data-c="{c}" data-t="{t[c][i]:.4f}" data-jx="{jit[c][i, 0]:.4f}" data-jy="{jit[c][i, 1]:.4f}"/>')
+        o.append('</g>')
+    o += [f'<text class="llabel" x="{LX0 + 8}" y="30" fill="{SEPIA}" font-family="{SERIF}" font-size="26" font-style="italic">layer 1</text>',
+          f'<circle cx="{LX1 - 190}" cy="22" r="6" fill="{OX}"/>',
+          text((LX1 - 178, 29), "cats", 22, fill=OX, anchor="start"),
+          f'<circle cx="{LX1 - 100}" cy="22" r="6" fill="{INK}"/>',
+          text((LX1 - 88, 29), "dogs", 22, fill=INK, anchor="start")]
+    # the small quotient chart, filled in layer by layer
+    o += [text((RX0 - 40, RT - 60), "how mixed?", 24, fill=SEPIA, anchor="start"),
+          f'<text class="qlabel" x="{RX1 + 20}" y="{RT - 60}" fill="{OX}" font-family="{SERIF}" font-size="26" font-style="italic" text-anchor="end">Ê = {qs[0]:.2f}</text>',
+          line((RX0 - 12, qy(1)), (RX1 + 12, qy(1)), stroke=RULE, stroke_width=1.2, stroke_dasharray="2 4"),
+          text((RX1 + 12, qy(1) - 10), "random labels", 18, fill=PENCIL, anchor="end"),
+          line((RX0 - 12, RB), (RX1 + 12, RB), stroke=SEPIA, stroke_width=0.9),
+          line((RX0 - 12, RB), (RX0 - 12, RT - 20), stroke=SEPIA, stroke_width=0.9)]
+    for v in (0, 0.5, 1):
+        o.append(text((RX0 - 20, qy(v) + 6), f"{v:g}", 17, fill=PENCIL, anchor="end", italic=False))
+    for k in range(5):
+        o.append(text((qx(k), RB + 28), str(k + 1), 18, fill=SEPIA, italic=False))
+        if k:
+            o.append(f'<line class="qseg" data-layer="{k + 1}" x1="{qx(k - 1):.1f}" y1="{qy(qs[k - 1]):.1f}" '
+                     f'x2="{qx(k):.1f}" y2="{qy(qs[k]):.1f}" stroke="{OX}" stroke-width="2" opacity="0"/>')
+    for k in range(5):
+        o.append(f'<circle class="qdot" data-layer="{k + 1}" cx="{qx(k):.1f}" cy="{qy(qs[k]):.1f}" r="6" '
+                 f'fill="{OX}" opacity="{1 if k == 0 else 0}"/>')
+    o += [text(((RX0 + RX1) / 2, RB + 58), "layer", 20, fill=SEPIA),
+          text(((RX0 + RX1) / 2, RB + 84), f"each an exact test, p ≤ {max(ps):.3f}", 17, fill=PENCIL),
+          '</svg>']
+    with open(os.path.join(OUT, "untangle.md"), "w") as fh:
+        fh.write("```{=html}\n" + "\n".join(o) + "\n```\n")
+    print("wrote untangle.md")
+
+
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "nerve": fig_nerve, "profile_chi": fig_profile_chi, "reading": fig_reading,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "untangle": fig_untangle, "nerve": fig_nerve, "profile_chi": fig_profile_chi, "reading": fig_reading,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 
