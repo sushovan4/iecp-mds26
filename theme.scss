@@ -2775,3 +2775,6 @@ html.finis .footer, html.finis .footer-default, html.finis .slide-number,
 
 // Slide 8: the lens-nerve picture inside Proposition 2.
 .reveal .nerve-fig, .reveal img.nerve-fig { display: block; width: 100%; max-width: 600px; margin: 0.4rem auto 0; }
+
+// A one-line reading key under a results table.
+.reveal .table-note { display: block; text-align: center; font-size: 0.62em; font-style: italic; color: var(--sepia, #57473a); margin-top: 0.35rem; }

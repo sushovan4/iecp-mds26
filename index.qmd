@@ -498,16 +498,18 @@ The inferential layer. The null hypothesis is that the labels are exchangeable: 
 :::
 
 ::: {.standfirst .math}
-A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile, or swap it for a null channel that sees no data, and test the paired change $\Delta$ in mean error, in days.
+A four-signal onset detector: the profile between the delay-embedded windows before and after each day, with complexity variance, Higuchi fractal dimension and a rolling mean. Delete the profile, or swap it for a null channel that sees no data, and test the paired change in mean error, in days.
 :::
 
 ::: {.methods .fragment .monsoon-table}
-| onset | system | $\Delta$, deleted | $p$ | $\Delta$, vs. null | $p$ |
+| onset | system | deleted | $p$ | vs. null | $p$ |
 |:--|:--|:-:|:-:|:-:|:-:|
 | moderate | Nepal | $-0.10$ | 0.905 | $+1.94$ | 0.028 |
 | sharp | Kerala | $-0.84$ | 0.200 | $+0.11$ | 0.887 |
 | gradual | Western North Pacific | $\mathbf{-3.03}$ | **0.003** | $-1.02$ | 0.246 |
 | gradual | Australian | $\mathbf{-3.66}$ | **< 0.001** | $-1.00$ | 0.204 |
+
+[Change in mean error, in days; negative where the profile helps. $p$: exact sign-flip test, paired by year.]{.table-note}
 :::
 
 ::: {.aside-note .fragment}
