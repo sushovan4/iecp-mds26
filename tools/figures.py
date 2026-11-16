@@ -701,7 +701,9 @@ def fig_profile_chi():
     cases = [((2.55, 0), 0.3, (-1.95, 3.3), "1 piece"), ((0, 0), 0.45, (-2.4, 2.4), "4 pieces"),
              ((0, 0), 0.7, (-2.4, 2.4), "1 piece, 1 hole")]
     widths = [c[2][1] - c[2][0] for c in cases]
-    fig, axes = plt.subplots(1, 3, figsize=(9.4, 2.85), gridspec_kw=dict(width_ratios=widths, wspace=0.06))
+    fig = plt.figure(figsize=(9.4, 4.2))
+    gs = fig.add_gridspec(2, 3, width_ratios=widths, height_ratios=[2.85, 1.35], wspace=0.06, hspace=0.32)
+    axes = [fig.add_subplot(gs[0, i]) for i in range(3)]
     for ax, (c, r, xl, lab) in zip(axes, cases):
         Y = Yb + np.array(c)
         _draw_overlap(ax, X, Y, r, lim=3.4)
@@ -710,7 +712,40 @@ def fig_profile_chi():
         ax.text(np.mean(xl), -2.55, f"{lab}:  " + rf"$\chi = {d}$", ha="center", va="top", fontsize=14, color=OX)
         ax.text(np.mean(xl), 2.5, f"$r = {r}$", ha="center", va="bottom", fontsize=12, color=SEPIA, style="italic")
         print(f"  profile-chi: {lab} at r={r}: Delta chi = {d}")
+        if lab == "4 pieces":
+            _pinhole_inset(ax, fig.add_subplot(gs[1, 1]), X, Y, r)
     _save(fig, "profile-chi.svg")
+
+
+def _pinhole_inset(ax, ins, X, Y, r):
+    """The union X u Y has four holes at this r; one is a pinhole (it closes just above r).
+    Magnify it: centre on the circumcentre of the triangle that kills the shortest-lived hole."""
+    from matplotlib.colors import ListedColormap
+    P = np.r_[X, Y]
+    st = gd.AlphaComplex(points=P).create_simplex_tree(); st.compute_persistence()
+    holes = [(st.filtration(d), d) for b, d in st.persistence_pairs()
+             if len(b) == 2 and d and st.filtration(b) <= r * r < st.filtration(d)]
+    fd, tri = min(holes)
+    A, B, C = P[tri]
+    a2, b2, c2 = A @ A, B @ B, C @ C
+    D = 2 * (A[0] * (B[1] - C[1]) + B[0] * (C[1] - A[1]) + C[0] * (A[1] - B[1]))
+    c0 = np.array([(a2 * (B[1] - C[1]) + b2 * (C[1] - A[1]) + c2 * (A[1] - B[1])) / D,
+                   (a2 * (C[0] - B[0]) + b2 * (A[0] - C[0]) + c2 * (B[0] - A[0])) / D])
+    h = 0.07
+    xs = np.linspace(c0[0] - h, c0[0] + h, 420); ys = np.linspace(c0[1] - h, c0[1] + h, 420)
+    mx, my = _union_mask(X, r, xs, ys), _union_mask(Y, r, xs, ys)
+    img = np.zeros(mx.shape, int); img[mx] = 1; img[my] = 2; img[mx & my] = 3
+    cmap = ListedColormap(["#ffffff", (0.42, 0.11, 0.10, 0.18), (0.17, 0.13, 0.10, 0.16), (0.42, 0.11, 0.10, 0.92)])
+    ins.imshow(img, extent=(xs[0], xs[-1], ys[0], ys[-1]), origin="lower", cmap=cmap, vmin=0, vmax=3,
+               interpolation="nearest")
+    ins.set_xlim(xs[0], xs[-1]); ins.set_ylim(ys[0], ys[-1]); ins.set_aspect("equal")
+    ins.set_facecolor(PAPER); ins.set_xticks([]); ins.set_yticks([])
+    for s in ins.spines.values():
+        s.set_visible(True); s.set_color(SEPIA); s.set_linewidth(0.8)
+    ax.add_patch(Circle(c0, 0.2, fill=False, edgecolor=INK, lw=1.1, zorder=5))
+    ins.text(1.06, 0.5, "the circled spot, magnified:\nthe union's 4th hole (white),\na thin sliver, gone at $r = %.3f$" % np.sqrt(fd),
+             transform=ins.transAxes, ha="left", va="center", fontsize=11, color=SEPIA, style="italic", linespacing=1.3)
+    print(f"  profile-chi: pinhole at {np.round(c0, 3)}, closes at r = {np.sqrt(fd):.3f}")
 
 
 # --------------------------------------------------------------------------
@@ -1180,9 +1215,57 @@ def fig_untangle():
     print("wrote untangle.md")
 
 
+# --------------------------------------------------------------------------
+# The Euler characteristic: two counts that agree, on three tiny complexes
+# --------------------------------------------------------------------------
+def fig_euler():
+    """Filled triangle, hollow triangle, two hollow triangles sharing a vertex. Under each:
+    the alternating count of simplices and the alternating sum of Betti numbers.
+    Written as assets/euler.svg."""
+    W, H = 760, 225
+    s = 92
+    body = []
+    shapes = []
+    tri = lambda ox, oy: [(ox, oy), (ox + s, oy), (ox + s / 2, oy - s * 0.87)]
+    # panel centres
+    cx = [255, 455, 645]
+    base = 112
+    # 1: filled triangle
+    T = tri(cx[0] - s / 2, base)
+    body.append(poly(T, fill=OX, fill_opacity=0.22, stroke="none"))
+    shapes.append((T, [(0, 1), (1, 2), (2, 0)]))
+    # 2: hollow triangle
+    T2 = tri(cx[1] - s / 2, base)
+    shapes.append((T2, [(0, 1), (1, 2), (2, 0)]))
+    # 3: two hollow triangles sharing a vertex (a figure eight)
+    m = (cx[2], base - s * 0.435)
+    L = [(m[0] - s * 0.87, m[1] - s / 2), (m[0] - s * 0.87, m[1] + s / 2), m]
+    R = [m, (m[0] + s * 0.87, m[1] - s / 2), (m[0] + s * 0.87, m[1] + s / 2)]
+    for P, E in shapes:
+        for i, j in E:
+            body.append(line(P[i], P[j], stroke=OX, stroke_width=2.2, stroke_linecap="round"))
+        for p in P:
+            body.append(circle(p, 5, fill=INK))
+    for P in (L, R):
+        for i, j in ((0, 1), (1, 2), (2, 0)):
+            body.append(line(P[i], P[j], stroke=OX, stroke_width=2.2, stroke_linecap="round"))
+    for p in L + R[1:]:
+        body.append(circle(p, 5, fill=INK))
+    rows = [("simplices", ["3 − 3 + 1 = 1", "3 − 3 = 0", "5 − 6 = −1"]),
+            ("pieces − holes", ["1 − 0 = 1", "1 − 1 = 0", "1 − 2 = −1"])]
+    for k, (lab, vals) in enumerate(rows):
+        y = 162 + 36 * k
+        body.append(text((10, y), lab, 19, fill=SEPIA, anchor="start"))
+        for c, v in zip(cx, vals):
+            body.append(text((c, y), v, 21, fill=OX if k == 0 else INK, italic=False))
+    body.insert(0, line((10, 140), (W - 10, 140), stroke=RULE, stroke_width=0.8))
+    write("euler.svg", svg(W, H, body, "Three small complexes: a filled triangle, a hollow triangle and a figure eight, "
+                          "with Euler characteristics 1, 0 and -1 by both counts"))
+
+
 FIGURES = {
     "approach": fig_approach, "trio": fig_trio, "sweep": fig_sweep, "stability": fig_stability,
-    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "untangle": fig_untangle, "nerve": fig_nerve, "profile_chi": fig_profile_chi, "reading": fig_reading,
+    "permtest": fig_permtest, "depth": fig_depth, "triples": fig_triples, "memo": fig_memo, "remains": fig_remains, "motive": motive_plates, "opener": fig_opener, "untangle": fig_untangle, "euler": fig_euler, "nerve": fig_nerve, "profile_chi": fig_profile_chi, "reading": fig_reading,
     "plate_i": plate_i, "plate_ii": plate_ii, "plate_iii": plate_iii, "title_plate": title_plate,
 }
 

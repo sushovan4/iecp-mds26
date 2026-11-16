@@ -179,7 +179,43 @@ Why not just use that barcode? Several of these gaps are recorded as open by the
 ::: {.notes}
 ⏱ 0:10 · by 3:40
 
-Section one: the definition, three examples, why this curve and not another, and why not the overlap's homology, which sets up the computation.
+Section one: the Euler characteristic, the profile's definition, three examples, why this curve and not another, and why not the overlap's homology, which sets up the computation.
+:::
+
+
+## The Euler characteristic
+
+::: {.standfirst .math}
+The strangest invariant in topology: two alternating counts that look arbitrary, always agree, and add up like a measure.
+:::
+
+::: {.definition data-num="1" data-name="Euler characteristic"}
+For a finite simplicial complex $K$ with Betti numbers $\beta_k(K)$,
+$$
+\chi(K)\;=\;\sum_{k\ge0}(-1)^k\,\#\{k\text{-simplices of }K\}\;=\;\sum_{k\ge0}(-1)^k\,\beta_k(K).
+$$
+A homotopy invariant, so defined for every finite union of balls; in the plane, pieces minus holes.
+:::
+
+::: {.fig-row}
+::: {.fig style="flex-basis: 52%;"}
+![](assets/euler.svg){width="100%"}
+:::
+
+::: {.stmts}
+::: {.rmk .fragment data-name="It adds up like a measure"}
+$\chi(A\cup B)=\chi(A)+\chi(B)-\chi(A\cap B)$, and $\chi=1$ on every nonempty convex set. So for convex $B_1,\dots,B_n$:
+$$\chi\Big(\bigcup_i B_i\Big)=\sum_{\emptyset\neq S}(-1)^{|S|+1}\,\Big[\bigcap_{i\in S}B_i\neq\emptyset\Big].$$
+:::
+:::
+:::
+
+::: {.notes}
+⏱ 0:45 · by 4:25
+
+Before the profile, the invariant underneath it. The Euler characteristic is the strangest invariant in topology. Its definition looks arbitrary: count the vertices, subtract the edges, add the triangles, and so on with alternating signs. Or count pieces, subtract holes, add voids. That the two counts always agree is the theorem of Euler and Poincaré. A filled triangle: one. Hollow: zero. A figure eight: minus one.
+
+[click] What makes it useful is not the definition but this: it adds up like a measure, by inclusion and exclusion, and it is one on every convex set. So for a union of balls you never build the union: you record which balls meet, in pairs, triples and so on, with alternating signs. That formula is what the rest of the talk runs on.
 :::
 
 
@@ -189,7 +225,7 @@ Section one: the definition, three examples, why this curve and not another, and
 [arXiv:2608.06180](https://arxiv.org/abs/2608.06180)
 :::
 
-::: {.definition data-num="1" data-name="Intersection ECP"}
+::: {.definition data-num="2" data-name="Intersection ECP"}
 For disjoint finite clouds $\mathcal X=(X_1,\dots,X_k)$ in $\mathbb R^d$ and scales $\mathbf t=(t_1,\dots,t_k)\in\mathbb R^k_{\ge0}$, the Euler characteristic of the overlap of the ball unions $\mathcal U(X_i;t_i)=\bigcup_{p\in X_i}B(p,t_i)$:
 $$
 \Delta\chi(\mathbf t;\mathcal X)\;=\;\chi\Big(\bigcap_{i=1}^k\mathcal U(X_i;t_i)\Big),\qquad\text{in the plane: pieces minus holes.}
@@ -205,9 +241,9 @@ An Euler integral, $\Delta\chi=\int\prod_{i}\mathbf 1_{\mathcal U(X_i;t_i)}\,d\c
 :::
 
 ::: {.notes}
-⏱ 1:15 · by 4:55
+⏱ 1:15 · by 5:40
 
-The definition, in one line: the profile is the Euler characteristic of the overlap of the ball unions, scale by scale. Each cloud may have its own scale; everything in this talk is on the diagonal, all scales equal, and we will see the whole surface at the end. In the plane that is the number of pieces minus the number of holes. Three overlaps from the opening: a lens, one piece, chi one; four small pieces, four; the annulus, one piece and one hole, zero.
+The definition, in one line: the profile is the Euler characteristic of the overlap of the ball unions, scale by scale. Each cloud may have its own scale; everything in this talk is on the diagonal, all scales equal, and we will see the whole surface at the end. In the plane that is the number of pieces minus the number of holes. Three overlaps from the opening: a lens, one piece, chi one; four small pieces, four; the annulus, one piece and one hole, zero. (The magnifier below the middle panel, if asked: the union there has four holes, one a sliver too thin to see, gone at 0.458; chi of the union is minus three, and 0 + 1 − (−3) = 4.)
 
 [click] Two facts make it useful. It is an Euler integral, of the product of the clouds' indicators against the Euler characteristic; in two slides we will see that nothing about integrals needs to be assumed. And for two clouds on the diagonal, inclusion and exclusion write it with three ordinary Euler characteristic curves: of X, of Y, and of the pooled cloud. Hold on to that formula; it is the whole algorithm.
 :::
@@ -244,7 +280,7 @@ The clouds meet, yet $\chi$ of an annulus is $0$: the blind spot, checked by the
 :::
 
 ::: {.notes}
-⏱ 1:15 · by 6:10
+⏱ 1:15 · by 6:55
 
 Before the theory, how to read a profile. Three configurations, and their profiles over every scale.
 
@@ -282,7 +318,7 @@ It picks **which** summary of the overlap; it does not say that its value measur
 ::::
 
 ::: {.notes}
-⏱ 0:40 · by 6:50 · can be cut: say "four natural axioms force the Euler characteristic of the overlap" and move on.
+⏱ 0:40 · by 7:35 · can be cut: say "four natural axioms force the Euler characteristic of the overlap" and move on.
 
 Why this curve, and not another? Ask four things of any interaction number: that it respond to each cloud by inclusion and exclusion, that it see only the topology of the overlap, that it read zero when the clouds do not meet, and one when the overlap is contractible. Nothing about Euler characteristics is assumed. The only such number is the Euler characteristic of the overlap: the profile.
 
@@ -326,7 +362,7 @@ $\Delta\chi$ is the Euler characteristic curve of the overlap filtration, the al
 ::::
 
 ::: {.notes}
-⏱ 1:15 · by 8:05
+⏱ 1:15 · by 8:50
 
 The question this room will ask: why the Euler characteristic, and not the persistent homology of the overlap?
 
@@ -345,7 +381,7 @@ Because homology does not split over a union. Mayer–Vietoris gives the overlap
 :::
 
 ::: {.notes}
-⏱ 0:10 · by 8:15
+⏱ 0:10 · by 9:00
 
 Section two: what it costs, and how it moves when the data move.
 :::
@@ -374,7 +410,7 @@ In even $d$ the exponent is optimal for any algorithm that builds the filtration
 ::::
 
 ::: {.notes}
-⏱ 1:30 · by 9:45
+⏱ 1:30 · by 10:30
 
 The cost. Three Alpha complexes: of X, of Y, and of the pooled cloud. Each simplex has an entry radius, the scale at which it appears; this is not a birth in the persistence sense. The union of balls at radius r has the homotopy type of the Alpha complex at r, and the Euler characteristic needs no homology: it is just vertices minus edges plus triangles. So sort the simplices by entry radius, and the Euler characteristic curve is a running sum of signs. No boundary matrix, no reduction.
 
@@ -421,7 +457,7 @@ $\Delta\chi$ itself admits no interleaving distance, and no $L^1$ bound free of 
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 11:15
+⏱ 1:30 · by 12:00
 
 Stability, stated as it is proved. Move every point by at most epsilon. The overlap filtrations are epsilon-interleaved, so their persistence modules are; the profile is exactly equal away from the critical scales; and its L1 distance is at most twice epsilon times the total number of bars.
 
@@ -440,7 +476,7 @@ Stability, stated as it is proved. Move every point by at most epsilon. The over
 :::
 
 ::: {.notes}
-⏱ 0:10 · by 11:25
+⏱ 0:10 · by 12:10
 
 Section three: every number carries a test, and two applications.
 :::
@@ -453,7 +489,7 @@ Section three: every number carries a test, and two applications.
 :::
 
 ::: {.env-row}
-::: {.definition data-num="2" data-name="Interaction quotient"}
+::: {.definition data-num="3" data-name="Interaction quotient"}
 With $\Phi(\Delta\chi)=\int|\Delta\chi(r)|\,dr$,
 $$
 \widehat E=\frac{\Phi\big(\Delta\chi(\cdot;X_1,\dots,X_k)\big)}{\overline\Phi_B}\,,
@@ -479,7 +515,7 @@ A separation claim is withheld when $\Delta\chi$ is silent just after first cont
 :::
 
 ::: {.notes}
-⏱ 1:45 · by 13:10
+⏱ 1:45 · by 13:55
 
 The inferential layer. The null hypothesis is that the labels are exchangeable: the clouds are draws from one distribution, fully mixed. The interaction quotient is the profile's mass divided by its mean over random relabelings, the same relabelings the test uses; the exact null mean would need every relabeling, so we estimate it. About one under the null, near zero when the clouds are separated.
 
@@ -517,7 +553,7 @@ About one day is the topology's, and it is not significant. The firmer evidence:
 :::
 
 ::: {.notes}
-⏱ 1:30 · by 14:40
+⏱ 1:30 · by 15:25
 
 An application where the honest answer is smaller than the first one, which is why every number carries a test. Monsoon onset from a daily monsoon index, with four signals; one is the profile between the windows before and after each day. To see what the topology contributes, delete it and test the paired change in error.
 
@@ -559,13 +595,13 @@ A classifier turns each image into a point, layer by layer; one class (all the c
 ```
 
 ::: {.notes}
-⏱ 1:30 · by 16:10
+⏱ 1:30 · by 16:55
 
 Second application: when does a classifier pull its classes apart? An image classifier turns each image into a list of numbers, a point, and it does so layer after layer. Take all the cat images at one layer: that is a point cloud; the dog images are another. If the network is doing its job, the clouds should come apart.
 
 A cartoon first. Cats and dogs on two intertwined curves, sampled with noise. At the first layer they are wound around each other: the quotient is 0.85, close to the one that random labels give.
 
-[click ×4] Each layer bends the space: it unwinds the curves, then pulls them apart. The quotient falls, 0.59, 0.25, 0.13, 0.07. Each number is the exact test of slide 14, run on these very points.
+[click ×4] Each layer bends the space: it unwinds the curves, then pulls them apart. The quotient falls, 0.59, 0.25, 0.13, 0.07. Each number is the exact test of slide 15, run on these very points.
 
 [click] The real thing: every pair of classes, at every layer, in 111 trained networks; every number carries an exact test. Read it left to right, from input to output: separation grows with depth. For one network the quotient falls from 0.72 to 0.18, so the last layers do most of the work. The transformer, a different network design, separates most in the middle and mixes the classes slightly again near its output.
 
@@ -606,7 +642,7 @@ A different scale per cloud: what does the two-parameter profile $\Delta\chi(r,s
 :::
 
 ::: {.notes}
-⏱ 0:50 · by 17:00; Thank-you slide to about 17:15, leaving almost eight minutes for questions.
+⏱ 0:50 · by 17:45; Thank-you slide to about 18:00, leaving seven minutes for questions.
 
 What remains. The opening picture once more: the ring and the blob plainly meet, but the overlap is an annulus, and its Euler characteristic is zero. The relative refinement sees it and is stable; can a test use it?
 
@@ -827,7 +863,7 @@ Backup. Never, on trained networks: zero firings in fifty-two thousand measureme
 Does a generator copy its training images? Compare its samples' overlap with training images $T$ and held-out images $H$; if it copies nothing, relabelling $T$ and $H$ is an exact null, for a random held-out split.
 :::
 
-::: {.definition data-num="3" data-name="Small-scale mass"}
+::: {.definition data-num="4" data-name="Small-scale mass"}
 $T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr$ below the near-duplicate scale $r_0$, where excess overlap components estimate the distinct images copied.
 :::
 

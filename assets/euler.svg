@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 225" role="img" aria-label="Three small complexes: a filled triangle, a hollow triangle and a figure eight, with Euler characteristics 1, 0 and -1 by both counts">
+<line x1="10" y1="140" x2="750" y2="140" stroke="#c8b894" stroke-width="0.8"/>
+<polygon points="209,112 301,112 255,32" fill="#6c1d1a" fill-opacity="0.22" stroke="none"/>
+<line x1="209" y1="112" x2="301" y2="112" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="301" y1="112" x2="255" y2="32" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="255" y1="32" x2="209" y2="112" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="209" cy="112" r="5" fill="#2b211a"/>
+<circle cx="301" cy="112" r="5" fill="#2b211a"/>
+<circle cx="255" cy="32" r="5" fill="#2b211a"/>
+<line x1="409" y1="112" x2="501" y2="112" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="501" y1="112" x2="455" y2="32" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="455" y1="32" x2="409" y2="112" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="409" cy="112" r="5" fill="#2b211a"/>
+<circle cx="501" cy="112" r="5" fill="#2b211a"/>
+<circle cx="455" cy="32" r="5" fill="#2b211a"/>
+<line x1="565" y1="26" x2="565" y2="118" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="565" y1="118" x2="645" y2="72" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="645" y1="72" x2="565" y2="26" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="645" y1="72" x2="725" y2="26" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="725" y1="26" x2="725" y2="118" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="725" y1="118" x2="645" y2="72" stroke="#6c1d1a" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="565" cy="26" r="5" fill="#2b211a"/>
+<circle cx="565" cy="118" r="5" fill="#2b211a"/>
+<circle cx="645" cy="72" r="5" fill="#2b211a"/>
+<circle cx="725" cy="26" r="5" fill="#2b211a"/>
+<circle cx="725" cy="118" r="5" fill="#2b211a"/>
+<text x="10" y="162" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="19" font-style="italic" text-anchor="start">simplices</text>
+<text x="255" y="162" fill="#6c1d1a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">3 − 3 + 1 = 1</text>
+<text x="455" y="162" fill="#6c1d1a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">3 − 3 = 0</text>
+<text x="645" y="162" fill="#6c1d1a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">5 − 6 = −1</text>
+<text x="10" y="198" fill="#57473a" font-family="EB Garamond, Georgia, serif" font-size="19" font-style="italic" text-anchor="start">pieces − holes</text>
+<text x="255" y="198" fill="#2b211a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">1 − 0 = 1</text>
+<text x="455" y="198" fill="#2b211a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">1 − 1 = 0</text>
+<text x="645" y="198" fill="#2b211a" font-family="EB Garamond, Georgia, serif" font-size="21" text-anchor="middle">1 − 2 = −1</text>
+</svg>
