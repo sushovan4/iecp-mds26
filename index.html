@@ -2084,11 +2084,32 @@ Sushovan Majhi
 </div>
 </section>
 <section class="slide level2">
+<h2>The Euler characteristic</h2>
+<div class="standfirst math">
+<p>The strangest invariant in topology: two alternating counts that look arbitrary, always agree, and add up like a measure.</p>
+</div>
+<div class="definition" data-num="1" data-name="Euler characteristic">
+<p>For a finite simplicial complex <span class="math inline">K</span> with Betti numbers <span class="math inline">\beta_k(K)</span>, <span class="math display">
+\chi(K)\;=\;\sum_{k\ge0}(-1)^k\,\#\{k\text{-simplices of }K\}\;=\;\sum_{k\ge0}(-1)^k\,\beta_k(K).
+</span> A homotopy invariant, so defined for every finite union of balls; in the plane, pieces minus holes.</p>
+</div>
+<div class="fig-row">
+<div class="fig" style="flex-basis: 52%;">
+<p><img data-src="assets/euler.svg" style="width:100.0%"></p>
+</div>
+<div class="stmts">
+<div class="rmk fragment" data-name="It adds up like a measure">
+<p><span class="math inline">\chi(A\cup B)=\chi(A)+\chi(B)-\chi(A\cap B)</span>, and <span class="math inline">\chi=1</span> on every nonempty convex set. So for convex <span class="math inline">B_1,\dots,B_n</span>: <span class="math display">\chi\Big(\bigcup_i B_i\Big)=\sum_{\emptyset\neq S}(-1)^{|S|+1}\,\Big[\bigcap_{i\in S}B_i\neq\emptyset\Big].</span></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
 <h2>The profile</h2>
 <div class="source">
 <p><a href="https://arxiv.org/abs/2608.06180">arXiv:2608.06180</a></p>
 </div>
-<div class="definition" data-num="1" data-name="Intersection ECP">
+<div class="definition" data-num="2" data-name="Intersection ECP">
 <p>For disjoint finite clouds <span class="math inline">\mathcal X=(X_1,\dots,X_k)</span> in <span class="math inline">\mathbb R^d</span> and scales <span class="math inline">\mathbf t=(t_1,\dots,t_k)\in\mathbb R^k_{\ge0}</span>, the Euler characteristic of the overlap of the ball unions <span class="math inline">\mathcal U(X_i;t_i)=\bigcup_{p\in X_i}B(p,t_i)</span>: <span class="math display">
 \Delta\chi(\mathbf t;\mathcal X)\;=\;\chi\Big(\bigcap_{i=1}^k\mathcal U(X_i;t_i)\Big),\qquad\text{in the plane: pieces minus holes.}
 </span></p>
@@ -2240,7 +2261,7 @@ Sushovan Majhi
 <p><a href="https://arxiv.org/abs/2609.08561">arXiv:2609.08561</a></p>
 </div>
 <div class="env-row">
-<div class="definition" data-num="2" data-name="Interaction quotient">
+<div class="definition" data-num="3" data-name="Interaction quotient">
 <p>With <span class="math inline">\Phi(\Delta\chi)=\int|\Delta\chi(r)|\,dr</span>, <span class="math display">
 \widehat E=\frac{\Phi\big(\Delta\chi(\cdot;X_1,\dots,X_k)\big)}{\overline\Phi_B}\,,
 </span> <span class="math inline">\overline\Phi_B</span> the mean of <span class="math inline">\Phi</span> over the test’s <span class="math inline">B</span> relabelings: about <span class="math inline">1</span> under <span class="math inline">H_0</span>, tending to <span class="math inline">0</span> under separation.</p>
@@ -2829,7 +2850,7 @@ Sushovan Majhi
 <div class="standfirst math">
 <p>Does a generator copy its training images? Compare its samples’ overlap with training images <span class="math inline">T</span> and held-out images <span class="math inline">H</span>; if it copies nothing, relabelling <span class="math inline">T</span> and <span class="math inline">H</span> is an exact null, for a random held-out split.</p>
 </div>
-<div class="definition" data-num="3" data-name="Small-scale mass">
+<div class="definition" data-num="4" data-name="Small-scale mass">
 <p><span class="math inline">T_{\rm small}=\int_0^{r_0}|\Delta\chi(r;G,T)|\,dr-\int_0^{r_0}|\Delta\chi(r;G,H)|\,dr</span> below the near-duplicate scale <span class="math inline">r_0</span>, where excess overlap components estimate the distinct images copied.</p>
 </div>
 <div class="fig-row">
